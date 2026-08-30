@@ -15,6 +15,7 @@ import { projects } from '@/data/projects';
 import { cn } from '@/lib/utils';
 
 const socialLinks = [
+  { name: 'GitHub', href: 'https://github.com/Hayversong', icon: 'code' },
   {
     name: 'YouTube',
     href: 'https://www.youtube.com/@haylightzzz',
@@ -28,6 +29,7 @@ const socialLinks = [
 ];
 
 function SocialIcon({ name }: { name: string }) {
+  if (name === 'code') return <Code className="size-4" aria-hidden="true" />;
   if (name === 'play') return <Play className="size-4" aria-hidden="true" />;
   return <BriefcaseBusiness className="size-4" aria-hidden="true" />;
 }
@@ -142,7 +144,7 @@ function HeroSection() {
                 backend, interfaces e engenharia de software.
               </p>
 
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="mt-7">
                 <a
                   href="#projetos"
                   className={cn(
@@ -152,18 +154,6 @@ function HeroSection() {
                 >
                   Conhecer projetos
                   <ArrowDown className="size-4" aria-hidden="true" />
-                </a>
-                <a
-                  href="https://github.com/Hayversong"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={cn(
-                    buttonVariants({ variant: 'outline' }),
-                    'h-10 rounded-full border-white/10 bg-white/[0.03] px-5 text-xs uppercase tracking-[0.08em]',
-                  )}
-                >
-                  <Code className="size-4" aria-hidden="true" />
-                  GitHub
                 </a>
               </div>
 
