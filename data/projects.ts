@@ -54,4 +54,18 @@ export const projects: Project[] = [
     learning:
       'Aprendi rotas HTTP, formulários, structs, slices, templates e os fundamentos de integração entre backend e frontend.',
   },
+  {
+    title: 'GameShelf API',
+    description: 'API REST para organizar uma coleção pessoal de jogos, com CRUD, filtros, acompanhamento de progresso e resumo estatístico. Os dados são persistidos em PostgreSQL por meio do SQLAlchemy, e a evolução do banco é controlada pelo Alembic.',
+    status: 'Projeto de estudo',
+    repository: 'https://github.com/Hayversong/fastcamp-LAMIA/tree/main/card-9/codigo_pessoal',
+    technologies: ['Python 3.11+', 'FastAPI e Pydantic', 'PostgreSQL 16', 'Docker Compose para o banco local'],
+    highlights: [
+      'Criação, conclusão e exclusão de tarefas',
+      'Servidor com net/http e renderização com html/template',
+      'Controller (HTTP) → Service (regras de negócio) → Repository (consultas e persistência) → Model SQLAlchemy ↔ PostgreSQL',
+    ],
+    learning:
+      'Aprendi rotas HTTP, schemas de validação, CRUD com ORM, testes automatizados, injeção de dependências e os fundamentos de arquitetura e desenvolvimento de APIs RESTful.'
+  }
 ];
