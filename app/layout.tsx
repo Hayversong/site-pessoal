@@ -13,10 +13,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL(
+    process.env.SITE_URL ?? 'https://hayth-portfolio.hayversoon.chatgpt.site',
+  ),
   title: 'Hayverson | Desenvolvedor em formação',
   description:
     'Portfólio de Hayverson: projetos em Go e desenvolvimento web, decisões técnicas e aprendizados construídos na prática.',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'Hayverson | Desenvolvedor em formação',
     description:

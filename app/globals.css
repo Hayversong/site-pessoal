@@ -218,40 +218,6 @@
     background-color 220ms ease;
 }
 
-.project-preview {
-  position: relative;
-  aspect-ratio: 16 / 7;
-  overflow: hidden;
-  border-bottom: 1px solid oklch(1 0 0 / 9%);
-  background: var(--background);
-}
-
-.project-preview-shade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    oklch(0.13 0.025 265 / 70%),
-    transparent 48%
-  );
-  pointer-events: none;
-}
-
-.project-preview-label {
-  position: absolute;
-  left: 1.5rem;
-  bottom: 1.25rem;
-  border: 1px solid oklch(1 0 0 / 12%);
-  border-radius: 999px;
-  padding: 0.4rem 0.7rem;
-  background: oklch(0.13 0.025 265 / 78%);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  color: var(--foreground);
-  backdrop-filter: blur(10px);
-}
-
 .project-card:hover {
   transform: translateY(-3px);
   border-color: color-mix(in oklch, var(--primary) 38%, transparent);
@@ -394,10 +360,6 @@
   .contact-panel {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .project-preview {
-    aspect-ratio: 4 / 3;
   }
 }
 

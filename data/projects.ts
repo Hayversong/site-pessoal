@@ -5,8 +5,6 @@ export type Project = {
   technologies: string[];
   highlights: string[];
   learning: string;
-  image: string;
-  imageAlt: string;
   repository?: string;
 };
 
@@ -17,8 +15,6 @@ export const projects: Project[] = [
       'Portfólio responsivo criado para transformar minha evolução em uma apresentação clara, acessível e fácil de atualizar.',
     status: 'Em evolução',
     repository: 'https://github.com/Hayversong/site-pessoal',
-    image: '/og.png',
-    imageAlt: 'Identidade visual do portfólio de Hayversong',
     technologies: ['React', 'TypeScript', 'Tailwind CSS'],
     highlights: [
       'Interface responsiva com identidade visual própria',
@@ -34,8 +30,6 @@ export const projects: Project[] = [
       'Kanban gamificado em que tarefas viram quests, conclusões geram XP e cada projeto evolui em nível e rank.',
     status: 'Concluído',
     repository: 'https://github.com/Hayversong/questboard',
-    image: '/questboard-preview.png',
-    imageAlt: 'Tela do QuestBoard mostrando o projeto Dungeon Survivor',
     technologies: ['Go', 'SQLite', 'JavaScript', 'Docker'],
     highlights: [
       'Arquitetura separada em handlers, serviços, storage e domínio',
@@ -51,8 +45,6 @@ export const projects: Project[] = [
       'Minha primeira aplicação web em Go: uma lista de tarefas simples, construída sem frameworks para entender cada etapa do fluxo HTTP.',
     status: 'Projeto de estudo',
     repository: 'https://github.com/Hayversong/todo-app-go',
-    image: '/todo-app-preview.png',
-    imageAlt: 'Interface da lista de tarefas construída em Go',
     technologies: ['Go', 'HTML', 'CSS', 'JSON'],
     highlights: [
       'Criação, conclusão e exclusão de tarefas',
