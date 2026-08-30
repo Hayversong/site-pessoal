@@ -114,8 +114,12 @@ function HeroSection() {
         <CardContent className="px-6 py-7 sm:px-9 sm:py-9">
           <div className="badge-header">
             <div className="flex items-center gap-3">
-              <span className="flex size-10 items-center justify-center rounded-xl bg-primary font-mono text-lg font-bold text-primary-foreground">
-                H
+              <span className="size-10 overflow-hidden rounded-xl border border-primary/35 bg-primary">
+                <img
+                  src="/charmander-avatar.jpg"
+                  alt="Avatar do Charmander usando fones de ouvido"
+                  className="h-full w-full object-cover"
+                />
               </span>
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
