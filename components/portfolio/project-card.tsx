@@ -1,5 +1,4 @@
 import { ArrowUpRight, Check, Code2 } from 'lucide-react';
-import Image from 'next/image';
 
 import { Card, CardContent } from '@/components/ui/card';
 import type { Project } from '@/data/projects';
@@ -11,19 +10,7 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
-    <Card className="project-card gap-0 overflow-hidden rounded-3xl border border-white/10 bg-card/65 py-0 ring-0 backdrop-blur-sm">
-      <div className="project-preview">
-        <Image
-          src={project.image}
-          alt={project.imageAlt}
-          fill
-          sizes="(max-width: 1120px) 100vw, 1120px"
-          className="object-cover object-top"
-        />
-        <div className="project-preview-shade" aria-hidden="true" />
-        <span className="project-preview-label">PRÉVIA / 0{index + 1}</span>
-      </div>
-
+    <Card className="project-card gap-0 rounded-3xl border border-white/10 bg-card/65 py-0 ring-0 backdrop-blur-sm">
       <CardContent className="grid gap-8 px-6 py-7 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)] lg:px-8 lg:py-8">
         <div className="flex min-w-0 flex-col">
           <div className="mb-4 flex flex-wrap items-center gap-3">
