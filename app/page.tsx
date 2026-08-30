@@ -15,7 +15,6 @@ import { projects } from '@/data/projects';
 import { cn } from '@/lib/utils';
 
 const socialLinks = [
-  { name: 'GitHub', href: 'https://github.com/Hayversong', icon: 'code' },
   {
     name: 'YouTube',
     href: 'https://www.youtube.com/@haylightzzz',
@@ -29,7 +28,6 @@ const socialLinks = [
 ];
 
 function SocialIcon({ name }: { name: string }) {
-  if (name === 'code') return <Code className="size-4" aria-hidden="true" />;
   if (name === 'play') return <Play className="size-4" aria-hidden="true" />;
   return <BriefcaseBusiness className="size-4" aria-hidden="true" />;
 }
