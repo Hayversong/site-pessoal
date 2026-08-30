@@ -14,20 +14,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
-  title: 'Hayverson site pessoal',
+  title: 'Hayverson | Desenvolvedor em formação',
   description:
-    'Meu espaço pessoal para compartilhar projetos, aprendizados e novas experiências com programação.',
+    'Portfólio de Hayverson: projetos em Go e desenvolvimento web, decisões técnicas e aprendizados construídos na prática.',
   openGraph: {
-    title: 'Hayverson — Portfólio pessoal',
-    description: 'Projetos, aprendizados e novas experiências com programação.',
-    images: [{ url: '/og.png', width: 1792, height: 939 }],
+    title: 'Hayverson | Desenvolvedor em formação',
+    description:
+      'Projetos em Go e desenvolvimento web, com código e aprendizados documentados.',
+    images: [{ url: '/og.png', width: 1731, height: 909 }],
     locale: 'pt_BR',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Hayverson — Portfólio pessoal',
-    description: 'Projetos, aprendizados e novas experiências com programação.',
+    title: 'Hayverson | Desenvolvedor em formação',
+    description:
+      'Projetos em Go e desenvolvimento web, com código e aprendizados documentados.',
     images: ['/og.png'],
   },
 };
@@ -39,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {children}
       </body>
     </html>

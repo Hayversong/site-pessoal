@@ -86,7 +86,9 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted-foreground);
-  transition: color 180ms ease, background-color 180ms ease;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
 }
 
 .nav-link:hover,
@@ -101,7 +103,10 @@
     radial-gradient(oklch(1 0 0 / 9%) 0.7px, transparent 0.7px),
     linear-gradient(oklch(1 0 0 / 2.5%) 1px, transparent 1px),
     linear-gradient(90deg, oklch(1 0 0 / 2.5%) 1px, transparent 1px);
-  background-size: 16px 16px, 48px 48px, 48px 48px;
+  background-size:
+    16px 16px,
+    48px 48px,
+    48px 48px;
   mask-image: linear-gradient(to bottom, black 15%, transparent 95%);
 }
 
@@ -167,7 +172,11 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(to top, oklch(0.13 0.025 265 / 28%), transparent 45%);
+  background: linear-gradient(
+    to top,
+    oklch(0.13 0.025 265 / 28%),
+    transparent 45%
+  );
 }
 
 .badge-footer {
@@ -203,13 +212,64 @@
 }
 
 .project-card {
-  transition: transform 220ms ease, border-color 220ms ease, background-color 220ms ease;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
 }
 
 .project-card:hover {
   transform: translateY(-3px);
   border-color: color-mix(in oklch, var(--primary) 38%, transparent);
   background: color-mix(in oklch, var(--card) 92%, var(--primary) 8%);
+}
+
+.project-evidence {
+  border: 1px solid oklch(1 0 0 / 9%);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  background: oklch(1 0 0 / 2.5%);
+}
+
+.project-repository-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-bottom: 1px solid color-mix(in oklch, var(--primary) 45%, transparent);
+  padding-bottom: 0.25rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  transition:
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.project-repository-link:hover,
+.project-repository-link:focus-visible {
+  border-color: var(--primary);
+  color: var(--foreground);
+}
+
+.contact-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  overflow: hidden;
+  border: 1px solid oklch(1 0 0 / 10%);
+  border-radius: 2rem;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      color-mix(in oklch, var(--primary) 17%, transparent),
+      transparent 42%
+    ),
+    color-mix(in oklch, var(--card) 88%, transparent);
+  box-shadow: 0 24px 70px oklch(0 0 0 / 24%);
 }
 
 .scroll-cue {
@@ -294,6 +354,11 @@
   }
 
   .badge-footer {
+    flex-direction: column;
+  }
+
+  .contact-panel {
+    align-items: flex-start;
     flex-direction: column;
   }
 }
