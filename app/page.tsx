@@ -8,6 +8,7 @@ import {
 
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { AnimatedName } from '@/components/portfolio/animated-name';
 import { cn } from '@/lib/utils';
 
 const socialLinks = [
@@ -77,38 +78,64 @@ function HeroSection() {
   return (
     <section
       id="inicio"
-      className="section-shell grid min-h-screen items-center gap-12 pb-16 pt-32 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20"
+      className="section-shell relative flex min-h-screen items-center justify-center pb-20 pt-32"
     >
-      <div className="hero-copy">
-        <p className="mb-4 font-mono text-sm text-primary">
-          $ desenvolvedor em construção · curioso por tecnologia
-        </p>
-        <h1 className="text-balance text-5xl font-semibold tracking-[-0.055em] sm:text-7xl lg:text-8xl">
-          Hayth<span className="text-primary">_</span>
-        </h1>
-        <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-muted-foreground sm:text-xl">
-          Estou transformando curiosidade em código. Este é o meu espaço para
-          compartilhar projetos, registrar aprendizados e construir coisas novas.
-        </p>
+      <Card className="badge-card w-full max-w-4xl gap-0 rounded-[2rem] border border-white/10 bg-card/85 py-0 ring-0 backdrop-blur-xl">
+        <div className="badge-clip" aria-hidden="true">
+          <span />
+        </div>
+        <CardContent className="px-6 py-7 sm:px-9 sm:py-9">
+          <div className="badge-header">
+            <div className="flex items-center gap-3">
+              <span className="flex size-10 items-center justify-center rounded-xl bg-primary font-mono text-lg font-bold text-primary-foreground">
+                H
+              </span>
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                  identificação pessoal
+                </p>
+                <p className="mt-1 text-sm font-medium">Portfólio em evolução</p>
+              </div>
+            </div>
+            <span className="flex items-center gap-2 rounded-full border border-emerald-300/15 bg-emerald-300/10 px-3 py-1.5 text-xs text-emerald-200">
+              <span className="size-1.5 rounded-full bg-emerald-300 shadow-[0_0_10px_#6ee7b7]" />
+              Ativo
+            </span>
+          </div>
 
-        <div className="mt-8">
-          <SocialLinks />
-        </div>
-      </div>
+          <div className="badge-body">
+            <div className="badge-photo">
+              <img
+                src="/hayth-profile.jpeg"
+                alt="Retrato de Hayth"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
 
-      <div className="mx-auto w-full max-w-[390px] lg:mr-0">
-        <div className="photo-frame">
-          <img
-            src="/hayth-profile.jpeg"
-            alt="Retrato de Hayth"
-            className="h-full w-full object-cover object-center"
-          />
-        </div>
-        <div className="mt-4 flex items-center justify-center gap-2 rounded-full border border-white/10 bg-card/75 px-4 py-2.5 font-mono text-xs text-muted-foreground backdrop-blur">
-          <span className="size-2 rounded-full bg-emerald-300 shadow-[0_0_10px_#6ee7b7]" />
-          aprendendo e criando um passo de cada vez
-        </div>
-      </div>
+            <div className="min-w-0">
+              <p className="font-mono text-sm text-primary">
+                $ desenvolvedor em construção
+              </p>
+              <h1 className="mt-3 text-5xl font-semibold tracking-[-0.055em] sm:text-6xl">
+                <AnimatedName />
+              </h1>
+              <p className="mt-5 max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
+                Estou transformando curiosidade em código. Este é o meu espaço para
+                compartilhar projetos, registrar aprendizados e construir coisas novas.
+              </p>
+
+              <div className="mt-7">
+                <SocialLinks />
+              </div>
+            </div>
+          </div>
+
+          <div className="badge-footer">
+            <span>ID · HAYTH-001</span>
+            <span>ACESSO · APRENDIZAGEM CONTÍNUA</span>
+          </div>
+        </CardContent>
+      </Card>
 
       <a
         href="#projetos"
