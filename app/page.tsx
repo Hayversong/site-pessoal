@@ -67,7 +67,7 @@ function SocialLinks() {
           href={href}
           target="_blank"
           rel="noreferrer"
-          aria-label={`Visitar meu perfil no ${name}`}
+          aria-label={`Visitar meu perfil no ${name} em uma nova aba`}
           className={cn(
             buttonVariants({ variant: 'outline' }),
             'h-10 rounded-full border-white/10 bg-white/[0.03] px-4 text-xs uppercase tracking-[0.08em] transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/10 hover:text-primary',
