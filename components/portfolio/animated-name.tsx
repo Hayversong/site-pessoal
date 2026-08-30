@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-const targetName = 'Hayth';
+const targetName = 'Hayversong';
 const randomCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
 function getRandomCharacter(character: string) {
@@ -53,7 +53,7 @@ export function AnimatedName() {
       type="button"
       onClick={animateName}
       className="animated-name"
-      aria-label="Animar o nome Hayth"
+      aria-label="Animar o nome Hayverson"
       title="Clique para embaralhar as letras"
     >
       <span aria-hidden="true">{displayName}</span>
