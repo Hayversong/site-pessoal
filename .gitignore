@@ -39,4 +39,5 @@ next-env.d.ts
 /work/
 
 # configuração local do OpenAI Sites
-.openai/
+.openai/*
+!.openai/hosting.json
