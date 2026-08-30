@@ -12,6 +12,7 @@ export const projects: Project[] = [
     description:
       "Meu espaço para praticar desenvolvimento web, organizar projetos e registrar minha evolução em programação.",
     status: "Em desenvolvimento",
+    repository: "https://github.com/Hayversong/site-pessoal",
     technologies: ["React", "TypeScript", "Tailwind CSS"],
   },
   {
