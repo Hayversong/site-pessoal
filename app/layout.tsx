@@ -12,10 +12,14 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const siteUrl =
+  process.env.SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : 'https://hayth-portfolio.hayversoon.chatgpt.site');
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.SITE_URL ?? 'https://hayth-portfolio.hayversoon.chatgpt.site',
-  ),
+  metadataBase: new URL(siteUrl),
   title: 'Hayverson | Desenvolvedor em formação',
   description:
     'Portfólio de Hayverson: projetos em Go e desenvolvimento web, decisões técnicas e aprendizados construídos na prática.',
