@@ -10,14 +10,29 @@ jobs:
     steps:
       - name: Baixar código
         uses: actions/checkout@v6
+
       - name: Configurar Node.js
         uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
+
       - name: Instalar dependências
         run: npm ci
+
       - name: Executar lint
         run: npm run lint
-      - name: Gerar build
+
+      - name: Gerar build do Sites
         run: npm run build
+
+      - name: Validar build do Sites
+        run: test -f dist/server/index.js
+
+      - name: Gerar build estático da Vercel
+        run: npm run build
+        env:
+          VERCEL: '1'
+
+      - name: Validar build da Vercel
+        run: test -f dist/client/index.html
