@@ -1,4 +1,4 @@
-import { ArrowUpRight, Check, Code2 } from 'lucide-react';
+import { ArrowUpRight, Check, Code2, Joystick } from 'lucide-react';
 
 import { Card, CardContent } from '@/components/ui/card';
 import type { Project } from '@/data/projects';
@@ -42,18 +42,36 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             ))}
           </div>
 
-          {project.repository ? (
-            <a
-              href={project.repository}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Explorar o código do projeto ${project.title} no GitHub`}
-              className="project-repository-link mt-7 w-fit"
-            >
-              <Code2 className="size-4" aria-hidden="true" />
-              Explorar código
-              <ArrowUpRight className="size-4" aria-hidden="true" />
-            </a>
+          {project.repository || project.itchUrl ? (
+            <div className="mt-7 flex flex-wrap gap-3">
+              {project.repository ? (
+                <a
+                  href={project.repository}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Explorar o código do projeto ${project.title} no GitHub`}
+                  className="project-repository-link w-fit"
+                >
+                  <Code2 className="size-4" aria-hidden="true" />
+                  Explorar código
+                  <ArrowUpRight className="size-4" aria-hidden="true" />
+                </a>
+              ) : null}
+
+              {project.itchUrl ? (
+                <a
+                  href={project.itchUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Jogar ${project.title} no itch.io`}
+                  className="project-repository-link w-fit"
+                >
+                  <Joystick className="size-4" aria-hidden="true" />
+                  Jogar no itch.io
+                  <ArrowUpRight className="size-4" aria-hidden="true" />
+                </a>
+              ) : null}
+            </div>
           ) : null}
         </div>
 

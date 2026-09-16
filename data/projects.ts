@@ -6,6 +6,7 @@ export type Project = {
   highlights: string[];
   learning: string;
   repository?: string;
+  itchUrl?: string;
 };
 
 export const projects: Project[] = [
@@ -74,5 +75,18 @@ export const projects: Project[] = [
     ],
     learning:
       'Aprendi rotas HTTP, schemas de validação, CRUD com ORM, testes automatizados, injeção de dependências e os fundamentos de arquitetura e desenvolvimento de APIs RESTful.',
+  },
+  {
+    title: 'Dungeon Meowster',
+    description: 'Uma aventura felina retrô em desenvolvimento.',
+    status: 'Em evolução',
+    itchUrl: 'https://hayversong.itch.io/dungeon-meowster',
+    technologies: ['GameMaker', 'Aseprite'],
+    highlights: [
+      'Experiência roguelike com diferentes inimigos',
+      'Sistema de melhorias por cartas e progressão por fases',
+    ],
+    learning:
+      'Aprendi a desenvolver um jogo roguelike sem depender de tutoriais, mantendo um escopo pequeno, mas completo.',
   },
 ];
