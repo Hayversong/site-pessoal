@@ -253,6 +253,31 @@
   color: var(--foreground);
 }
 
+.study-topic {
+  border: 1px solid oklch(1 0 0 / 9%);
+  border-radius: 1rem;
+  padding: 1rem;
+  background: oklch(1 0 0 / 2.5%);
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.study-topic:hover {
+  border-color: color-mix(in oklch, var(--primary) 32%, transparent);
+  background: color-mix(in oklch, var(--card) 92%, var(--primary) 8%);
+}
+
+.skill-tag {
+  border: 1px solid oklch(1 0 0 / 10%);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  background: oklch(1 0 0 / 3%);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
 .contact-panel {
   display: flex;
   align-items: center;
@@ -270,21 +295,6 @@
     ),
     color-mix(in oklch, var(--card) 88%, transparent);
   box-shadow: 0 24px 70px oklch(0 0 0 / 24%);
-}
-
-.scroll-cue {
-  position: absolute;
-  left: 50%;
-  bottom: 1.75rem;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid oklch(1 0 0 / 10%);
-  border-radius: 999px;
-  color: var(--muted-foreground);
-  transform: translateX(-50%);
-  animation: cue-bounce 1.8s ease-in-out infinite;
 }
 
 .glow {
@@ -320,16 +330,6 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes cue-bounce {
-  0%,
-  100% {
-    transform: translate(-50%, 0);
-  }
-  50% {
-    transform: translate(-50%, 6px);
   }
 }
 
@@ -374,8 +374,7 @@
     scroll-behavior: auto;
   }
 
-  .badge-card,
-  .scroll-cue {
+  .badge-card {
     animation: none;
   }
 
@@ -384,6 +383,10 @@
   }
 
   .project-card {
+    transition: none;
+  }
+
+  .study-topic {
     transition: none;
   }
 }
