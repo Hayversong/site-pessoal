@@ -4,6 +4,7 @@ import {
   ArrowRight,
   BriefcaseBusiness,
   Code,
+  Joystick,
   Play,
 } from 'lucide-react';
 
@@ -27,11 +28,19 @@ const socialLinks = [
     href: 'https://www.linkedin.com/in/hayverson-monteiro/',
     icon: 'work',
   },
+  {
+    name: 'itch.io',
+    href: 'https://hayversong.itch.io',
+    icon: 'joystick',
+  },
 ];
 
 function SocialIcon({ name }: { name: string }) {
   if (name === 'code') return <Code className="size-4" aria-hidden="true" />;
   if (name === 'play') return <Play className="size-4" aria-hidden="true" />;
+  if (name === 'joystick') {
+    return <Joystick className="size-4" aria-hidden="true" />;
+  }
   return <BriefcaseBusiness className="size-4" aria-hidden="true" />;
 }
 
@@ -143,7 +152,7 @@ function HeroSection() {
                 <AnimatedName />
               </h1>
               <p className="mt-5 max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
-                Desenvolvedor em formação com foco em Go e desenvolvimento web.
+                Desenvolvedor em formação com foco em Python, Go e desenvolvimento web.
                 Transformo cada projeto em uma oportunidade de entender melhor
                 backend, interfaces e engenharia de software.
               </p>
@@ -174,13 +183,6 @@ function HeroSection() {
         </CardContent>
       </Card>
 
-      <a
-        href="#projetos"
-        aria-label="Ir para a seção de projetos"
-        className="scroll-cue hidden lg:flex"
-      >
-        <ArrowDown className="size-4" aria-hidden="true" />
-      </a>
     </section>
   );
 }
