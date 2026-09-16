@@ -11,6 +11,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { AnimatedName } from '@/components/portfolio/animated-name';
 import { ProjectCard } from '@/components/portfolio/project-card';
+import { SkillsSection } from '@/components/portfolio/skills-section';
 import { projects } from '@/data/projects';
 import { cn } from '@/lib/utils';
 
@@ -46,6 +47,9 @@ function FloatingNavigation() {
         </a>
         <a className="nav-link" href="#projetos">
           Projetos
+        </a>
+        <a className="nav-link hidden md:inline-flex" href="#competencias">
+          Competências
         </a>
         <a className="nav-link hidden sm:inline-flex" href="#contato">
           Contato
@@ -253,6 +257,7 @@ export default function Home() {
       <FloatingNavigation />
       <HeroSection />
       <ProjectsSection />
+      <SkillsSection />
       <ContactSection />
 
       <footer className="section-shell border-t border-white/10 py-8 text-center font-mono text-xs text-muted-foreground">
