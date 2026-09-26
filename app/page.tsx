@@ -11,9 +11,9 @@ import {
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { AnimatedName } from '@/components/portfolio/animated-name';
-import { ProjectCard } from '@/components/portfolio/project-card';
+import { SiteNavigation } from '@/components/portfolio/site-navigation';
+import { ProjectList } from '@/components/portfolio/project-list';
 import { SkillsSection } from '@/components/portfolio/skills-section';
-import { projects } from '@/data/projects';
 import { cn } from '@/lib/utils';
 
 const socialLinks = [
@@ -42,30 +42,6 @@ function SocialIcon({ name }: { name: string }) {
     return <Joystick className="size-4" aria-hidden="true" />;
   }
   return <BriefcaseBusiness className="size-4" aria-hidden="true" />;
-}
-
-function FloatingNavigation() {
-  return (
-    <header className="fixed inset-x-0 top-5 z-50 flex justify-center px-4">
-      <nav
-        aria-label="Navegação principal"
-        className="flex items-center gap-1 rounded-full border border-white/10 bg-background/80 p-1.5 shadow-xl shadow-black/25 backdrop-blur-xl"
-      >
-        <a className="nav-link" href="#inicio">
-          <span aria-hidden="true">•</span> Início
-        </a>
-        <a className="nav-link" href="#projetos">
-          Projetos
-        </a>
-        <a className="nav-link hidden md:inline-flex" href="#competencias">
-          Competências
-        </a>
-        <a className="nav-link hidden sm:inline-flex" href="#contato">
-          Contato
-        </a>
-      </nav>
-    </header>
-  );
 }
 
 function SocialLinks() {
@@ -205,11 +181,7 @@ function ProjectsSection() {
         </p>
       </div>
 
-      <div className="grid gap-4">
-        {projects.map((project, index) => (
-          <ProjectCard key={project.title} project={project} index={index} />
-        ))}
-      </div>
+      <ProjectList />
     </section>
   );
 }
@@ -256,7 +228,7 @@ export default function Home() {
       <div aria-hidden="true" className="glow glow-one" />
       <div aria-hidden="true" className="glow glow-two" />
 
-      <FloatingNavigation />
+      <SiteNavigation />
       <HeroSection />
       <ProjectsSection />
       <SkillsSection />

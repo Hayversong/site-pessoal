@@ -12,7 +12,7 @@ const groupIcons = {
 
 export function SkillsSection() {
   return (
-    <section id="competencias" className="section-shell py-24 sm:py-32">
+    <section id="competencias" aria-label="Aprendizado" className="section-shell py-24 sm:py-32">
       <div className="mb-10 max-w-2xl">
         <p className="font-mono text-sm uppercase tracking-[0.18em] text-primary">
           /aprendizado
