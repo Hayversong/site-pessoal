@@ -3,6 +3,7 @@
 @import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant light (&:is(.light *));
 
 @theme inline {
   --color-background: var(--background);
@@ -31,6 +32,26 @@
 }
 
 :root {
+  color-scheme: light;
+  --background: oklch(0.97 0.012 250);
+  --foreground: oklch(0.22 0.035 265);
+  --card: oklch(0.995 0.004 250);
+  --card-foreground: oklch(0.22 0.035 265);
+  --primary: oklch(0.48 0.14 82);
+  --primary-foreground: oklch(0.99 0.005 90);
+  --secondary: oklch(0.92 0.02 255);
+  --secondary-foreground: oklch(0.25 0.035 265);
+  --muted: oklch(0.92 0.015 255);
+  --muted-foreground: oklch(0.43 0.035 260);
+  --accent: oklch(0.9 0.03 255);
+  --accent-foreground: oklch(0.22 0.035 265);
+  --border: oklch(0.3 0.03 265 / 18%);
+  --input: oklch(0.3 0.03 265 / 20%);
+  --ring: oklch(0.48 0.14 82);
+  --radius: 0.75rem;
+}
+
+html.dark {
   color-scheme: dark;
   --background: oklch(0.13 0.025 265);
   --foreground: oklch(0.97 0.01 85);
@@ -41,13 +62,12 @@
   --secondary: oklch(0.23 0.03 265);
   --secondary-foreground: oklch(0.95 0.01 85);
   --muted: oklch(0.23 0.025 265);
-  --muted-foreground: oklch(0.72 0.025 260);
+  --muted-foreground: oklch(0.76 0.025 260);
   --accent: oklch(0.29 0.04 265);
   --accent-foreground: oklch(0.98 0 0);
   --border: oklch(0.98 0 0 / 12%);
   --input: oklch(0.98 0 0 / 14%);
   --ring: oklch(0.82 0.15 88);
-  --radius: 0.75rem;
 }
 
 @layer base {
@@ -85,22 +105,125 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--muted-foreground);
+  color: var(--foreground);
   transition:
     color 180ms ease,
     background-color 180ms ease;
 }
 
-  .nav-link:hover,
+.nav-link:hover,
 .nav-link:focus-visible {
   color: var(--foreground);
   background: oklch(1 0 0 / 6%);
 }
 
+.theme-toggle {
+  display: inline-flex;
+  width: 2.35rem;
+  height: 2.35rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--primary);
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.theme-toggle:hover {
+  background: color-mix(in oklch, var(--primary) 12%, transparent);
+}
+
+.copy-email-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.copy-email-button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid color-mix(in oklch, var(--primary) 48%, var(--border));
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--primary) 8%, var(--card));
+  padding: 0.6rem 0.9rem;
+  color: var(--primary);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.8rem;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.copy-email-button:hover {
+  border-color: var(--primary);
+  background: color-mix(in oklch, var(--primary) 15%, var(--card));
+}
+
+.copy-email-feedback {
+  min-height: 1.2em;
+  color: var(--primary);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.75rem;
+}
+
+.scroll-progress-track {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  display: block;
+  height: 3px;
+  appearance: none;
+  border: 0;
+  background: color-mix(in oklch, var(--foreground) 10%, transparent);
+  pointer-events: none;
+}
+
+.scroll-progress-track::-webkit-progress-bar {
+  background: color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+.scroll-progress-track::-webkit-progress-value {
+  background: var(--primary);
+}
+
+.scroll-progress-track::-moz-progress-bar {
+  background: var(--primary);
+}
+/* Visible by default; client code opts elements into the pending reveal state. */
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.reveal-pending[data-reveal-item] {
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-pending.reveal-visible {
+  will-change: auto;
+}
+
 .nav-link[aria-current='location'] {
   color: var(--primary);
   background: color-mix(in oklch, var(--primary) 12%, transparent);
-  box-shadow: inset 0 -1px 0 color-mix(in oklch, var(--primary) 70%, transparent);
+  box-shadow: inset 0 -1px 0
+    color-mix(in oklch, var(--primary) 70%, transparent);
 }
 
 .nav-link:focus-visible,
@@ -123,14 +246,17 @@ select:focus-visible {
   height: 2.75rem;
   align-items: center;
   justify-content: center;
-  border: 1px solid color-mix(in oklch, var(--primary) 40%, transparent);
+  border: 1px solid color-mix(in oklch, var(--primary) 65%, transparent);
   border-radius: 999px;
-  background: color-mix(in oklch, var(--card) 92%, transparent);
+  background: var(--card);
   color: var(--primary);
   opacity: 0;
   pointer-events: none;
   transform: translateY(0.5rem);
-  transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    background-color 180ms ease;
   backdrop-filter: blur(12px);
 }
 
@@ -146,14 +272,17 @@ select:focus-visible {
 
 .filter-chip {
   min-height: 2.5rem;
-  border: 1px solid oklch(1 0 0 / 12%);
+  border: 1px solid var(--border);
   border-radius: 999px;
-  background: oklch(1 0 0 / 3%);
+  background: color-mix(in oklch, var(--card) 85%, transparent);
   padding: 0.55rem 0.85rem;
   color: var(--muted-foreground);
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.7rem;
-  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
 }
 
 .filter-chip:hover,
@@ -176,7 +305,7 @@ select:focus-visible {
 .filter-select {
   min-height: 2.5rem;
   max-width: 100%;
-  border: 1px solid oklch(1 0 0 / 12%);
+  border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--card);
   padding: 0.5rem 2rem 0.5rem 0.85rem;
@@ -318,10 +447,10 @@ select:focus-visible {
 }
 
 .project-evidence {
-  border: 1px solid oklch(1 0 0 / 9%);
+  border: 1px solid var(--border);
   border-radius: 1.25rem;
   padding: 1.25rem;
-  background: oklch(1 0 0 / 2.5%);
+  background: color-mix(in oklch, var(--card) 82%, transparent);
 }
 
 .project-repository-link {
@@ -347,10 +476,10 @@ select:focus-visible {
 }
 
 .study-topic {
-  border: 1px solid oklch(1 0 0 / 9%);
+  border: 1px solid var(--border);
   border-radius: 1rem;
   padding: 1rem;
-  background: oklch(1 0 0 / 2.5%);
+  background: color-mix(in oklch, var(--card) 82%, transparent);
   transition:
     border-color 180ms ease,
     background-color 180ms ease;
@@ -362,10 +491,10 @@ select:focus-visible {
 }
 
 .skill-tag {
-  border: 1px solid oklch(1 0 0 / 10%);
+  border: 1px solid var(--border);
   border-radius: 999px;
   padding: 0.35rem 0.7rem;
-  background: oklch(1 0 0 / 3%);
+  background: color-mix(in oklch, var(--card) 82%, transparent);
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.75rem;
   color: var(--muted-foreground);
@@ -486,5 +615,14 @@ select:focus-visible {
 
   .study-topic {
     transition: none;
+  }
+
+  .reveal-pending,
+  .reveal-pending[data-reveal-item],
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
   }
 }

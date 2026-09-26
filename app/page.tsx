@@ -13,6 +13,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { AnimatedName } from '@/components/portfolio/animated-name';
 import { SiteNavigation } from '@/components/portfolio/site-navigation';
 import { ProjectList } from '@/components/portfolio/project-list';
+import { ScrollReveal } from '@/components/portfolio/scroll-reveal';
+import { CopyEmailButton } from '@/components/portfolio/copy-email-button';
 import { SkillsSection } from '@/components/portfolio/skills-section';
 import { cn } from '@/lib/utils';
 
@@ -128,9 +130,9 @@ function HeroSection() {
                 <AnimatedName />
               </h1>
               <p className="mt-5 max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
-                Desenvolvedor em formação com foco em Python, Go e desenvolvimento web.
-                Transformo cada projeto em uma oportunidade de entender melhor
-                backend, interfaces e engenharia de software.
+                Desenvolvedor em formação com foco em Python, Go e
+                desenvolvimento web. Transformo cada projeto em uma oportunidade
+                de entender melhor backend, interfaces e engenharia de software.
               </p>
 
               <div className="mt-7">
@@ -158,7 +160,6 @@ function HeroSection() {
           </div>
         </CardContent>
       </Card>
-
     </section>
   );
 }
@@ -167,7 +168,7 @@ function ProjectsSection() {
   return (
     <section id="projetos" className="section-shell py-24 sm:py-32">
       <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-        <div>
+        <div data-reveal-item>
           <p className="font-mono text-sm uppercase tracking-[0.18em] text-primary">
             /projetos
           </p>
@@ -189,34 +190,39 @@ function ProjectsSection() {
 function ContactSection() {
   return (
     <section id="contato" className="section-shell pb-24 pt-8 sm:pb-32">
-      <div className="contact-panel">
-        <div>
-          <p className="font-mono text-sm uppercase tracking-[0.18em] text-primary">
-            /contato
-          </p>
-          <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-            Estou construindo minha trajetória um projeto de cada vez.
-          </h2>
-          <p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">
-            Quer conversar sobre programação, trocar feedback ou acompanhar
-            minha evolução? Me encontre no LinkedIn ou explore meus
-            repositórios.
-          </p>
-        </div>
+      <ScrollReveal>
+        <div className="contact-panel">
+          <div>
+            <p className="font-mono text-sm uppercase tracking-[0.18em] text-primary">
+              /contato
+            </p>
+            <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
+              Estou construindo minha trajetória um projeto de cada vez.
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">
+              Quer conversar sobre programação, trocar feedback ou acompanhar
+              minha evolução? Me encontre no LinkedIn ou explore meus
+              repositórios.
+            </p>
+            <div className="mt-5">
+              <CopyEmailButton email="hayverson.monteiro@gmail.com" />
+            </div>
+          </div>
 
-        <a
-          href="https://www.linkedin.com/in/hayverson-monteiro/"
-          target="_blank"
-          rel="noreferrer"
-          className={cn(
-            buttonVariants(),
-            'h-11 shrink-0 rounded-full px-6 text-xs uppercase tracking-[0.08em]',
-          )}
-        >
-          Vamos conversar
-          <ArrowRight className="size-4" aria-hidden="true" />
-        </a>
-      </div>
+          <a
+            href="https://www.linkedin.com/in/hayverson-monteiro/"
+            target="_blank"
+            rel="noreferrer"
+            className={cn(
+              buttonVariants(),
+              'h-11 shrink-0 rounded-full px-6 text-xs uppercase tracking-[0.08em]',
+            )}
+          >
+            Vamos conversar
+            <ArrowRight className="size-4" aria-hidden="true" />
+          </a>
+        </div>
+      </ScrollReveal>
     </section>
   );
 }

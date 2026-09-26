@@ -2,6 +2,8 @@
 
 import { ArrowUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { ThemeToggle } from '@/components/portfolio/theme-toggle';
+import { ScrollProgress } from '@/components/portfolio/scroll-progress';
 
 const sections = [
   { id: 'inicio', label: 'Início' },
@@ -42,6 +44,7 @@ export function SiteNavigation() {
 
   return (
     <>
+      <ScrollProgress />
       <header className="fixed inset-x-0 top-5 z-50 flex justify-center px-2 sm:px-4">
         <nav
           aria-label="Navegação principal"
@@ -57,6 +60,7 @@ export function SiteNavigation() {
               {label}
             </a>
           ))}
+          <ThemeToggle />
         </nav>
       </header>
       <a
