@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 
 import { ProjectCard } from '@/components/portfolio/project-card';
 import { projects } from '@/data/projects';
+import { ScrollReveal } from '@/components/portfolio/scroll-reveal';
 
 const statuses = ['Todos', 'Concluído', 'Em evolução', 'Projeto de estudo'];
 
@@ -56,16 +57,16 @@ export function ProjectList() {
       <p className="sr-only" aria-live="polite">
         {filteredProjects.length} projetos encontrados
       </p>
-      <div className="grid gap-4">
+      <ScrollReveal className="grid gap-4" stagger>
         {filteredProjects.map((project, index) => (
           <ProjectCard key={project.title} project={project} index={index} />
         ))}
         {filteredProjects.length === 0 ? (
-          <p className="rounded-2xl border border-white/10 p-6 text-sm text-muted-foreground">
+          <p data-reveal-item className="rounded-2xl border border-white/10 p-6 text-sm text-muted-foreground">
             Nenhum projeto corresponde a esses filtros.
           </p>
         ) : null}
-      </div>
+      </ScrollReveal>
     </>
   );
 }

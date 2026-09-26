@@ -2,6 +2,7 @@ import { BookOpen, Braces, Container, Database, Server } from 'lucide-react';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { skillGroups, studyTopics } from '@/data/skills';
+import { ScrollReveal } from '@/components/portfolio/scroll-reveal';
 
 const groupIcons = {
   'Front-end': Braces,
@@ -13,7 +14,7 @@ const groupIcons = {
 export function SkillsSection() {
   return (
     <section id="competencias" aria-label="Aprendizado" className="section-shell py-24 sm:py-32">
-      <div className="mb-10 max-w-2xl">
+      <div className="mb-10 max-w-2xl" data-reveal-item>
         <p className="font-mono text-sm uppercase tracking-[0.18em] text-primary">
           /aprendizado
         </p>
@@ -43,9 +44,9 @@ export function SkillsSection() {
               </div>
             </div>
 
-            <ul className="mt-7 grid gap-3 sm:grid-cols-2">
+            <ScrollReveal className="mt-7 grid gap-3 sm:grid-cols-2" stagger>
               {studyTopics.map((topic) => (
-                <li key={topic.name} className="study-topic">
+                <li key={topic.name} data-reveal-item className="study-topic">
                   <h4 className="font-semibold text-foreground">
                     {topic.name}
                   </h4>
@@ -54,7 +55,7 @@ export function SkillsSection() {
                   </p>
                 </li>
               ))}
-            </ul>
+            </ScrollReveal>
           </CardContent>
         </Card>
 
@@ -65,12 +66,12 @@ export function SkillsSection() {
             </p>
             <h3 className="mt-2 text-xl font-semibold">Competências</h3>
 
-            <div className="mt-7 grid gap-6">
+            <ScrollReveal className="mt-7 grid gap-6" stagger>
               {skillGroups.map((group) => {
                 const Icon = groupIcons[group.name as keyof typeof groupIcons];
 
                 return (
-                  <div key={group.name}>
+                  <div key={group.name} data-reveal-item>
                     <h4 className="flex items-center gap-2 text-sm font-medium text-foreground/85">
                       <Icon
                         className="size-4 text-primary"
@@ -91,7 +92,7 @@ export function SkillsSection() {
                   </div>
                 );
               })}
-            </div>
+            </ScrollReveal>
           </CardContent>
         </Card>
       </div>
