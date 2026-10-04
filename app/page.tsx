@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import {
-  ArrowDown,
   ArrowRight,
   BriefcaseBusiness,
   Code,
@@ -15,6 +14,7 @@ import { SiteNavigation } from '@/components/portfolio/site-navigation';
 import { ProjectList } from '@/components/portfolio/project-list';
 import { ScrollReveal } from '@/components/portfolio/scroll-reveal';
 import { CopyEmailButton } from '@/components/portfolio/copy-email-button';
+import { FallingParticles } from '@/components/portfolio/falling-particles';
 import { SkillsSection } from '@/components/portfolio/skills-section';
 import { cn } from '@/lib/utils';
 
@@ -135,19 +135,6 @@ function HeroSection() {
                 de entender melhor backend, interfaces e engenharia de software.
               </p>
 
-              <div className="mt-7">
-                <a
-                  href="#projetos"
-                  className={cn(
-                    buttonVariants(),
-                    'h-10 rounded-full px-5 text-xs uppercase tracking-[0.08em]',
-                  )}
-                >
-                  Conhecer projetos
-                  <ArrowDown className="size-4" aria-hidden="true" />
-                </a>
-              </div>
-
               <div className="mt-4">
                 <SocialLinks />
               </div>
@@ -205,7 +192,7 @@ function ContactSection() {
               repositórios.
             </p>
             <div className="mt-5">
-              <CopyEmailButton email="hayverson.monteiro@gmail.com" />
+              <CopyEmailButton email="hayversoncaldas11@gmail.com" />
             </div>
           </div>
 
@@ -231,6 +218,7 @@ export default function Home() {
   return (
     <main className="relative isolate overflow-hidden">
       <div aria-hidden="true" className="fixed inset-0 -z-20 bg-grid" />
+      <FallingParticles />
       <div aria-hidden="true" className="glow glow-one" />
       <div aria-hidden="true" className="glow glow-two" />
 

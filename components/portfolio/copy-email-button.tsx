@@ -2,6 +2,7 @@
 
 import { Check, Copy } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { motion } from 'motion/react';
 
 type CopyEmailButtonProps = { email: string };
 
@@ -42,11 +43,14 @@ export function CopyEmailButton({ email }: CopyEmailButtonProps) {
 
   return (
     <div className="copy-email-wrap">
-      <button
+      <motion.button
         type="button"
         className="copy-email-button"
         onClick={handleCopy}
         aria-label={`Copiar o e-mail ${email} para a área de transferência`}
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.97 }}
+        transition={{ type: 'spring', stiffness: 420, damping: 24 }}
       >
         <span id="contact-email">{email}</span>
         {feedback.startsWith('> email') ? (
@@ -54,7 +58,7 @@ export function CopyEmailButton({ email }: CopyEmailButtonProps) {
         ) : (
           <Copy className="size-4" aria-hidden="true" />
         )}
-      </button>
+      </motion.button>
       <output className="copy-email-feedback" aria-live="polite">
         {feedback}
       </output>

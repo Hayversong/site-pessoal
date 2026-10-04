@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { motion } from 'motion/react';
 
 import { ProjectCard } from '@/components/portfolio/project-card';
 import { projects } from '@/data/projects';
@@ -29,15 +30,18 @@ export function ProjectList() {
             Filtrar por status
           </legend>
           {statuses.map((item) => (
-            <button
+            <motion.button
               key={item}
               type="button"
               aria-pressed={status === item}
               onClick={() => setStatus(item)}
               className="filter-chip"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: 'spring', stiffness: 420, damping: 24 }}
             >
               {item}
-            </button>
+            </motion.button>
           ))}
         </fieldset>
         <label className="filter-select-label">

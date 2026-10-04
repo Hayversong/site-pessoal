@@ -21,23 +21,27 @@ export function SiteNavigation() {
       .map(({ id }) => document.getElementById(id))
       .filter((element): element is HTMLElement => element !== null);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActiveSection(visible.target.id);
-      },
-      { rootMargin: '-25% 0px -55% 0px', threshold: [0, 0.1, 0.25, 0.5] },
-    );
+    const updateActiveSection = () => {
+      // The active item follows the section crossing the header's anchor line.
+      // Comparing intersection ratios fails for tall/short sections and can
+      // leave the previous item selected after clicking an anchor.
+      const anchor = 112;
+      const current = [...elements]
+        .reverse()
+        .find((element) => element.getBoundingClientRect().top <= anchor);
+      setActiveSection(current?.id ?? 'inicio');
+    };
 
-    elements.forEach((element) => observer.observe(element));
+    updateActiveSection();
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', updateActiveSection);
     const updateScroll = () => setShowBackToTop(window.scrollY > 500);
     updateScroll();
     window.addEventListener('scroll', updateScroll, { passive: true });
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener('scroll', updateActiveSection);
+      window.removeEventListener('resize', updateActiveSection);
       window.removeEventListener('scroll', updateScroll);
     };
   }, []);

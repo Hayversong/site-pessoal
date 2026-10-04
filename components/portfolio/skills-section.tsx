@@ -44,7 +44,10 @@ export function SkillsSection() {
               </div>
             </div>
 
-            <ScrollReveal className="mt-7 grid gap-3 sm:grid-cols-2" stagger>
+            <ScrollReveal
+              className="mt-7 grid list-none gap-3 p-0 sm:grid-cols-2"
+              stagger
+            >
               {studyTopics.map((topic) => (
                 <li key={topic.name} data-reveal-item className="study-topic">
                   <h4 className="font-semibold text-foreground">
