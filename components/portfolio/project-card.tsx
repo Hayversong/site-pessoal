@@ -1,24 +1,26 @@
 import { ArrowUpRight, Check, Code2, Joystick } from 'lucide-react';
 
 import { Card, CardContent } from '@/components/ui/card';
-import type { Project } from '@/data/projects';
+import { getProjectNumber, type Project } from '@/data/projects';
 
 type ProjectCardProps = {
   project: Project;
-  index: number;
 };
 
-export function ProjectCard({ project, index }: ProjectCardProps) {
+export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Card data-reveal-item className="project-card gap-0 rounded-3xl border border-white/10 bg-card/65 py-0 ring-0 backdrop-blur-sm">
+    <Card
+      data-reveal-item
+      className="project-card gap-0 rounded-3xl border border-border bg-card/80 py-0 ring-0"
+    >
       <CardContent className="grid gap-8 px-6 py-7 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)] lg:px-8 lg:py-8">
         <div className="flex min-w-0 flex-col">
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <span className="font-mono text-xs text-primary">
-              PROJETO / 0{index + 1}
+              PROJETO / {getProjectNumber(project)}
             </span>
 
-            <span className="rounded-full border border-emerald-300/15 bg-emerald-300/10 px-3 py-1 text-xs text-emerald-200">
+            <span className="rounded-full border border-success/25 bg-success/10 px-3 py-1 text-xs font-medium text-success">
               {project.status}
             </span>
           </div>
@@ -35,7 +37,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             {project.technologies.map((technology) => (
               <span
                 key={technology}
-                className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-xs text-muted-foreground"
+                className="rounded-full border border-border bg-foreground/[0.03] px-3 py-1 font-mono text-xs text-muted-foreground"
               >
                 {technology}
               </span>
@@ -93,7 +95,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             ))}
           </ul>
 
-          <div className="mt-5 border-t border-white/10 pt-5">
+          <div className="mt-5 border-t border-border pt-5">
             <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
               Principal aprendizado
             </p>

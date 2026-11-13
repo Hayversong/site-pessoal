@@ -6,7 +6,7 @@ import { ThemeToggle } from '@/components/portfolio/theme-toggle';
 import { ScrollProgress } from '@/components/portfolio/scroll-progress';
 
 const sections = [
-  { id: 'inicio', label: 'Início' },
+  { id: 'inicio', label: 'Início', optional: true },
   { id: 'projetos', label: 'Projetos' },
   { id: 'competencias', label: 'Aprendizado' },
   { id: 'contato', label: 'Contato' },
@@ -48,12 +48,12 @@ export function SiteNavigation() {
       <header className="fixed inset-x-0 top-5 z-50 flex justify-center px-2 sm:px-4">
         <nav
           aria-label="Navegação principal"
-          className="flex items-center gap-0.5 rounded-full border border-white/10 bg-background/90 p-1 shadow-xl shadow-black/25 backdrop-blur-xl sm:gap-1 sm:p-1.5"
+          className="flex max-w-full items-center gap-0.5 rounded-full border border-border bg-background/90 p-1 shadow-xl shadow-[var(--shadow-soft)] backdrop-blur-md sm:gap-1 sm:p-1.5"
         >
-          {sections.map(({ id, label }) => (
+          {sections.map(({ id, label, optional }) => (
             <a
               key={id}
-              className="nav-link"
+              className={optional ? 'nav-link nav-link-optional' : 'nav-link'}
               href={`#${id}`}
               aria-current={activeSection === id ? 'location' : undefined}
             >

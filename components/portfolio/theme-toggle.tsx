@@ -12,7 +12,7 @@ export function ThemeToggle() {
     try {
       window.localStorage.setItem('hayversong-theme', nextTheme);
     } catch {
-      // The current page theme still changes when storage is unavailable.
+      // Sem localStorage o tema ainda muda, só não fica salvo.
     }
   }
 

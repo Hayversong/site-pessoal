@@ -13,8 +13,12 @@ const groupIcons = {
 
 export function SkillsSection() {
   return (
-    <section id="competencias" aria-label="Aprendizado" className="section-shell py-24 sm:py-32">
-      <div className="mb-10 max-w-2xl" data-reveal-item>
+    <section
+      id="competencias"
+      aria-label="Aprendizado"
+      className="section-shell py-24 sm:py-32"
+    >
+      <ScrollReveal className="mb-10 max-w-2xl">
         <p className="font-mono text-sm uppercase tracking-[0.18em] text-primary">
           /aprendizado
         </p>
@@ -25,10 +29,10 @@ export function SkillsSection() {
           Tecnologias que já uso nos meus projetos e assuntos que estou
           aprofundando agora.
         </p>
-      </div>
+      </ScrollReveal>
 
       <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card className="gap-0 rounded-3xl border border-white/10 bg-card/65 py-0 ring-0 backdrop-blur-sm">
+        <Card className="gap-0 rounded-3xl border border-border bg-card/80 py-0 ring-0">
           <CardContent className="px-6 py-7 sm:px-8 sm:py-8">
             <div className="flex items-center gap-3">
               <span className="flex size-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
@@ -44,7 +48,11 @@ export function SkillsSection() {
               </div>
             </div>
 
-            <ScrollReveal className="mt-7 grid gap-3 sm:grid-cols-2" stagger>
+            <ScrollReveal
+              as="ul"
+              className="mt-7 grid gap-3 sm:grid-cols-2"
+              stagger
+            >
               {studyTopics.map((topic) => (
                 <li key={topic.name} data-reveal-item className="study-topic">
                   <h4 className="font-semibold text-foreground">
@@ -59,7 +67,7 @@ export function SkillsSection() {
           </CardContent>
         </Card>
 
-        <Card className="gap-0 rounded-3xl border border-white/10 bg-card/65 py-0 ring-0 backdrop-blur-sm">
+        <Card className="gap-0 rounded-3xl border border-border bg-card/80 py-0 ring-0">
           <CardContent className="px-6 py-7 sm:px-8 sm:py-8">
             <p className="font-mono text-xs uppercase tracking-[0.15em] text-primary">
               Caixa de ferramentas

@@ -24,6 +24,7 @@
   --color-primary: var(--primary);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-success: var(--success);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -48,6 +49,11 @@
   --border: oklch(0.3 0.03 265 / 18%);
   --input: oklch(0.3 0.03 265 / 20%);
   --ring: oklch(0.48 0.14 82);
+  --success: oklch(0.47 0.12 158);
+  --grid-dot: oklch(0.3 0.03 265 / 13%);
+  --grid-line: oklch(0.3 0.03 265 / 4.5%);
+  --shadow-strong: oklch(0.3 0.04 265 / 14%);
+  --shadow-soft: oklch(0.3 0.04 265 / 10%);
   --radius: 0.75rem;
 }
 
@@ -68,6 +74,11 @@ html.dark {
   --border: oklch(0.98 0 0 / 12%);
   --input: oklch(0.98 0 0 / 14%);
   --ring: oklch(0.82 0.15 88);
+  --success: oklch(0.88 0.1 162);
+  --grid-dot: oklch(1 0 0 / 9%);
+  --grid-line: oklch(1 0 0 / 2.5%);
+  --shadow-strong: oklch(0 0 0 / 40%);
+  --shadow-soft: oklch(0 0 0 / 24%);
 }
 
 @layer base {
@@ -80,7 +91,7 @@ html.dark {
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background font-sans text-foreground;
     min-width: 320px;
   }
 
@@ -114,7 +125,7 @@ html.dark {
 .nav-link:hover,
 .nav-link:focus-visible {
   color: var(--foreground);
-  background: oklch(1 0 0 / 6%);
+  background: color-mix(in oklch, var(--foreground) 6%, transparent);
 }
 
 .theme-toggle {
@@ -196,13 +207,12 @@ html.dark {
 .scroll-progress-track::-moz-progress-bar {
   background: var(--primary);
 }
-/* Visible by default; client code opts elements into the pending reveal state. */
 .reveal-pending {
   opacity: 0;
   transform: translateY(20px);
 }
 
-.reveal-pending[data-reveal-item] {
+.reveal-pending {
   transition:
     opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -228,7 +238,7 @@ html.dark {
 
 .nav-link:focus-visible,
 .project-repository-link:focus-visible,
-.animated-name:focus-visible,
+.animated-name-trigger:focus-visible,
 a:focus-visible,
 button:focus-visible,
 select:focus-visible {
@@ -257,7 +267,6 @@ select:focus-visible {
     opacity 180ms ease,
     transform 180ms ease,
     background-color 180ms ease;
-  backdrop-filter: blur(12px);
 }
 
 .back-to-top-visible {
@@ -322,9 +331,9 @@ select:focus-visible {
 .bg-grid {
   background-color: var(--background);
   background-image:
-    radial-gradient(oklch(1 0 0 / 9%) 0.7px, transparent 0.7px),
-    linear-gradient(oklch(1 0 0 / 2.5%) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(1 0 0 / 2.5%) 1px, transparent 1px);
+    radial-gradient(var(--grid-dot) 0.7px, transparent 0.7px),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size:
     16px 16px,
     48px 48px,
@@ -335,7 +344,7 @@ select:focus-visible {
 .badge-card {
   position: relative;
   box-shadow:
-    0 30px 80px oklch(0 0 0 / 40%),
+    0 30px 80px var(--shadow-strong),
     0 0 60px color-mix(in oklch, var(--primary) 16%, transparent);
   animation: content-enter 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -349,7 +358,7 @@ select:focus-visible {
   height: 1.75rem;
   align-items: center;
   justify-content: center;
-  border: 1px solid oklch(1 0 0 / 10%);
+  border: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
   border-top: 0;
   border-radius: 0 0 1rem 1rem;
   background: var(--background);
@@ -360,7 +369,7 @@ select:focus-visible {
   width: 2.75rem;
   height: 0.35rem;
   border-radius: 999px;
-  background: oklch(1 0 0 / 14%);
+  background: color-mix(in oklch, var(--foreground) 14%, transparent);
 }
 
 .badge-header {
@@ -369,7 +378,8 @@ select:focus-visible {
   justify-content: space-between;
   gap: 1rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid oklch(1 0 0 / 9%);
+  border-bottom: 1px solid
+    color-mix(in oklch, var(--foreground) 9%, transparent);
 }
 
 .badge-body {
@@ -384,7 +394,7 @@ select:focus-visible {
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  border: 1px solid oklch(1 0 0 / 12%);
+  border: 1px solid color-mix(in oklch, var(--foreground) 12%, transparent);
   border-radius: 1.5rem;
   background: var(--background);
 }
@@ -406,7 +416,7 @@ select:focus-visible {
   justify-content: space-between;
   gap: 1rem;
   padding-top: 1.25rem;
-  border-top: 1px solid oklch(1 0 0 / 9%);
+  border-top: 1px solid color-mix(in oklch, var(--foreground) 9%, transparent);
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.65rem;
   letter-spacing: 0.12em;
@@ -414,17 +424,27 @@ select:focus-visible {
 }
 
 .animated-name {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.animated-name h1 {
   display: inline-flex;
   align-items: baseline;
-  padding: 0;
   color: var(--foreground);
-  font: inherit;
-  letter-spacing: inherit;
+  transition: color 180ms ease;
+}
+
+.animated-name-trigger {
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
   cursor: pointer;
 }
 
-.animated-name:hover,
-.animated-name:focus-visible {
+.animated-name:has(.animated-name-trigger:hover) h1,
+.animated-name:has(.animated-name-trigger:focus-visible) h1 {
   color: var(--primary);
 }
 
@@ -506,7 +526,7 @@ select:focus-visible {
   justify-content: space-between;
   gap: 2rem;
   overflow: hidden;
-  border: 1px solid oklch(1 0 0 / 10%);
+  border: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
   border-radius: 2rem;
   padding: clamp(1.5rem, 5vw, 3rem);
   background:
@@ -516,14 +536,19 @@ select:focus-visible {
       transparent 42%
     ),
     color-mix(in oklch, var(--card) 88%, transparent);
-  box-shadow: 0 24px 70px oklch(0 0 0 / 24%);
+  box-shadow: 0 24px 70px var(--shadow-soft);
 }
 
 .glow {
   position: fixed;
   z-index: -10;
   border-radius: 999px;
-  filter: blur(100px);
+  background: radial-gradient(
+    circle closest-side,
+    var(--glow-color) 0%,
+    color-mix(in oklch, var(--glow-color) 45%, transparent) 45%,
+    transparent 100%
+  );
   opacity: 0.15;
   pointer-events: none;
 }
@@ -533,7 +558,7 @@ select:focus-visible {
   left: -8rem;
   width: 34rem;
   height: 34rem;
-  background: oklch(0.72 0.18 270);
+  --glow-color: oklch(0.72 0.18 270);
 }
 
 .glow-two {
@@ -541,7 +566,7 @@ select:focus-visible {
   bottom: -12rem;
   width: 32rem;
   height: 32rem;
-  background: var(--primary);
+  --glow-color: var(--primary);
 }
 
 @keyframes content-enter {
@@ -589,6 +614,22 @@ select:focus-visible {
   .section-shell {
     width: min(100% - 2rem, 70rem);
   }
+
+  .nav-link {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav-link-optional {
+    display: none;
+  }
+
+  .badge-header {
+    flex-wrap: wrap;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -618,7 +659,6 @@ select:focus-visible {
   }
 
   .reveal-pending,
-  .reveal-pending[data-reveal-item],
   .reveal-visible {
     opacity: 1;
     transform: none;

@@ -61,7 +61,7 @@ function SocialLinks() {
           aria-label={`Visitar meu perfil no ${name} em uma nova aba`}
           className={cn(
             buttonVariants({ variant: 'outline' }),
-            'h-10 rounded-full border-white/10 bg-white/[0.03] px-4 text-xs uppercase tracking-[0.08em] transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/10 hover:text-primary',
+            'h-10 rounded-full border-border bg-foreground/[0.03] px-4 text-xs uppercase tracking-[0.08em] transition-[transform,color,background-color,border-color] hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/10 hover:text-primary',
           )}
         >
           <SocialIcon name={icon} />
@@ -76,9 +76,9 @@ function HeroSection() {
   return (
     <section
       id="inicio"
-      className="section-shell relative flex min-h-screen items-center justify-center pb-20 pt-32"
+      className="section-shell relative flex min-h-svh items-center justify-center pb-16 pt-28 sm:pb-20 sm:pt-32"
     >
-      <Card className="badge-card w-full max-w-4xl gap-0 rounded-[2rem] border border-white/10 bg-card/85 py-0 ring-0 backdrop-blur-xl">
+      <Card className="badge-card w-full max-w-4xl gap-0 rounded-[2rem] border border-border bg-card/95 py-0 ring-0">
         <div className="badge-clip" aria-hidden="true">
           <span />
         </div>
@@ -103,8 +103,11 @@ function HeroSection() {
                 </p>
               </div>
             </div>
-            <span className="flex items-center gap-2 rounded-full border border-emerald-300/15 bg-emerald-300/10 px-3 py-1.5 text-xs text-emerald-200">
-              <span className="size-1.5 rounded-full bg-emerald-300 shadow-[0_0_10px_#6ee7b7]" />
+            <span className="flex items-center gap-2 rounded-full border border-success/25 bg-success/10 px-3 py-1.5 text-xs font-medium text-success">
+              <span
+                aria-hidden="true"
+                className="size-1.5 rounded-full bg-success shadow-[0_0_10px_var(--success)]"
+              />
               Ativo
             </span>
           </div>
@@ -112,10 +115,10 @@ function HeroSection() {
           <div className="badge-body">
             <div className="badge-photo">
               <Image
-                src="/hayth-profile.jpeg"
+                src="/hayth-profile.webp"
                 alt="Retrato de Hayverson"
-                width={1536}
-                height={2048}
+                width={480}
+                height={640}
                 priority
                 sizes="(max-width: 760px) 240px, 208px"
                 className="h-full w-full object-cover object-center"
@@ -126,9 +129,7 @@ function HeroSection() {
               <p className="font-mono text-sm text-primary">
                 $ desenvolvedor em construção
               </p>
-              <h1 className="mt-3 text-5xl font-semibold tracking-[-0.055em] sm:text-6xl">
-                <AnimatedName />
-              </h1>
+              <AnimatedName className="mt-3 text-4xl font-semibold tracking-[-0.055em] min-[400px]:text-5xl sm:text-6xl" />
               <p className="mt-5 max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
                 Desenvolvedor em formação com foco em Python, Go e
                 desenvolvimento web. Transformo cada projeto em uma oportunidade
@@ -167,7 +168,10 @@ function HeroSection() {
 function ProjectsSection() {
   return (
     <section id="projetos" className="section-shell py-24 sm:py-32">
-      <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <ScrollReveal
+        className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"
+        stagger
+      >
         <div data-reveal-item>
           <p className="font-mono text-sm uppercase tracking-[0.18em] text-primary">
             /projetos
@@ -176,11 +180,14 @@ function ProjectsSection() {
             O que estou construindo
           </h2>
         </div>
-        <p className="max-w-md text-sm leading-6 text-muted-foreground sm:text-right">
+        <p
+          data-reveal-item
+          className="max-w-md text-sm leading-6 text-muted-foreground sm:text-right"
+        >
           Projetos executados localmente e documentados no GitHub. Aqui, o foco
           está no processo, nas decisões técnicas e no que aprendi construindo.
         </p>
-      </div>
+      </ScrollReveal>
 
       <ProjectList />
     </section>
@@ -240,7 +247,7 @@ export default function Home() {
       <SkillsSection />
       <ContactSection />
 
-      <footer className="section-shell border-t border-white/10 py-8 text-center font-mono text-xs text-muted-foreground">
+      <footer className="section-shell border-t border-border py-8 text-center font-mono text-xs text-muted-foreground">
         feito com curiosidade, café e algumas tentativas
       </footer>
     </main>

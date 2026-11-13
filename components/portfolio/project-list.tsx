@@ -12,7 +12,8 @@ export function ProjectList() {
   const [status, setStatus] = useState('Todos');
   const [technology, setTechnology] = useState('Todas');
   const technologies = useMemo(
-    () => [...new Set(projects.flatMap((project) => project.technologies))].sort(),
+    () =>
+      [...new Set(projects.flatMap((project) => project.technologies))].sort(),
     [],
   );
   const filteredProjects = projects.filter(
@@ -58,11 +59,14 @@ export function ProjectList() {
         {filteredProjects.length} projetos encontrados
       </p>
       <ScrollReveal className="grid gap-4" stagger>
-        {filteredProjects.map((project, index) => (
-          <ProjectCard key={project.title} project={project} index={index} />
+        {filteredProjects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
         ))}
         {filteredProjects.length === 0 ? (
-          <p data-reveal-item className="rounded-2xl border border-white/10 p-6 text-sm text-muted-foreground">
+          <p
+            data-reveal-item
+            className="rounded-2xl border border-border p-6 text-sm text-muted-foreground"
+          >
             Nenhum projeto corresponde a esses filtros.
           </p>
         ) : null}
