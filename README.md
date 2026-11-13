@@ -7,7 +7,7 @@ Portfólio de Hayverson para apresentar projetos, decisões técnicas e aprendiz
 - React e TypeScript
 - Vinext e Vite
 - Tailwind CSS
-- Sites e Cloudflare Workers
+- Vercel (build estático)
 
 ## Desenvolvimento local
 
