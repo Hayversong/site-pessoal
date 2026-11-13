@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: 'Hayverson | Desenvolvedor em formação',
     description:
       'Projetos em Go e desenvolvimento web, com código e aprendizados documentados.',
-    images: [{ url: '/og.png', width: 1731, height: 909 }],
+    images: [{ url: '/og.png', width: 1200, height: 630 }],
     locale: 'pt_BR',
     type: 'website',
   },
