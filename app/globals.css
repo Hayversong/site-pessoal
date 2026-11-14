@@ -1,6 +1,12 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
+@import './styles/rpg.css';
+@import './styles/navigation.css';
+@import './styles/hero.css';
+@import './styles/projects.css';
+@import './styles/skills.css';
+@import './styles/contact.css';
 
 @custom-variant dark (&:is(.dark *));
 @custom-variant light (&:is(.light *));
@@ -10,6 +16,11 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-pixel: var(--font-pixelify);
+  --font-hud: var(--font-silkscreen);
+  --color-hp: var(--hp);
+  --color-mp: var(--mp);
+  --color-xp: var(--xp);
   --font-heading: var(--font-geist-sans);
   --color-ring: var(--ring);
   --color-input: var(--input);
@@ -35,9 +46,9 @@
 
 :root {
   color-scheme: light;
-  --background: oklch(0.975 0.009 65);
+  --background: oklch(0.955 0.022 80);
   --foreground: oklch(0.23 0.02 40);
-  --card: oklch(0.995 0.004 65);
+  --card: oklch(0.978 0.016 82);
   --card-foreground: oklch(0.23 0.02 40);
   --primary: oklch(0.545 0.175 40);
   --primary-foreground: oklch(0.99 0.006 65);
@@ -56,6 +67,13 @@
   --grid-line: oklch(0.32 0.03 40 / 4.5%);
   --shadow-strong: oklch(0.32 0.05 40 / 14%);
   --shadow-soft: oklch(0.32 0.05 40 / 10%);
+  --hp: var(--ember);
+  --mp: oklch(0.5 0.08 245);
+  --xp: oklch(0.55 0.12 80);
+  --panel-border: oklch(0.42 0.05 45);
+  --panel-inner: oklch(0.89 0.03 75);
+  --shadow-hard: oklch(0.42 0.05 45 / 45%);
+  --pixel: 3px;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --radius: 0.75rem;
@@ -84,6 +102,11 @@ html.dark {
   --grid-line: oklch(1 0.01 65 / 2.5%);
   --shadow-strong: oklch(0 0 0 / 45%);
   --shadow-soft: oklch(0 0 0 / 28%);
+  --mp: oklch(0.72 0.07 245);
+  --xp: oklch(0.8 0.12 85);
+  --panel-border: oklch(0.44 0.03 55);
+  --panel-inner: oklch(0.27 0.014 50);
+  --shadow-hard: oklch(0.09 0.008 50);
 }
 
 @layer base {
@@ -590,7 +613,7 @@ select:focus-visible {
     color-mix(in oklch, var(--glow-color) 45%, transparent) 45%,
     transparent 100%
   );
-  opacity: 0.15;
+  opacity: 0.09;
   pointer-events: none;
 }
 
