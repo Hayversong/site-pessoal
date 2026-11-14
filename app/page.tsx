@@ -72,6 +72,10 @@ function SocialLinks() {
   );
 }
 
+function rise(index: number) {
+  return { '--i': index } as React.CSSProperties;
+}
+
 function HeroSection() {
   return (
     <section
@@ -83,7 +87,7 @@ function HeroSection() {
           <span />
         </div>
         <CardContent className="px-6 py-7 sm:px-9 sm:py-9">
-          <div className="badge-header">
+          <div className="badge-header hero-rise" style={rise(0)}>
             <div className="flex items-center gap-3">
               <span className="size-10 overflow-hidden rounded-xl border border-primary/35 bg-primary">
                 <Image
@@ -113,7 +117,7 @@ function HeroSection() {
           </div>
 
           <div className="badge-body">
-            <div className="badge-photo">
+            <div className="badge-photo hero-rise" style={rise(1)}>
               <Image
                 src="/hayth-profile.webp"
                 alt="Retrato de Hayverson"
@@ -126,17 +130,25 @@ function HeroSection() {
             </div>
 
             <div className="min-w-0">
-              <p className="font-mono text-sm text-primary">
+              <p
+                className="hero-rise font-mono text-sm text-primary"
+                style={rise(2)}
+              >
                 $ desenvolvedor em construção
               </p>
-              <AnimatedName className="mt-3 text-4xl font-semibold tracking-[-0.055em] min-[400px]:text-5xl sm:text-6xl" />
-              <p className="mt-5 max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
+              <div className="hero-rise" style={rise(3)}>
+                <AnimatedName className="mt-3 text-4xl font-semibold tracking-[-0.055em] min-[400px]:text-5xl sm:text-6xl" />
+              </div>
+              <p
+                style={rise(4)}
+                className="hero-rise mt-5 max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg"
+              >
                 Desenvolvedor em formação com foco em Python, Go e
                 desenvolvimento web. Transformo cada projeto em uma oportunidade
                 de entender melhor backend, interfaces e engenharia de software.
               </p>
 
-              <div className="mt-7">
+              <div className="hero-rise mt-7" style={rise(5)}>
                 <a
                   href="#projetos"
                   className={cn(
@@ -149,13 +161,13 @@ function HeroSection() {
                 </a>
               </div>
 
-              <div className="mt-4">
+              <div className="hero-rise mt-4" style={rise(6)}>
                 <SocialLinks />
               </div>
             </div>
           </div>
 
-          <div className="badge-footer">
+          <div className="badge-footer hero-rise" style={rise(7)}>
             <span>ID · HAYLIGHT-001</span>
             <span>ACESSO · APRENDIZAGEM CONTÍNUA</span>
           </div>

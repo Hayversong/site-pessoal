@@ -39,7 +39,7 @@ export function ScrollReveal({
       if (stagger) {
         target.style.setProperty(
           '--reveal-delay',
-          `${Math.min(index * 90, 360)}ms`,
+          `${Math.min(index * 80, 400)}ms`,
         );
       }
     });
@@ -58,7 +58,7 @@ export function ScrollReveal({
           }
         });
       },
-      { threshold: 0.18 },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
     );
 
     targets.forEach((target) => observer.observe(target));

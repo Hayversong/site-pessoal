@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowUp } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ThemeToggle } from '@/components/portfolio/theme-toggle';
 import { ScrollProgress } from '@/components/portfolio/scroll-progress';
 
@@ -15,6 +15,34 @@ const sections = [
 export function SiteNavigation() {
   const [activeSection, setActiveSection] = useState('inicio');
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const indicatorRef = useRef<HTMLSpanElement>(null);
+
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    const indicator = indicatorRef.current;
+    if (!nav || !indicator) return;
+
+    const moveIndicator = () => {
+      const link = nav.querySelector<HTMLElement>('[aria-current="location"]');
+      if (!link || link.offsetWidth === 0) {
+        indicator.dataset.ready = 'false';
+        return;
+      }
+      indicator.style.setProperty('--indicator-x', `${link.offsetLeft}px`);
+      indicator.style.setProperty('--indicator-top', `${link.offsetTop}px`);
+      indicator.style.setProperty('--indicator-width', `${link.offsetWidth}px`);
+      indicator.style.setProperty(
+        '--indicator-height',
+        `${link.offsetHeight}px`,
+      );
+      indicator.dataset.ready = 'true';
+    };
+
+    moveIndicator();
+    window.addEventListener('resize', moveIndicator);
+    return () => window.removeEventListener('resize', moveIndicator);
+  }, [activeSection]);
 
   useEffect(() => {
     const elements = sections
@@ -47,9 +75,15 @@ export function SiteNavigation() {
       <ScrollProgress />
       <header className="fixed inset-x-0 top-5 z-50 flex justify-center px-2 sm:px-4">
         <nav
+          ref={navRef}
           aria-label="Navegação principal"
-          className="flex max-w-full items-center gap-0.5 rounded-full border border-border bg-background/90 p-1 shadow-xl shadow-[var(--shadow-soft)] backdrop-blur-md sm:gap-1 sm:p-1.5"
+          className="relative flex max-w-full items-center gap-0.5 rounded-full border border-border bg-background/90 p-1 shadow-xl shadow-[var(--shadow-soft)] backdrop-blur-md sm:gap-1 sm:p-1.5"
         >
+          <span
+            ref={indicatorRef}
+            className="nav-indicator"
+            aria-hidden="true"
+          />
           {sections.map(({ id, label, optional }) => (
             <a
               key={id}

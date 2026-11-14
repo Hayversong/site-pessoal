@@ -25,6 +25,7 @@
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   --color-success: var(--success);
+  --color-ember: var(--ember);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -34,51 +35,55 @@
 
 :root {
   color-scheme: light;
-  --background: oklch(0.97 0.012 250);
-  --foreground: oklch(0.22 0.035 265);
-  --card: oklch(0.995 0.004 250);
-  --card-foreground: oklch(0.22 0.035 265);
-  --primary: oklch(0.48 0.14 82);
-  --primary-foreground: oklch(0.99 0.005 90);
-  --secondary: oklch(0.92 0.02 255);
-  --secondary-foreground: oklch(0.25 0.035 265);
-  --muted: oklch(0.92 0.015 255);
-  --muted-foreground: oklch(0.43 0.035 260);
-  --accent: oklch(0.9 0.03 255);
-  --accent-foreground: oklch(0.22 0.035 265);
-  --border: oklch(0.3 0.03 265 / 18%);
-  --input: oklch(0.3 0.03 265 / 20%);
-  --ring: oklch(0.48 0.14 82);
+  --background: oklch(0.975 0.009 65);
+  --foreground: oklch(0.23 0.02 40);
+  --card: oklch(0.995 0.004 65);
+  --card-foreground: oklch(0.23 0.02 40);
+  --primary: oklch(0.545 0.175 40);
+  --primary-foreground: oklch(0.99 0.006 65);
+  --secondary: oklch(0.935 0.014 55);
+  --secondary-foreground: oklch(0.26 0.02 40);
+  --muted: oklch(0.935 0.012 55);
+  --muted-foreground: oklch(0.45 0.025 45);
+  --accent: oklch(0.915 0.022 50);
+  --accent-foreground: oklch(0.23 0.02 40);
+  --border: oklch(0.32 0.03 40 / 16%);
+  --input: oklch(0.32 0.03 40 / 20%);
+  --ring: oklch(0.545 0.175 40);
+  --ember: oklch(0.6 0.19 15);
   --success: oklch(0.47 0.12 158);
-  --grid-dot: oklch(0.3 0.03 265 / 13%);
-  --grid-line: oklch(0.3 0.03 265 / 4.5%);
-  --shadow-strong: oklch(0.3 0.04 265 / 14%);
-  --shadow-soft: oklch(0.3 0.04 265 / 10%);
+  --grid-dot: oklch(0.32 0.03 40 / 13%);
+  --grid-line: oklch(0.32 0.03 40 / 4.5%);
+  --shadow-strong: oklch(0.32 0.05 40 / 14%);
+  --shadow-soft: oklch(0.32 0.05 40 / 10%);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --radius: 0.75rem;
 }
 
 html.dark {
   color-scheme: dark;
-  --background: oklch(0.13 0.025 265);
-  --foreground: oklch(0.97 0.01 85);
-  --card: oklch(0.18 0.03 265);
-  --card-foreground: oklch(0.97 0.01 85);
-  --primary: oklch(0.82 0.15 88);
-  --primary-foreground: oklch(0.18 0.03 265);
-  --secondary: oklch(0.23 0.03 265);
-  --secondary-foreground: oklch(0.95 0.01 85);
-  --muted: oklch(0.23 0.025 265);
-  --muted-foreground: oklch(0.76 0.025 260);
-  --accent: oklch(0.29 0.04 265);
-  --accent-foreground: oklch(0.98 0 0);
-  --border: oklch(0.98 0 0 / 12%);
-  --input: oklch(0.98 0 0 / 14%);
-  --ring: oklch(0.82 0.15 88);
+  --background: oklch(0.17 0.008 50);
+  --foreground: oklch(0.96 0.012 65);
+  --card: oklch(0.205 0.011 50);
+  --card-foreground: oklch(0.96 0.012 65);
+  --primary: oklch(0.75 0.165 52);
+  --primary-foreground: oklch(0.18 0.02 45);
+  --secondary: oklch(0.25 0.012 50);
+  --secondary-foreground: oklch(0.95 0.012 65);
+  --muted: oklch(0.25 0.012 50);
+  --muted-foreground: oklch(0.76 0.02 60);
+  --accent: oklch(0.3 0.02 50);
+  --accent-foreground: oklch(0.98 0.005 65);
+  --border: oklch(0.98 0.01 65 / 12%);
+  --input: oklch(0.98 0.01 65 / 14%);
+  --ring: oklch(0.75 0.165 52);
+  --ember: oklch(0.7 0.19 15);
   --success: oklch(0.88 0.1 162);
-  --grid-dot: oklch(1 0 0 / 9%);
-  --grid-line: oklch(1 0 0 / 2.5%);
-  --shadow-strong: oklch(0 0 0 / 40%);
-  --shadow-soft: oklch(0 0 0 / 24%);
+  --grid-dot: oklch(1 0.01 65 / 8%);
+  --grid-line: oklch(1 0.01 65 / 2.5%);
+  --shadow-strong: oklch(0 0 0 / 45%);
+  --shadow-soft: oklch(0 0 0 / 28%);
 }
 
 @layer base {
@@ -118,8 +123,8 @@ html.dark {
   letter-spacing: 0.08em;
   color: var(--foreground);
   transition:
-    color 180ms ease,
-    background-color 180ms ease;
+    color 240ms var(--ease-out),
+    background-color 240ms var(--ease-out);
 }
 
 .nav-link:hover,
@@ -139,8 +144,8 @@ html.dark {
   border-radius: 999px;
   color: var(--primary);
   transition:
-    background-color 180ms ease,
-    color 180ms ease;
+    background-color 240ms var(--ease-out),
+    color 240ms var(--ease-out);
 }
 
 .theme-toggle:hover {
@@ -168,8 +173,8 @@ html.dark {
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.8rem;
   transition:
-    background-color 180ms ease,
-    border-color 180ms ease;
+    background-color 240ms var(--ease-out),
+    border-color 240ms var(--ease-out);
 }
 
 .copy-email-button:hover {
@@ -201,39 +206,65 @@ html.dark {
 }
 
 .scroll-progress-track::-webkit-progress-value {
-  background: var(--primary);
+  background: linear-gradient(90deg, var(--primary), var(--ember));
+  transition: width 120ms linear;
 }
 
 .scroll-progress-track::-moz-progress-bar {
-  background: var(--primary);
+  background: linear-gradient(90deg, var(--primary), var(--ember));
 }
 .reveal-pending {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translate3d(0, 28px, 0);
 }
 
 .reveal-pending {
   transition:
-    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 800ms var(--ease-out-expo),
+    transform 900ms var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
 
 .reveal-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 .reveal-pending.reveal-visible {
   will-change: auto;
 }
 
+.nav-link {
+  position: relative;
+  z-index: 1;
+}
+
 .nav-link[aria-current='location'] {
   color: var(--primary);
-  background: color-mix(in oklch, var(--primary) 12%, transparent);
+}
+
+.nav-indicator {
+  position: absolute;
+  top: var(--indicator-top, 0.25rem);
+  left: 0;
+  height: var(--indicator-height, 2.25rem);
+  width: var(--indicator-width, 0);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--primary) 13%, transparent);
   box-shadow: inset 0 -1px 0
     color-mix(in oklch, var(--primary) 70%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(var(--indicator-x, 0), 0, 0);
+  transition:
+    transform 550ms var(--ease-out-expo),
+    width 550ms var(--ease-out-expo),
+    opacity 240ms var(--ease-out);
+}
+
+.nav-indicator[data-ready='true'] {
+  opacity: 1;
 }
 
 .nav-link:focus-visible,
@@ -264,9 +295,9 @@ select:focus-visible {
   pointer-events: none;
   transform: translateY(0.5rem);
   transition:
-    opacity 180ms ease,
-    transform 180ms ease,
-    background-color 180ms ease;
+    opacity 240ms var(--ease-out),
+    transform 240ms var(--ease-out),
+    background-color 240ms var(--ease-out);
 }
 
 .back-to-top-visible {
@@ -289,9 +320,9 @@ select:focus-visible {
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.7rem;
   transition:
-    color 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease;
+    color 240ms var(--ease-out),
+    border-color 240ms var(--ease-out),
+    background-color 240ms var(--ease-out);
 }
 
 .filter-chip:hover,
@@ -345,8 +376,9 @@ select:focus-visible {
   position: relative;
   box-shadow:
     0 30px 80px var(--shadow-strong),
-    0 0 60px color-mix(in oklch, var(--primary) 16%, transparent);
-  animation: content-enter 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    0 0 70px color-mix(in oklch, var(--primary) 14%, transparent),
+    0 0 120px color-mix(in oklch, var(--ember) 8%, transparent);
+  animation: content-enter 1000ms var(--ease-out-expo) both;
 }
 
 .badge-clip {
@@ -406,7 +438,7 @@ select:focus-visible {
   pointer-events: none;
   background: linear-gradient(
     to top,
-    oklch(0.13 0.025 265 / 28%),
+    oklch(0.17 0.008 50 / 30%),
     transparent 45%
   );
 }
@@ -433,7 +465,7 @@ select:focus-visible {
   display: inline-flex;
   align-items: baseline;
   color: var(--foreground);
-  transition: color 180ms ease;
+  transition: color 240ms var(--ease-out);
 }
 
 .animated-name-trigger {
@@ -449,19 +481,23 @@ select:focus-visible {
 }
 
 .name-cursor {
-  color: var(--primary);
+  background: linear-gradient(90deg, var(--primary), var(--ember));
+  background-clip: text;
+  color: transparent;
   animation: cursor-blink 850ms steps(1, end) infinite;
 }
 
 .project-card {
   transition:
-    transform 220ms ease,
-    border-color 220ms ease,
-    background-color 220ms ease;
+    transform 450ms var(--ease-out-expo),
+    box-shadow 450ms var(--ease-out-expo),
+    border-color 320ms var(--ease-out),
+    background-color 320ms var(--ease-out);
 }
 
 .project-card:hover {
-  transform: translateY(-3px);
+  transform: translate3d(0, -4px, 0);
+  box-shadow: 0 18px 40px var(--shadow-soft);
   border-color: color-mix(in oklch, var(--primary) 38%, transparent);
   background: color-mix(in oklch, var(--card) 92%, var(--primary) 8%);
 }
@@ -485,8 +521,8 @@ select:focus-visible {
   letter-spacing: 0.08em;
   color: var(--primary);
   transition:
-    border-color 180ms ease,
-    color 180ms ease;
+    border-color 240ms var(--ease-out),
+    color 240ms var(--ease-out);
 }
 
 .project-repository-link:hover,
@@ -501,8 +537,8 @@ select:focus-visible {
   padding: 1rem;
   background: color-mix(in oklch, var(--card) 82%, transparent);
   transition:
-    border-color 180ms ease,
-    background-color 180ms ease;
+    border-color 240ms var(--ease-out),
+    background-color 240ms var(--ease-out);
 }
 
 .study-topic:hover {
@@ -535,6 +571,11 @@ select:focus-visible {
       color-mix(in oklch, var(--primary) 17%, transparent),
       transparent 42%
     ),
+    radial-gradient(
+      circle at 0% 100%,
+      color-mix(in oklch, var(--ember) 9%, transparent),
+      transparent 40%
+    ),
     color-mix(in oklch, var(--card) 88%, transparent);
   box-shadow: 0 24px 70px var(--shadow-soft);
 }
@@ -558,7 +599,7 @@ select:focus-visible {
   left: -8rem;
   width: 34rem;
   height: 34rem;
-  --glow-color: oklch(0.72 0.18 270);
+  --glow-color: var(--ember);
 }
 
 .glow-two {
@@ -569,14 +610,30 @@ select:focus-visible {
   --glow-color: var(--primary);
 }
 
+.hero-rise {
+  animation: content-enter 900ms var(--ease-out-expo) both;
+  animation-delay: calc(220ms + var(--i, 0) * 75ms);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease-out);
+}
+
+::view-transition-group(*) {
+  animation-duration: 520ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+
 @keyframes content-enter {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translate3d(0, 24px, 0) scale(0.985);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
 
@@ -637,8 +694,20 @@ select:focus-visible {
     scroll-behavior: auto;
   }
 
-  .badge-card {
+  .badge-card,
+  .hero-rise {
     animation: none;
+  }
+
+  .nav-indicator,
+  .scroll-progress-track::-webkit-progress-value {
+    transition: none;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 
   .name-cursor {

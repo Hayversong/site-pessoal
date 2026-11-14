@@ -11,6 +11,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Card
       data-reveal-item
+      style={{ viewTransitionName: `project-${project.id}` }}
       className="project-card gap-0 rounded-3xl border border-border bg-card/80 py-0 ring-0"
     >
       <CardContent className="grid gap-8 px-6 py-7 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)] lg:px-8 lg:py-8">

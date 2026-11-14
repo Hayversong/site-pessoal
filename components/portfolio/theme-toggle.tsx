@@ -2,13 +2,17 @@
 
 import { Moon, Sun } from 'lucide-react';
 
+import { withViewTransition } from '@/lib/view-transition';
+
 export function ThemeToggle() {
   function toggleTheme() {
     const nextTheme = document.documentElement.classList.contains('dark')
       ? 'light'
       : 'dark';
-    document.documentElement.classList.remove('light', 'dark');
-    document.documentElement.classList.add(nextTheme);
+    withViewTransition(() => {
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(nextTheme);
+    });
     try {
       window.localStorage.setItem('hayversong-theme', nextTheme);
     } catch {

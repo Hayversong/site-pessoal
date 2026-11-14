@@ -1,10 +1,12 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import { ProjectCard } from '@/components/portfolio/project-card';
 import { projects } from '@/data/projects';
 import { ScrollReveal } from '@/components/portfolio/scroll-reveal';
+import { withViewTransition } from '@/lib/view-transition';
 
 const statuses = ['Todos', 'Concluído', 'Em evolução', 'Projeto de estudo'];
 
@@ -16,6 +18,10 @@ export function ProjectList() {
       [...new Set(projects.flatMap((project) => project.technologies))].sort(),
     [],
   );
+  function updateFilter(update: () => void) {
+    withViewTransition(() => flushSync(update));
+  }
+
   const filteredProjects = projects.filter(
     (project) =>
       (status === 'Todos' || project.status === status) &&
@@ -34,7 +40,7 @@ export function ProjectList() {
               key={item}
               type="button"
               aria-pressed={status === item}
-              onClick={() => setStatus(item)}
+              onClick={() => updateFilter(() => setStatus(item))}
               className="filter-chip"
             >
               {item}
@@ -45,7 +51,10 @@ export function ProjectList() {
           <span>Filtrar por tecnologia</span>
           <select
             value={technology}
-            onChange={(event) => setTechnology(event.target.value)}
+            onChange={(event) => {
+              const value = event.target.value;
+              updateFilter(() => setTechnology(value));
+            }}
             className="filter-select"
           >
             <option>Todas</option>
