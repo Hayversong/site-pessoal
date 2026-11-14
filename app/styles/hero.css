@@ -1,1 +1,367 @@
-/* hero */
+/* Hero: ficha de personagem */
+.hero-sheet {
+  width: 100%;
+  max-width: 56rem;
+  padding: clamp(1.1rem, 4vw, 2.25rem);
+  animation: hero-panel-in 900ms var(--ease-out-expo) both;
+}
+
+.hero-enter {
+  animation: hero-enter 850ms var(--ease-out-expo) both;
+  animation-delay: calc(200ms + var(--i, 0) * 80ms);
+}
+
+.hero-sheet-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding-bottom: 1rem;
+  border-bottom: var(--pixel) solid var(--panel-inner);
+}
+
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--success);
+  padding: 0.35rem 0.6rem;
+  color: var(--success);
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.hero-status-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  background: var(--success);
+  animation: hero-blink 1.6s steps(1, end) infinite;
+}
+
+.hero-sheet-body {
+  display: grid;
+  grid-template-columns: 13rem minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  padding-block: 1.75rem;
+}
+
+.hero-portrait {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.hero-portrait-frame {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: var(--pixel) solid var(--panel-border);
+  background: var(--panel-inner);
+  box-shadow:
+    inset 0 0 0 2px var(--panel-inner),
+    4px 4px 0 var(--shadow-hard);
+}
+
+.hero-portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-companion {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--muted-foreground);
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero-companion-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 2px solid var(--panel-border);
+  background: var(--primary);
+}
+
+.hero-companion-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+.hero-info {
+  min-width: 0;
+}
+
+.hero-label {
+  color: var(--muted-foreground);
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-name {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.hero-name h1 {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-pixelify), var(--font-geist-sans), sans-serif;
+  color: var(--foreground);
+  transition: color 240ms var(--ease-out);
+}
+
+.hero-name-trigger {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.hero-name-trigger:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+}
+
+.hero-name:has(.hero-name-trigger:hover) h1,
+.hero-name:has(.hero-name-trigger:focus-visible) h1 {
+  color: var(--primary);
+}
+
+.hero-name-cursor {
+  color: var(--primary);
+  animation: hero-blink 900ms steps(1, end) infinite;
+}
+
+.hero-meta {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 1.1rem;
+}
+
+.hero-meta div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+}
+
+.hero-meta dt {
+  min-width: 6.5rem;
+  color: var(--primary);
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero-meta dd {
+  color: var(--foreground);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.hero-dialog {
+  margin-top: 1.4rem;
+  padding: 1rem 1.15rem;
+}
+
+.hero-dialog p {
+  max-width: 38rem;
+  color: var(--foreground);
+  font-size: 1rem;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.hero-focus {
+  display: grid;
+  gap: 0.75rem;
+  padding-block: 1.25rem;
+  border-top: var(--pixel) solid var(--panel-inner);
+}
+
+.hero-focus ul {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.hero-focus-row {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) 6.5rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-focus-name,
+.hero-focus-value {
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.hero-focus-name {
+  color: var(--foreground);
+}
+
+.hero-focus-value {
+  color: var(--muted-foreground);
+  text-align: right;
+}
+
+.hero-focus .stat-bar::after {
+  animation: hero-bar-fill 1100ms var(--ease-out-expo) both;
+  animation-delay: calc(900ms + var(--bar-i, 0) * 140ms);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 1.25rem 1.5rem;
+  border-top: var(--pixel) solid var(--panel-inner);
+}
+
+.hero-start {
+  padding-left: 1.75rem;
+}
+
+.hero-start::before {
+  left: 0.65rem;
+  color: currentColor;
+}
+
+.hero-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hero-social .pixel-btn {
+  min-height: 2.5rem;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.68rem;
+}
+
+.hero-start:focus-visible,
+.hero-social .pixel-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.hero-sheet-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding-top: 1rem;
+  border-top: 2px dashed var(--panel-inner);
+  color: var(--muted-foreground);
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@keyframes hero-panel-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+}
+
+@keyframes hero-bar-fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes hero-blink {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-sheet-body {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .hero-portrait {
+    width: min(100%, 14rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-portrait {
+    width: min(100%, 10.5rem);
+  }
+
+  .hero-dialog {
+    padding: 0.85rem 0.95rem;
+  }
+
+  .hero-dialog p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .hero-focus-row {
+    grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+    gap: 0.6rem;
+  }
+
+  .hero-meta dt {
+    min-width: 5.5rem;
+  }
+
+  .hero-actions,
+  .hero-social {
+    gap: 0.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-sheet,
+  .hero-enter,
+  .hero-focus .stat-bar::after,
+  .hero-status-dot,
+  .hero-name-cursor {
+    animation: none;
+  }
+
+  .hero-name h1 {
+    transition: none;
+  }
+}

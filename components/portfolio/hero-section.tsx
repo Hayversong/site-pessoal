@@ -7,10 +7,8 @@ import {
   Play,
 } from 'lucide-react';
 
-import { buttonVariants } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { AnimatedName } from '@/components/portfolio/animated-name';
-import { cn } from '@/lib/utils';
+import { projects } from '@/data/projects';
 
 const socialLinks = [
   { name: 'GitHub', href: 'https://github.com/Hayversong', icon: 'code' },
@@ -31,21 +29,47 @@ const socialLinks = [
   },
 ];
 
+// Cada foco conta quantos projetos usam as tecnologias da área.
+const focusAreas = [
+  { label: 'Python', color: 'var(--mp)', technologies: ['Python'] },
+  { label: 'Go', color: 'var(--xp)', technologies: ['Go'] },
+  {
+    label: 'Web',
+    color: 'var(--hp)',
+    technologies: [
+      'React',
+      'TypeScript',
+      'JavaScript',
+      'HTML',
+      'CSS',
+      'Tailwind CSS',
+    ],
+  },
+].map((area) => ({
+  ...area,
+  count: projects.filter((project) =>
+    project.technologies.some((tech) => area.technologies.includes(tech)),
+  ).length,
+}));
+
+const completedCount = projects.filter(
+  (project) => project.status === 'Concluído',
+).length;
+
+function plural(count: number, singular: string, pluralForm: string) {
+  return `${count} ${count === 1 ? singular : pluralForm}`;
+}
+
 function SocialIcon({ name }: { name: string }) {
-  if (name === 'code') return <Code className="size-4" aria-hidden="true" />;
-  if (name === 'play') return <Play className="size-4" aria-hidden="true" />;
-  if (name === 'joystick') {
-    return <Joystick className="size-4" aria-hidden="true" />;
-  }
-  return <BriefcaseBusiness className="size-4" aria-hidden="true" />;
+  if (name === 'code') return <Code aria-hidden="true" />;
+  if (name === 'play') return <Play aria-hidden="true" />;
+  if (name === 'joystick') return <Joystick aria-hidden="true" />;
+  return <BriefcaseBusiness aria-hidden="true" />;
 }
 
 function SocialLinks() {
   return (
-    <nav
-      aria-label="Links para redes sociais"
-      className="flex flex-wrap gap-2.5"
-    >
+    <nav aria-label="Links para redes sociais" className="hero-social">
       {socialLinks.map(({ name, href, icon }) => (
         <a
           key={name}
@@ -53,10 +77,8 @@ function SocialLinks() {
           target="_blank"
           rel="noreferrer"
           aria-label={`Visitar meu perfil no ${name} em uma nova aba`}
-          className={cn(
-            buttonVariants({ variant: 'outline' }),
-            'h-10 rounded-full border-border bg-foreground/[0.03] px-4 text-xs uppercase tracking-[0.08em] transition-[transform,color,background-color,border-color] hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/10 hover:text-primary',
-          )}
+          className="pixel-btn"
+          data-variant="ghost"
         >
           <SocialIcon name={icon} />
           {name}
@@ -76,97 +98,114 @@ export function HeroSection() {
       id="inicio"
       className="section-shell relative flex min-h-svh items-center justify-center pb-16 pt-28 sm:pb-20 sm:pt-32"
     >
-      <Card className="badge-card w-full max-w-4xl gap-0 rounded-[2rem] border border-border bg-card/95 py-0 ring-0">
-        <div className="badge-clip" aria-hidden="true">
-          <span />
+      <div className="hero-sheet pixel-panel">
+        <div className="hero-sheet-bar hero-enter" style={rise(0)}>
+          <p className="rpg-kicker">Ficha do personagem</p>
+          <p className="hero-status">
+            <span aria-hidden="true" className="hero-status-dot" />
+            Ativo
+          </p>
         </div>
-        <CardContent className="px-6 py-7 sm:px-9 sm:py-9">
-          <div className="badge-header hero-rise" style={rise(0)}>
-            <div className="flex items-center gap-3">
-              <span className="size-10 overflow-hidden rounded-xl border border-primary/35 bg-primary">
-                <Image
-                  src="/charmander-avatar.jpg"
-                  alt="Avatar do Charmander usando fones de ouvido"
-                  width={400}
-                  height={400}
-                  className="h-full w-full object-cover"
-                />
-              </span>
-              <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                  identificação pessoal
-                </p>
-                <p className="mt-1 text-sm font-medium">
-                  Portfólio em evolução
-                </p>
-              </div>
-            </div>
-            <span className="flex items-center gap-2 rounded-full border border-success/25 bg-success/10 px-3 py-1.5 text-xs font-medium text-success">
-              <span
-                aria-hidden="true"
-                className="size-1.5 rounded-full bg-success shadow-[0_0_10px_var(--success)]"
-              />
-              Ativo
-            </span>
-          </div>
 
-          <div className="badge-body">
-            <div className="badge-photo hero-rise" style={rise(1)}>
+        <div className="hero-sheet-body">
+          <figure className="hero-portrait hero-enter" style={rise(1)}>
+            <div className="hero-portrait-frame">
               <Image
                 src="/hayth-profile.webp"
                 alt="Retrato de Hayverson"
                 width={480}
                 height={640}
                 priority
-                sizes="(max-width: 760px) 240px, 208px"
-                className="h-full w-full object-cover object-center"
+                sizes="(max-width: 760px) 224px, 208px"
               />
             </div>
+            <figcaption className="hero-companion">
+              <span className="hero-companion-avatar">
+                <Image
+                  src="/charmander-avatar.jpg"
+                  alt="Avatar do Charmander usando fones de ouvido"
+                  width={400}
+                  height={400}
+                />
+              </span>
+              <span>Companheiro</span>
+            </figcaption>
+          </figure>
 
-            <div className="min-w-0">
-              <p
-                className="hero-rise font-mono text-sm text-primary"
-                style={rise(2)}
-              >
-                $ desenvolvedor em construção
-              </p>
-              <div className="hero-rise" style={rise(3)}>
-                <AnimatedName className="mt-3 text-4xl font-semibold tracking-[-0.055em] min-[400px]:text-5xl sm:text-6xl" />
+          <div className="hero-info">
+            <p className="hero-label hero-enter" style={rise(2)}>
+              Nome
+            </p>
+            <div className="hero-enter" style={rise(3)}>
+              <AnimatedName className="mt-1 text-4xl min-[400px]:text-5xl sm:text-6xl" />
+            </div>
+
+            <dl className="hero-meta hero-enter" style={rise(4)}>
+              <div>
+                <dt>Classe</dt>
+                <dd>Desenvolvedor em formação</dd>
               </div>
-              <p
-                style={rise(4)}
-                className="hero-rise mt-5 max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg"
-              >
+              <div>
+                <dt>Missões</dt>
+                <dd>{projects.length}</dd>
+              </div>
+              <div>
+                <dt>Concluídas</dt>
+                <dd>{completedCount}</dd>
+              </div>
+            </dl>
+
+            <div
+              className="hero-dialog pixel-dialog hero-enter"
+              style={rise(5)}
+            >
+              <p>
                 Desenvolvedor em formação com foco em Python, Go e
                 desenvolvimento web. Transformo cada projeto em uma oportunidade
                 de entender melhor backend, interfaces e engenharia de software.
               </p>
-
-              <div className="hero-rise mt-7" style={rise(5)}>
-                <a
-                  href="#projetos"
-                  className={cn(
-                    buttonVariants(),
-                    'h-10 rounded-full px-5 text-xs uppercase tracking-[0.08em]',
-                  )}
-                >
-                  Conhecer projetos
-                  <ArrowDown className="size-4" aria-hidden="true" />
-                </a>
-              </div>
-
-              <div className="hero-rise mt-4" style={rise(6)}>
-                <SocialLinks />
-              </div>
             </div>
           </div>
+        </div>
 
-          <div className="badge-footer hero-rise" style={rise(7)}>
-            <span>ID · HAYLIGHT-001</span>
-            <span>ACESSO · APRENDIZAGEM CONTÍNUA</span>
-          </div>
-        </CardContent>
-      </Card>
+        <div className="hero-focus hero-enter" style={rise(6)}>
+          <p className="hero-label">Foco · missões por área</p>
+          <ul>
+            {focusAreas.map(({ label, color, count }, index) => (
+              <li key={label} className="hero-focus-row">
+                <span className="hero-focus-name">{label}</span>
+                <span
+                  aria-hidden="true"
+                  className="stat-bar"
+                  style={
+                    {
+                      '--value': count / projects.length,
+                      '--bar-color': color,
+                      '--bar-i': index,
+                    } as React.CSSProperties
+                  }
+                />
+                <span className="hero-focus-value">
+                  {plural(count, 'missão', 'missões')}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="hero-actions hero-enter" style={rise(7)}>
+          <a href="#projetos" className="pixel-btn rpg-cursor hero-start">
+            Conhecer projetos
+            <ArrowDown aria-hidden="true" />
+          </a>
+          <SocialLinks />
+        </div>
+
+        <div className="hero-sheet-footer hero-enter" style={rise(8)}>
+          <span>ID · HAYLIGHT-001</span>
+          <span>Acesso · aprendizagem contínua</span>
+        </div>
+      </div>
     </section>
   );
 }

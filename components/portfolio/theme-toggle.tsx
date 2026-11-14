@@ -23,13 +23,14 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      className="theme-toggle"
+      className="pixel-btn pause-theme"
+      data-variant="ghost"
       onClick={toggleTheme}
       aria-label="Alternar tema claro ou escuro"
       title="Alternar tema claro ou escuro"
     >
-      <Sun className="size-4 dark:hidden" aria-hidden="true" />
-      <Moon className="hidden size-4 dark:block" aria-hidden="true" />
+      <Sun className="dark:hidden" aria-hidden="true" />
+      <Moon className="hidden dark:block" aria-hidden="true" />
     </button>
   );
 }

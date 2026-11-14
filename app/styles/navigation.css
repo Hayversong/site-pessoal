@@ -1,1 +1,257 @@
-/* navigation */
+/* Navegação: menu de pausa */
+.pause-header {
+  position: fixed;
+  inset: 0.9rem 0 auto;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding-inline: 0.5rem;
+  pointer-events: none;
+}
+
+.pause-menu {
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.25rem;
+  border: var(--pixel) solid var(--panel-border);
+  background: var(--card);
+  padding: 0.3rem;
+  box-shadow:
+    inset 0 0 0 2px var(--panel-inner),
+    4px 4px 0 var(--shadow-hard);
+  pointer-events: auto;
+  animation: pause-menu-in 700ms var(--ease-out-expo) both;
+}
+
+.pause-link {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  padding: 0.5rem 0.75rem 0.5rem 1.55rem;
+  color: var(--foreground);
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 220ms var(--ease-out);
+}
+
+.pause-link.rpg-cursor::before {
+  left: 0.6rem;
+}
+
+.pause-link:hover,
+.pause-link[aria-current='location'] {
+  color: var(--primary);
+}
+
+.pause-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Seleção retangular que desliza até o item ativo. */
+.pause-indicator {
+  position: absolute;
+  top: var(--indicator-top, 0.3rem);
+  left: 0;
+  width: var(--indicator-width, 0);
+  height: var(--indicator-height, 2.5rem);
+  border: 2px solid var(--primary);
+  background: color-mix(in oklch, var(--primary) 12%, var(--card));
+  box-shadow: 2px 2px 0 var(--shadow-hard);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(var(--indicator-x, 0), 0, 0);
+  transition:
+    transform 500ms var(--ease-out-expo),
+    width 500ms var(--ease-out-expo),
+    opacity 240ms var(--ease-out);
+}
+
+.pause-indicator[data-ready='true'] {
+  opacity: 1;
+}
+
+.pause-divider {
+  width: 2px;
+  height: 1.6rem;
+  margin-inline: 0.2rem;
+  background: var(--panel-inner);
+}
+
+.pause-theme {
+  --btn-depth: 2px;
+  width: 2.5rem;
+  min-height: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  padding: 0;
+  border-width: 2px;
+  color: var(--primary);
+}
+
+.pause-theme:hover {
+  --btn-depth: 4px;
+}
+
+.pause-theme:active {
+  --btn-depth: 0px;
+  transform: translate3d(0, 2px, 0);
+}
+
+.pause-theme:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Barra de XP segmentada que enche com a leitura. */
+.xp-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  display: block;
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  border: 0;
+  border-bottom: 2px solid var(--panel-border);
+  background: var(--panel-inner);
+  color: var(--xp);
+  pointer-events: none;
+  box-sizing: content-box;
+}
+
+.xp-progress::-webkit-progress-bar {
+  background: var(--panel-inner);
+}
+
+.xp-progress::-webkit-progress-value {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--xp) 0 10px,
+    color-mix(in oklch, var(--xp), black 22%) 10px 12px
+  );
+  transition: width 160ms var(--ease-out);
+}
+
+.xp-progress::-moz-progress-bar {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--xp) 0 10px,
+    color-mix(in oklch, var(--xp), black 22%) 10px 12px
+  );
+}
+
+.pause-back-top {
+  position: fixed;
+  right: max(1.25rem, calc((100vw - 70rem) / 2));
+  bottom: 1.5rem;
+  z-index: 40;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  color: var(--primary);
+  opacity: 0;
+  pointer-events: none;
+  translate: 0 0.75rem;
+  transition:
+    transform 260ms var(--ease-out-expo),
+    box-shadow 260ms var(--ease-out-expo),
+    background-color 240ms var(--ease-out),
+    color 240ms var(--ease-out),
+    opacity 260ms var(--ease-out),
+    translate 420ms var(--ease-out-expo);
+}
+
+.pause-back-top-visible {
+  opacity: 1;
+  pointer-events: auto;
+  translate: 0 0;
+}
+
+.pause-back-top:active {
+  transition-duration: 90ms;
+}
+
+.pause-back-top svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.pause-back-top:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+@keyframes pause-menu-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+@media (max-width: 640px) {
+  .pause-menu {
+    gap: 0.1rem;
+  }
+
+  .pause-link {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.64rem;
+  }
+
+  /* No celular a seleção já marca o item; o ▶ ficaria sem espaço. */
+  .pause-link.rpg-cursor::before {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .pause-link.nav-link-optional {
+    display: none;
+  }
+
+  .pause-divider {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .pause-header {
+    padding-inline: 0.375rem;
+  }
+
+  .pause-link {
+    padding-inline: 0.42rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pause-menu {
+    animation: none;
+  }
+
+  .pause-link,
+  .pause-indicator,
+  .pause-back-top,
+  .xp-progress::-webkit-progress-value {
+    transition: none;
+  }
+
+  .pause-theme:active {
+    transform: none;
+  }
+
+  .pause-back-top {
+    translate: 0 0;
+  }
+}

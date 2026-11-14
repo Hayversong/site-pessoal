@@ -30,7 +30,7 @@ export function ScrollProgress() {
 
   return (
     <progress
-      className="scroll-progress-track"
+      className="xp-progress"
       aria-label="Progresso de leitura"
       max={100}
       value={Math.round(progress * 100)}

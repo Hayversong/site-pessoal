@@ -40,8 +40,14 @@ export function SiteNavigation() {
     };
 
     moveIndicator();
+    // A fonte pixel carrega depois e muda a largura dos links.
+    const observer = new ResizeObserver(moveIndicator);
+    observer.observe(nav);
     window.addEventListener('resize', moveIndicator);
-    return () => window.removeEventListener('resize', moveIndicator);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', moveIndicator);
+    };
   }, [activeSection]);
 
   useEffect(() => {
@@ -73,37 +79,43 @@ export function SiteNavigation() {
   return (
     <>
       <ScrollProgress />
-      <header className="fixed inset-x-0 top-5 z-50 flex justify-center px-2 sm:px-4">
+      <header className="pause-header">
         <nav
           ref={navRef}
           aria-label="Navegação principal"
-          className="relative flex max-w-full items-center gap-0.5 rounded-full border border-border bg-background/90 p-1 shadow-xl shadow-[var(--shadow-soft)] backdrop-blur-md sm:gap-1 sm:p-1.5"
+          className="pause-menu"
         >
           <span
             ref={indicatorRef}
-            className="nav-indicator"
+            className="pause-indicator"
             aria-hidden="true"
           />
           {sections.map(({ id, label, optional }) => (
             <a
               key={id}
-              className={optional ? 'nav-link nav-link-optional' : 'nav-link'}
+              className={
+                optional
+                  ? 'pause-link rpg-cursor nav-link-optional'
+                  : 'pause-link rpg-cursor'
+              }
               href={`#${id}`}
               aria-current={activeSection === id ? 'location' : undefined}
             >
               {label}
             </a>
           ))}
+          <span aria-hidden="true" className="pause-divider" />
           <ThemeToggle />
         </nav>
       </header>
       <a
         href="#inicio"
-        className={`back-to-top ${showBackToTop ? 'back-to-top-visible' : ''}`}
+        className={`pixel-btn pause-back-top ${showBackToTop ? 'pause-back-top-visible' : ''}`}
+        data-variant="ghost"
         aria-label="Voltar ao topo"
         tabIndex={showBackToTop ? 0 : -1}
       >
-        <ArrowUp className="size-5" aria-hidden="true" />
+        <ArrowUp aria-hidden="true" />
       </a>
     </>
   );

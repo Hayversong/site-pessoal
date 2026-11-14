@@ -9,11 +9,9 @@ export function ProjectsSection() {
         stagger
       >
         <div data-reveal-item>
-          <p className="font-mono text-sm uppercase tracking-[0.18em] text-primary">
-            /projetos
-          </p>
-          <h2 className="mt-3 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
-            O que estou construindo
+          <p className="rpg-kicker">Registro de missões</p>
+          <h2 className="rpg-title mt-3 text-4xl sm:text-5xl">
+            Missões em andamento e concluídas
           </h2>
         </div>
         <p

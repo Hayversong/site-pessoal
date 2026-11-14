@@ -30,51 +30,53 @@ export function ProjectList() {
 
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-end gap-4">
-        <fieldset className="flex flex-wrap gap-2">
-          <legend className="mb-2 w-full font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-            Filtrar por status
-          </legend>
-          {statuses.map((item) => (
-            <button
-              key={item}
-              type="button"
-              aria-pressed={status === item}
-              onClick={() => updateFilter(() => setStatus(item))}
-              className="filter-chip"
-            >
-              {item}
-            </button>
-          ))}
-        </fieldset>
-        <label className="filter-select-label">
-          <span>Filtrar por tecnologia</span>
-          <select
-            value={technology}
-            onChange={(event) => {
-              const value = event.target.value;
-              updateFilter(() => setTechnology(value));
-            }}
-            className="filter-select"
-          >
-            <option>Todas</option>
-            {technologies.map((item) => (
-              <option key={item}>{item}</option>
+      <div className="quest-filters pixel-dialog mb-8">
+        <fieldset className="min-w-0">
+          <legend className="quest-filters-label">Filtrar por status</legend>
+          <div className="quest-filter-group">
+            {statuses.map((item) => (
+              <button
+                key={item}
+                type="button"
+                aria-pressed={status === item}
+                onClick={() => updateFilter(() => setStatus(item))}
+                className="quest-filter rpg-cursor"
+              >
+                {item}
+              </button>
             ))}
-          </select>
+          </div>
+        </fieldset>
+        <label className="quest-select-label">
+          <span className="quest-filters-label">Filtrar por tecnologia</span>
+          <span className="quest-select-wrap">
+            <select
+              value={technology}
+              onChange={(event) => {
+                const value = event.target.value;
+                updateFilter(() => setTechnology(value));
+              }}
+              className="quest-select"
+            >
+              <option>Todas</option>
+              {technologies.map((item) => (
+                <option key={item}>{item}</option>
+              ))}
+            </select>
+          </span>
         </label>
       </div>
       <p className="sr-only" aria-live="polite">
         {filteredProjects.length} projetos encontrados
       </p>
-      <ScrollReveal className="grid gap-4" stagger>
+      <ScrollReveal className="grid gap-6" stagger>
         {filteredProjects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
         {filteredProjects.length === 0 ? (
           <p
             data-reveal-item
-            className="rounded-2xl border border-border p-6 text-sm text-muted-foreground"
+            className="pixel-dialog p-6 text-sm text-muted-foreground"
           >
             Nenhum projeto corresponde a esses filtros.
           </p>

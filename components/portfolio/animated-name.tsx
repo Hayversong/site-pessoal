@@ -52,18 +52,18 @@ export function AnimatedName({ className }: AnimatedNameProps) {
   }
 
   return (
-    <div className={['animated-name', className].filter(Boolean).join(' ')}>
-      <h1>
+    <div className={['hero-name', className].filter(Boolean).join(' ')}>
+      <h1 className="rpg-title">
         <span className="sr-only">{targetName}</span>
         <span aria-hidden="true">{displayName}</span>
-        <span aria-hidden="true" className="name-cursor">
+        <span aria-hidden="true" className="hero-name-cursor">
           _
         </span>
       </h1>
       <button
         type="button"
         onClick={animateName}
-        className="animated-name-trigger"
+        className="hero-name-trigger"
         aria-label="Embaralhar as letras do nome"
         title="Clique para embaralhar as letras"
       />

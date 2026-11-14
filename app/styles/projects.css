@@ -1,1 +1,316 @@
-/* projects */
+/* Projetos: registro de missões. */
+
+/* Menu de filtros */
+.quest-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.25rem 2rem;
+  padding: 1rem 1.1rem 1.15rem;
+}
+
+.quest-filters-label {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--muted-foreground);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.quest-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.quest-filter {
+  min-height: 2.5rem;
+  border: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  padding: 0.55rem 0.8rem 0.55rem 1.65rem;
+  color: var(--muted-foreground);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    color 220ms var(--ease-out),
+    background-color 220ms var(--ease-out),
+    border-color 220ms var(--ease-out);
+}
+
+/* O ▶ fica dentro do botão para não depender do espaço entre os itens. */
+.quest-filter.rpg-cursor::before {
+  left: 0.6rem;
+}
+
+.quest-filter:hover {
+  color: var(--foreground);
+  background: color-mix(in oklch, var(--primary) 8%, transparent);
+}
+
+.quest-filter[aria-pressed='true'] {
+  border-color: var(--panel-border);
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: 3px 3px 0 var(--shadow-hard);
+}
+
+.quest-select-label {
+  display: flex;
+  min-width: min(100%, 14rem);
+  flex-direction: column;
+}
+
+.quest-select-wrap {
+  position: relative;
+  display: block;
+}
+
+.quest-select-wrap::after {
+  content: '▼';
+  position: absolute;
+  top: 50%;
+  right: 0.85rem;
+  color: var(--primary);
+  font-size: 0.6rem;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.quest-select {
+  width: 100%;
+  min-height: 2.75rem;
+  appearance: none;
+  border: var(--pixel) solid var(--panel-border);
+  border-radius: 0;
+  background: var(--card);
+  padding: 0.5rem 2.4rem 0.5rem 0.85rem;
+  color: var(--foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.85rem;
+  box-shadow:
+    inset 0 0 0 2px var(--panel-inner),
+    3px 3px 0 var(--shadow-hard);
+  cursor: pointer;
+  transition: box-shadow 220ms var(--ease-out);
+}
+
+.quest-select:hover {
+  box-shadow:
+    inset 0 0 0 2px color-mix(in oklch, var(--primary) 35%, var(--panel-inner)),
+    3px 3px 0 var(--shadow-hard);
+}
+
+.quest-select option {
+  background: var(--card);
+  color: var(--foreground);
+}
+
+/* Card de missão */
+.quest {
+  min-width: 0;
+}
+
+.quest-card {
+  --quest-lift: 0px;
+  --quest-depth: 6px;
+  translate: 0 var(--quest-lift);
+  box-shadow:
+    inset 0 0 0 2px var(--panel-inner),
+    var(--quest-depth) var(--quest-depth) 0 var(--shadow-hard);
+  transition:
+    translate 420ms var(--ease-out-expo),
+    box-shadow 420ms var(--ease-out-expo),
+    border-color 260ms var(--ease-out);
+}
+
+.quest:hover .quest-card,
+.quest:focus-within .quest-card {
+  --quest-lift: -3px;
+  --quest-depth: 9px;
+  border-color: color-mix(in oklch, var(--primary) 55%, var(--panel-border));
+}
+
+.quest-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1rem;
+  border-bottom: 2px solid var(--panel-inner);
+  padding: 0.85rem 1.25rem;
+}
+
+.quest-number {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.quest-pointer {
+  display: inline-block;
+  width: 0.8em;
+  font-size: 0.8em;
+  opacity: 0;
+  transform: translate3d(-4px, 0, 0);
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 380ms var(--ease-out-expo);
+}
+
+.quest:hover .quest-pointer,
+.quest:focus-within .quest-pointer {
+  opacity: 1;
+  transform: none;
+}
+
+.quest-kind {
+  border-left: 2px solid var(--panel-inner);
+  padding-left: 0.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.68rem;
+}
+
+.quest-status {
+  --tone: var(--mp);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--tone);
+  background: color-mix(in oklch, var(--tone) 14%, var(--card));
+  padding: 0.35rem 0.6rem;
+  color: var(--foreground);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.quest-status[data-tone='done'] {
+  --tone: var(--success);
+}
+
+.quest-status[data-tone='progress'] {
+  --tone: var(--xp);
+}
+
+.quest-status-mark {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: 0 0 auto;
+  background: var(--tone);
+  box-shadow: 2px 2px 0 var(--shadow-hard);
+}
+
+.quest-body {
+  display: grid;
+  gap: 2rem;
+  padding: 1.5rem 1.25rem 1.6rem;
+}
+
+@media (min-width: 64rem) {
+  .quest-body {
+    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+    padding: 1.9rem 2rem 2rem;
+  }
+
+  .quest-header {
+    padding-inline: 2rem;
+  }
+}
+
+.quest-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--foreground);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.quest-label[data-mark]::before {
+  content: '';
+  width: 0.45rem;
+  height: 0.45rem;
+  flex: 0 0 auto;
+  background: var(--primary);
+}
+
+.quest-label[data-mark='xp']::before {
+  background: var(--xp);
+}
+
+.quest-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.quest-item {
+  border: 2px solid var(--panel-border);
+  background: color-mix(in oklch, var(--panel-inner) 55%, var(--card));
+  padding: 0.3rem 0.6rem;
+  color: var(--foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  box-shadow: 2px 2px 0 var(--shadow-hard);
+}
+
+.quest-log {
+  min-width: 0;
+  border: 2px solid var(--panel-inner);
+  background: color-mix(in oklch, var(--card) 85%, var(--panel-inner));
+  padding: 1.25rem;
+}
+
+.quest-check {
+  display: inline-flex;
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.2rem;
+  border: 2px solid var(--success);
+  color: var(--success);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.quest-reward {
+  margin-top: 1.25rem;
+  border-top: 2px dashed var(--panel-inner);
+  padding-top: 1.1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quest-filter,
+  .quest-select,
+  .quest-card,
+  .quest-pointer {
+    transition: none;
+  }
+
+  .quest:hover .quest-card,
+  .quest:focus-within .quest-card {
+    --quest-lift: 0px;
+  }
+}
