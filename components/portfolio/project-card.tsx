@@ -1,4 +1,4 @@
-import { ArrowUpRight, Check, Code2, Joystick } from 'lucide-react';
+import { ArrowUpRight, Check, Code2, Joystick, Play } from 'lucide-react';
 
 import { Card, CardContent } from '@/components/ui/card';
 import type { Project } from '@/data/projects';
@@ -10,7 +10,10 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
-    <Card data-reveal-item className="project-card gap-0 rounded-3xl border border-white/10 bg-card/65 py-0 ring-0 backdrop-blur-sm">
+    <Card
+      data-reveal-item
+      className="project-card gap-0 rounded-3xl border border-white/10 bg-card/65 py-0 ring-0 backdrop-blur-sm"
+    >
       <CardContent className="grid gap-8 px-6 py-7 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)] lg:px-8 lg:py-8">
         <div className="flex min-w-0 flex-col">
           <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -42,8 +45,22 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             ))}
           </div>
 
-          {project.repository || project.itchUrl ? (
+          {project.demoUrl || project.repository || project.itchUrl ? (
             <div className="mt-7 flex flex-wrap gap-3">
+              {project.demoUrl ? (
+                <a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Abrir a demo do projeto ${project.title}`}
+                  className="project-repository-link w-fit"
+                >
+                  <Play className="size-4" aria-hidden="true" />
+                  Ver demo
+                  <ArrowUpRight className="size-4" aria-hidden="true" />
+                </a>
+              ) : null}
+
               {project.repository ? (
                 <a
                   href={project.repository}

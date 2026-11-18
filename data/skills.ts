@@ -10,14 +10,14 @@ export type SkillGroup = {
 
 export const studyTopics: StudyTopic[] = [
   {
-    name: 'React',
+    name: 'React e Next.js',
     description:
-      'Aprofundando componentização, gerenciamento de estado e construção de interfaces acessíveis.',
+      'Aprofundando componentização, gerenciamento de estado, renderização no servidor e interfaces acessíveis.',
   },
   {
-    name: 'Docker',
+    name: 'Testes de interface',
     description:
-      'Aprendendo a criar ambientes reproduzíveis e simplificar a execução de aplicações.',
+      'Testando componentes, contratos de API simulada e fluxos de usuário para entregar com segurança.',
   },
   {
     name: 'SQL',
@@ -40,7 +40,12 @@ export const skillGroups: SkillGroup[] = [
       'JavaScript',
       'TypeScript',
       'React',
+      'Next.js',
       'Tailwind CSS',
+      'React Query',
+      'Zustand',
+      'Zod',
+      'Vitest',
     ],
   },
   {

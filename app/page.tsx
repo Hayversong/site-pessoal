@@ -124,15 +124,16 @@ function HeroSection() {
 
             <div className="min-w-0">
               <p className="font-mono text-sm text-primary">
-                $ desenvolvedor em construção
+                $ fullstack --foco=frontend
               </p>
               <h1 className="mt-3 text-5xl font-semibold tracking-[-0.055em] sm:text-6xl">
                 <AnimatedName />
               </h1>
               <p className="mt-5 max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
-                Desenvolvedor em formação com foco em Python, Go e
-                desenvolvimento web. Transformo cada projeto em uma oportunidade
-                de entender melhor backend, interfaces e engenharia de software.
+                Desenvolvedor fullstack com foco em frontend. Construo
+                interfaces em React e TypeScript que tratam carregamento, erro e
+                acessibilidade, e uso Go e Python para levar a ideia de ponta a
+                ponta.
               </p>
 
               <div className="mt-7">
@@ -177,8 +178,8 @@ function ProjectsSection() {
           </h2>
         </div>
         <p className="max-w-md text-sm leading-6 text-muted-foreground sm:text-right">
-          Projetos executados localmente e documentados no GitHub. Aqui, o foco
-          está no processo, nas decisões técnicas e no que aprendi construindo.
+          Projetos com código aberto no GitHub e demo no ar quando possível.
+          Aqui, o foco está nas decisões técnicas e no que aprendi construindo.
         </p>
       </div>
 
