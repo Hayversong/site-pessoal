@@ -1,6 +1,6 @@
 # Portfólio pessoal
 
-Portfólio de Hayverson para apresentar projetos, decisões técnicas e aprendizados em Go e desenvolvimento web.
+Portfólio de Hayverson, desenvolvedor fullstack com foco em frontend, para apresentar projetos, decisões técnicas e aprendizados.
 
 ## Tecnologias
 

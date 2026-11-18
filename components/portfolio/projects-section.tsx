@@ -18,8 +18,8 @@ export function ProjectsSection() {
           data-reveal-item
           className="max-w-md text-sm leading-6 text-muted-foreground sm:text-right"
         >
-          Projetos executados localmente e documentados no GitHub. Aqui, o foco
-          está no processo, nas decisões técnicas e no que aprendi construindo.
+          Projetos com código aberto no GitHub e demo no ar quando possível.
+          Aqui, o foco está nas decisões técnicas e no que aprendi construindo.
         </p>
       </ScrollReveal>
 

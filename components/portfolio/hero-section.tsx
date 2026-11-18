@@ -52,8 +52,8 @@ const focusAreas = [
   ).length,
 }));
 
-const completedCount = projects.filter(
-  (project) => project.status === 'Concluído',
+const completedCount = projects.filter((project) =>
+  ['Concluído', 'No ar'].includes(project.status),
 ).length;
 
 function plural(count: number, singular: string, pluralForm: string) {
@@ -143,7 +143,7 @@ export function HeroSection() {
             <dl className="hero-meta hero-enter" style={rise(4)}>
               <div>
                 <dt>Classe</dt>
-                <dd>Desenvolvedor em formação</dd>
+                <dd>Fullstack · foco em frontend</dd>
               </div>
               <div>
                 <dt>Missões</dt>
@@ -160,9 +160,10 @@ export function HeroSection() {
               style={rise(5)}
             >
               <p>
-                Desenvolvedor em formação com foco em Python, Go e
-                desenvolvimento web. Transformo cada projeto em uma oportunidade
-                de entender melhor backend, interfaces e engenharia de software.
+                Desenvolvedor fullstack com foco em frontend. Construo
+                interfaces em React e TypeScript que tratam carregamento, erro e
+                acessibilidade, e uso Go e Python para levar a ideia de ponta a
+                ponta.
               </p>
             </div>
           </div>

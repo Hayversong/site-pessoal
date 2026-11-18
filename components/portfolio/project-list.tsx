@@ -8,7 +8,13 @@ import { projects } from '@/data/projects';
 import { ScrollReveal } from '@/components/portfolio/scroll-reveal';
 import { withViewTransition } from '@/lib/view-transition';
 
-const statuses = ['Todos', 'Concluído', 'Em evolução', 'Projeto de estudo'];
+const statusOrder = ['No ar', 'Concluído', 'Em evolução', 'Projeto de estudo'];
+const statuses = [
+  'Todos',
+  ...statusOrder.filter((item) =>
+    projects.some((project) => project.status === item),
+  ),
+];
 
 export function ProjectList() {
   const [status, setStatus] = useState('Todos');

@@ -32,9 +32,9 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Hayverson | Desenvolvedor em formação',
+  title: 'Hayverson Monteiro | Fullstack com foco em Frontend',
   description:
-    'Portfólio de Hayverson: projetos em Go e desenvolvimento web, decisões técnicas e aprendizados construídos na prática.',
+    'Portfólio de Hayverson Monteiro, desenvolvedor fullstack com foco em frontend: projetos em React, TypeScript e Next.js, com backend em Go e Python.',
   icons: {
     icon: '/favicon.svg',
   },
@@ -42,18 +42,18 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Hayverson | Desenvolvedor em formação',
+    title: 'Hayverson Monteiro | Fullstack com foco em Frontend',
     description:
-      'Projetos em Go e desenvolvimento web, com código e aprendizados documentados.',
+      'Projetos em React, TypeScript e Next.js, com demos, código e decisões técnicas documentadas.',
     images: [{ url: '/og.png', width: 1200, height: 630 }],
     locale: 'pt_BR',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Hayverson | Desenvolvedor em formação',
+    title: 'Hayverson Monteiro | Fullstack com foco em Frontend',
     description:
-      'Projetos em Go e desenvolvimento web, com código e aprendizados documentados.',
+      'Projetos em React, TypeScript e Next.js, com demos, código e decisões técnicas documentadas.',
     images: ['/og.png'],
   },
 };

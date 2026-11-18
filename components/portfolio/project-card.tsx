@@ -1,4 +1,4 @@
-import { ArrowUpRight, Code2, Joystick } from 'lucide-react';
+import { ArrowUpRight, Code2, Joystick, Play } from 'lucide-react';
 
 import { getProjectNumber, type Project } from '@/data/projects';
 
@@ -7,6 +7,7 @@ type ProjectCardProps = {
 };
 
 const statusTone: Record<string, string> = {
+  'No ar': 'done',
   Concluído: 'done',
   'Em evolução': 'progress',
   'Projeto de estudo': 'study',
@@ -64,8 +65,22 @@ export function ProjectCard({ project }: ProjectCardProps) {
               </ul>
             </div>
 
-            {project.repository || project.itchUrl ? (
+            {project.demoUrl || project.repository || project.itchUrl ? (
               <div className="mt-7 flex flex-wrap gap-4 pb-1">
+                {project.demoUrl ? (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Abrir a demo do projeto ${project.title}`}
+                    className="pixel-btn"
+                  >
+                    <Play aria-hidden="true" />
+                    Ver demo
+                    <ArrowUpRight aria-hidden="true" />
+                  </a>
+                ) : null}
+
                 {project.repository ? (
                   <a
                     href={project.repository}
@@ -73,6 +88,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     rel="noreferrer"
                     aria-label={`Explorar o código do projeto ${project.title} no GitHub`}
                     className="pixel-btn"
+                    data-variant={project.demoUrl ? 'ghost' : undefined}
                   >
                     <Code2 aria-hidden="true" />
                     Explorar código
@@ -87,7 +103,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     rel="noreferrer"
                     aria-label={`Jogar ${project.title} no itch.io`}
                     className="pixel-btn"
-                    data-variant={project.repository ? 'ghost' : undefined}
+                    data-variant={
+                      project.demoUrl || project.repository
+                        ? 'ghost'
+                        : undefined
+                    }
                   >
                     <Joystick aria-hidden="true" />
                     Jogar no itch.io

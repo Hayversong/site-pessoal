@@ -4,7 +4,7 @@ Referência visual do portfólio. Antes de mudar cores, fontes, espaçamento ou 
 
 ## Contexto
 
-- **O que é:** portfólio pessoal de um desenvolvedor em formação (Go, Python, web) que também cria jogos.
+- **O que é:** portfólio pessoal de um desenvolvedor fullstack com foco em frontend (React, TypeScript, Go, Python) que também cria jogos.
 - **Para quem:** recrutadores, colegas e quem chega pelos links do GitHub e do itch.io.
 - **Tipo:** site de uma página, estático.
 
