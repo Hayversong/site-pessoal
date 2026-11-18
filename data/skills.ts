@@ -1,3 +1,5 @@
+import { projects } from '@/data/projects';
+
 export type StudyTopic = {
   name: string;
   description: string;
@@ -61,3 +63,18 @@ export const skillGroups: SkillGroup[] = [
     skills: ['Git', 'GitHub', 'Docker', 'Docker Compose'],
   },
 ];
+
+// Compara nomes ignorando caixa, espaços e pontuação ("Tailwind CSS" = "tailwindcss").
+function normalize(name: string) {
+  return name.toLowerCase().replaceAll(/[^a-z0-9+#]/g, '');
+}
+
+export const totalProjects = projects.length;
+
+// Quantos projetos de data/projects.ts listam a tecnologia.
+export function countProjectsUsing(skill: string) {
+  const target = normalize(skill);
+  return projects.filter((project) =>
+    project.technologies.some((tech) => normalize(tech) === target),
+  ).length;
+}

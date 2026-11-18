@@ -6,19 +6,26 @@ type ScrollRevealProps = {
   children: React.ReactNode;
   className?: string;
   stagger?: boolean;
+  as?: 'div' | 'ul' | 'ol';
 };
 
-/** Starts reveal styles only after JS is ready, leaving content visible on failure. */
+// O conteúdo só fica oculto depois que o JS carrega; sem JS, tudo aparece normalmente.
 export function ScrollReveal({
   children,
   className,
   stagger = false,
+  as: Component = 'div',
 }: ScrollRevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement & HTMLUListElement & HTMLOListElement>(
+    null,
+  );
 
   useEffect(() => {
     const root = ref.current;
-    if (!root || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (
+      !root ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
       return;
     }
 
@@ -30,7 +37,10 @@ export function ScrollReveal({
     targets.forEach((target, index) => {
       target.classList.add('reveal-pending');
       if (stagger) {
-        target.style.setProperty('--reveal-delay', `${Math.min(index * 90, 360)}ms`);
+        target.style.setProperty(
+          '--reveal-delay',
+          `${Math.min(index * 80, 400)}ms`,
+        );
       }
     });
 
@@ -48,7 +58,7 @@ export function ScrollReveal({
           }
         });
       },
-      { threshold: 0.18 },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
     );
 
     targets.forEach((target) => observer.observe(target));
@@ -56,8 +66,8 @@ export function ScrollReveal({
   }, [stagger]);
 
   return (
-    <div ref={ref} className={className}>
+    <Component ref={ref} className={className}>
       {children}
-    </div>
+    </Component>
   );
 }

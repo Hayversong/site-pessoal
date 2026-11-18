@@ -23,16 +23,8 @@ jobs:
       - name: Executar lint
         run: npm run lint
 
-      - name: Gerar build do Sites
+      - name: Gerar build estático
         run: npm run build
 
-      - name: Validar build do Sites
-        run: test -f dist/server/index.js
-
-      - name: Gerar build estático da Vercel
-        run: npm run build
-        env:
-          VERCEL: '1'
-
-      - name: Validar build da Vercel
+      - name: Validar build estático
         run: test -f dist/client/index.html

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Pixelify_Sans, Silkscreen } from 'next/font/google';
 import './globals.css';
 
 const geistSans = Geist({
@@ -12,17 +12,32 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const pixelifySans = Pixelify_Sans({
+  variable: '--font-pixelify',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+});
+
+const silkscreen = Silkscreen({
+  variable: '--font-silkscreen',
+  subsets: ['latin'],
+  weight: ['400', '700'],
+});
+
 const siteUrl =
   process.env.SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : 'https://hayth-portfolio.hayversoon.chatgpt.site');
+    : 'https://hayversong.vercel.app');
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: 'Hayverson Monteiro | Fullstack com foco em Frontend',
   description:
     'Portfólio de Hayverson Monteiro, desenvolvedor fullstack com foco em frontend: projetos em React, TypeScript e Next.js, com backend em Go e Python.',
+  icons: {
+    icon: '/favicon.svg',
+  },
   alternates: {
     canonical: '/',
   },
@@ -30,7 +45,7 @@ export const metadata: Metadata = {
     title: 'Hayverson Monteiro | Fullstack com foco em Frontend',
     description:
       'Projetos em React, TypeScript e Next.js, com demos, código e decisões técnicas documentadas.',
-    images: [{ url: '/og.png', width: 1731, height: 909 }],
+    images: [{ url: '/og.png', width: 1200, height: 630 }],
     locale: 'pt_BR',
     type: 'website',
   },
@@ -49,7 +64,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html
+      suppressHydrationWarning
+      lang="pt-BR"
+      className={`${geistSans.variable} ${geistMono.variable} ${pixelifySans.variable} ${silkscreen.variable}`}
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -57,11 +76,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

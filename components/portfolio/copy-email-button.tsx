@@ -4,9 +4,17 @@ import { Check, Copy } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 type CopyEmailButtonProps = { email: string };
+type CopyStatus = 'idle' | 'copied' | 'selected' | 'failed';
+
+const messages: Record<CopyStatus, string> = {
+  idle: '',
+  copied: '> e-mail copiado!',
+  selected: '> endereço selecionado. Copie manualmente.',
+  failed: '> cópia indisponível.',
+};
 
 export function CopyEmailButton({ email }: CopyEmailButtonProps) {
-  const [feedback, setFeedback] = useState('');
+  const [status, setStatus] = useState<CopyStatus>('idle');
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(
@@ -22,7 +30,7 @@ export function CopyEmailButton({ email }: CopyEmailButtonProps) {
         throw new Error('Clipboard unavailable');
       }
       await navigator.clipboard.writeText(email);
-      setFeedback('> email copiado_');
+      setStatus('copied');
     } catch {
       const selection = window.getSelection();
       const emailNode = document.getElementById('contact-email');
@@ -31,32 +39,39 @@ export function CopyEmailButton({ email }: CopyEmailButtonProps) {
         range.selectNodeContents(emailNode);
         selection.removeAllRanges();
         selection.addRange(range);
-        setFeedback('> endereço selecionado; copie manualmente_');
+        setStatus('selected');
       } else {
-        setFeedback('> cópia indisponível_');
+        setStatus('failed');
       }
     }
     if (timeout.current) clearTimeout(timeout.current);
-    timeout.current = setTimeout(() => setFeedback(''), 2500);
+    timeout.current = setTimeout(() => setStatus('idle'), 2500);
   }
 
   return (
-    <div className="copy-email-wrap">
+    <div className="copy-email">
       <button
         type="button"
-        className="copy-email-button"
+        className="pixel-btn rpg-cursor copy-email-btn"
+        data-variant="ghost"
         onClick={handleCopy}
         aria-label={`Copiar o e-mail ${email} para a área de transferência`}
       >
-        <span id="contact-email">{email}</span>
-        {feedback.startsWith('> email') ? (
-          <Check className="size-4" aria-hidden="true" />
+        {status === 'copied' ? (
+          <Check aria-hidden="true" />
         ) : (
-          <Copy className="size-4" aria-hidden="true" />
+          <Copy aria-hidden="true" />
         )}
+        <span id="contact-email" className="copy-email-address">
+          {email}
+        </span>
       </button>
-      <output className="copy-email-feedback" aria-live="polite">
-        {feedback}
+      <output
+        className="copy-email-log"
+        aria-live="polite"
+        data-status={status}
+      >
+        {messages[status]}
       </output>
     </div>
   );
