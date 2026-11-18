@@ -12,7 +12,7 @@ export function ThemeToggle() {
     withViewTransition(() => {
       document.documentElement.classList.remove('light', 'dark');
       document.documentElement.classList.add(nextTheme);
-    });
+    }, 'theme');
     try {
       window.localStorage.setItem('hayversong-theme', nextTheme);
     } catch {

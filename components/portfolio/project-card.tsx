@@ -118,39 +118,47 @@ export function ProjectCard({ project }: ProjectCardProps) {
             ) : null}
           </div>
 
-          <div className="quest-log">
-            <h4 className="quest-label" data-mark="primary">
-              Objetivos
-            </h4>
-            <p className="mt-1 text-xs text-muted-foreground">
-              O que este projeto demonstra
-            </p>
-            <ul className="mt-4 grid gap-3">
-              {project.highlights.map((highlight) => (
-                <li
-                  key={highlight}
-                  className="flex gap-3 text-sm leading-6 text-foreground/90"
-                >
-                  <span className="quest-check" aria-hidden="true">
-                    ✓
-                  </span>
-                  {highlight}
-                </li>
-              ))}
-            </ul>
-
-            <div className="quest-reward">
-              <h4 className="quest-label" data-mark="xp">
-                Recompensa
+          <details className="quest-log">
+            <summary className="quest-log-toggle">
+              <span>Objetivos e recompensa</span>
+              <span className="quest-log-arrow" aria-hidden="true">
+                ▼
+              </span>
+            </summary>
+            <div className="quest-log-content">
+              <h4 className="quest-label" data-mark="primary">
+                Objetivos
               </h4>
               <p className="mt-1 text-xs text-muted-foreground">
-                Principal aprendizado
+                O que este projeto demonstra
               </p>
-              <p className="mt-2 text-sm leading-6 text-foreground/85">
-                {project.learning}
-              </p>
+              <ul className="mt-4 grid gap-3">
+                {project.highlights.map((highlight) => (
+                  <li
+                    key={highlight}
+                    className="flex gap-3 text-sm leading-6 text-foreground/90"
+                  >
+                    <span className="quest-check" aria-hidden="true">
+                      ✓
+                    </span>
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="quest-reward">
+                <h4 className="quest-label" data-mark="xp">
+                  Recompensa
+                </h4>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Principal aprendizado
+                </p>
+                <p className="mt-2 text-sm leading-6 text-foreground/85">
+                  {project.learning}
+                </p>
+              </div>
             </div>
-          </div>
+          </details>
         </div>
       </div>
     </article>

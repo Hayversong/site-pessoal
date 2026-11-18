@@ -3,6 +3,8 @@
 import { Check, Copy } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
+import { popText } from '@/lib/retro-fx';
+
 type CopyEmailButtonProps = { email: string };
 type CopyStatus = 'idle' | 'copied' | 'selected' | 'failed';
 
@@ -15,6 +17,7 @@ const messages: Record<CopyStatus, string> = {
 
 export function CopyEmailButton({ email }: CopyEmailButtonProps) {
   const [status, setStatus] = useState<CopyStatus>('idle');
+  const [user, domain] = email.split('@');
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(
@@ -24,13 +27,15 @@ export function CopyEmailButton({ email }: CopyEmailButtonProps) {
     [],
   );
 
-  async function handleCopy() {
+  async function handleCopy(event: React.MouseEvent<HTMLButtonElement>) {
+    const box = event.currentTarget.getBoundingClientRect();
     try {
       if (!navigator.clipboard?.writeText) {
         throw new Error('Clipboard unavailable');
       }
       await navigator.clipboard.writeText(email);
       setStatus('copied');
+      popText(box.left + box.width / 2, box.top, 'Item obtido: e-mail!');
     } catch {
       const selection = window.getSelection();
       const emailNode = document.getElementById('contact-email');
@@ -63,7 +68,8 @@ export function CopyEmailButton({ email }: CopyEmailButtonProps) {
           <Copy aria-hidden="true" />
         )}
         <span id="contact-email" className="copy-email-address">
-          {email}
+          {user}@<wbr />
+          {domain}
         </span>
       </button>
       <output

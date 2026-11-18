@@ -7,6 +7,7 @@
 @import './styles/projects.css';
 @import './styles/skills.css';
 @import './styles/contact.css';
+@import './styles/retro-fx.css';
 
 @custom-variant dark (&:is(.dark *));
 @custom-variant light (&:is(.light *));
@@ -134,6 +135,10 @@ html.dark {
   scroll-margin-top: 6rem;
 }
 
+[tabindex='-1']:focus {
+  outline: none;
+}
+
 a:focus-visible,
 button:focus-visible,
 select:focus-visible {
@@ -148,16 +153,11 @@ select:focus-visible {
     opacity 800ms var(--ease-out-expo),
     transform 900ms var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
 }
 
 .reveal-visible {
   opacity: 1;
   transform: none;
-}
-
-.reveal-pending.reveal-visible {
-  will-change: auto;
 }
 
 .glow {
@@ -196,6 +196,13 @@ select:focus-visible {
   animation-timing-function: var(--ease-out);
 }
 
+/* Troca de tema: o "fade de paleta" em degraus dos consoles de 16 bits. */
+html[data-transition='theme']::view-transition-old(root),
+html[data-transition='theme']::view-transition-new(root) {
+  animation-duration: 480ms;
+  animation-timing-function: steps(6, end);
+}
+
 ::view-transition-group(*) {
   animation-duration: 520ms;
   animation-timing-function: var(--ease-out-expo);
@@ -223,6 +230,5 @@ select:focus-visible {
     opacity: 1;
     transform: none;
     transition: none;
-    will-change: auto;
   }
 }

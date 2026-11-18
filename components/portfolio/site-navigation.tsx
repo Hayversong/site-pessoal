@@ -66,8 +66,15 @@ export function SiteNavigation() {
     );
 
     elements.forEach((element) => observer.observe(element));
-    const updateScroll = () => setShowBackToTop(window.scrollY > 500);
-    updateScroll();
+    // O botão de topo só aparece quando a pessoa volta a subir, para não cobrir o conteúdo na leitura.
+    let lastY = window.scrollY;
+    const updateScroll = () => {
+      const y = window.scrollY;
+      if (y < 500) setShowBackToTop(false);
+      else if (y < lastY - 4) setShowBackToTop(true);
+      else if (y > lastY + 4) setShowBackToTop(false);
+      lastY = y;
+    };
     window.addEventListener('scroll', updateScroll, { passive: true });
 
     return () => {

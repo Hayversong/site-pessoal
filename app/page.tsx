@@ -3,6 +3,7 @@ import { HeroSection } from '@/components/portfolio/hero-section';
 import { ProjectsSection } from '@/components/portfolio/projects-section';
 import { SkillsSection } from '@/components/portfolio/skills-section';
 import { ContactSection } from '@/components/portfolio/contact-section';
+import { RetroEffects } from '@/components/portfolio/retro-effects';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <div aria-hidden="true" className="glow glow-one" />
       <div aria-hidden="true" className="glow glow-two" />
 
+      <RetroEffects />
       <SiteNavigation />
       <HeroSection />
       <ProjectsSection />

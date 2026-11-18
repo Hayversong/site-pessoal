@@ -121,17 +121,17 @@ export function SkillsSection() {
             </p>
           </header>
 
-          <ScrollReveal as="ul" className="quest-list" stagger>
+          <ScrollReveal as="ul" className="study-list" stagger>
             {studyTopics.map((topic) => (
               <li key={topic.name} data-reveal-item>
-                <div className="quest-item">
-                  <span className="quest-marker" aria-hidden="true">
+                <div className="study-item">
+                  <span className="study-marker" aria-hidden="true">
                     !
                   </span>
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                       <h4 className="rpg-title text-lg">{topic.name}</h4>
-                      <span className="quest-status">Em andamento</span>
+                      <span className="study-status">Em andamento</span>
                     </div>
                     <p className="mt-1.5 text-sm leading-6 text-muted-foreground">
                       {topic.description}

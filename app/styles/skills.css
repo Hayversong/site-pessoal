@@ -47,14 +47,34 @@
 
 .skills-slots {
   display: grid;
-  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
   margin-top: 1rem;
-  padding-left: 1.1rem;
 }
 
 @media (min-width: 640px) {
   .skills-slots {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding-left: 1.1rem;
+  }
+}
+
+/* No celular o slot fica compacto e o ▶ some (não há espaço à esquerda). */
+@media (max-width: 639px) {
+  .skill-slot {
+    padding: 0.55rem 0.6rem;
+  }
+
+  .skill-slot.rpg-cursor::before {
+    display: none;
+  }
+
+  .skill-slot-name {
+    font-size: 0.8rem;
+  }
+
+  .skill-slot-meta {
+    font-size: 0.68rem;
   }
 }
 
@@ -75,11 +95,13 @@
     box-shadow 260ms var(--ease-out-expo);
 }
 
-.skill-slot:hover {
-  border-color: var(--primary);
-  background: color-mix(in oklch, var(--primary) 8%, var(--card));
-  box-shadow: 3px 3px 0 var(--shadow-hard);
-  translate: -1px -1px;
+@media (hover: hover) {
+  .skill-slot:hover {
+    border-color: var(--primary);
+    background: color-mix(in oklch, var(--primary) 8%, var(--card));
+    box-shadow: 3px 3px 0 var(--shadow-hard);
+    translate: -1px -1px;
+  }
 }
 
 .skill-slot.rpg-cursor::before {
@@ -112,13 +134,13 @@
 }
 
 /* Registro de missões. */
-.quest-list {
+.study-list {
   display: grid;
   gap: 1rem;
   margin-top: 1.5rem;
 }
 
-.quest-item {
+.study-item {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 0.85rem;
@@ -131,13 +153,15 @@
     box-shadow 260ms var(--ease-out-expo);
 }
 
-.quest-item:hover {
-  border-color: var(--xp);
-  box-shadow: 3px 3px 0 var(--shadow-hard);
-  translate: -1px -1px;
+@media (hover: hover) {
+  .study-item:hover {
+    border-color: var(--xp);
+    box-shadow: 3px 3px 0 var(--shadow-hard);
+    translate: -1px -1px;
+  }
 }
 
-.quest-marker {
+.study-marker {
   display: inline-flex;
   width: 1.75rem;
   height: 1.75rem;
@@ -152,15 +176,17 @@
   line-height: 1;
 }
 
-html.dark .quest-marker {
+html.dark .study-marker {
   color: var(--primary-foreground);
 }
 
-.quest-item:hover .quest-marker {
-  animation: quest-bounce 600ms var(--ease-out);
+@media (hover: hover) {
+  .study-item:hover .study-marker {
+    animation: study-bounce 600ms var(--ease-out);
+  }
 }
 
-.quest-status {
+.study-status {
   color: var(--success);
   font-family: var(--font-hud), monospace;
   font-size: 0.65rem;
@@ -168,7 +194,7 @@ html.dark .quest-marker {
   text-transform: uppercase;
 }
 
-@keyframes quest-bounce {
+@keyframes study-bounce {
   0%,
   100% {
     translate: 0 0;
@@ -180,16 +206,16 @@ html.dark .quest-marker {
 
 @media (prefers-reduced-motion: reduce) {
   .skill-slot,
-  .quest-item {
+  .study-item {
     transition: none;
   }
 
   .skill-slot:hover,
-  .quest-item:hover {
+  .study-item:hover {
     translate: none;
   }
 
-  .quest-item:hover .quest-marker {
+  .study-item:hover .study-marker {
     animation: none;
   }
 }

@@ -162,25 +162,16 @@
   color: var(--primary);
   font-size: 0.75rem;
   line-height: 1;
-  animation: npc-blink 1.2s ease-in-out infinite alternate;
   transition: opacity 300ms var(--ease-out);
+}
+
+html[data-beat='1'] .npc-next {
+  translate: 0 3px;
 }
 
 .npc-dialog[data-state='waiting'] .npc-next,
 .npc-dialog[data-state='typing'] .npc-next {
   opacity: 0;
-  animation: none;
-}
-
-@keyframes npc-blink {
-  from {
-    opacity: 1;
-    translate: 0 0;
-  }
-  to {
-    opacity: 0.25;
-    translate: 0 3px;
-  }
 }
 
 @keyframes log-in {
@@ -191,7 +182,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .npc-next,
   .copy-email-log:not(:empty) {
     animation: none;
   }

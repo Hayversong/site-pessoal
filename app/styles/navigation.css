@@ -97,8 +97,10 @@
   color: var(--primary);
 }
 
-.pause-theme:hover {
-  --btn-depth: 4px;
+@media (hover: hover) {
+  .pause-theme:hover {
+    --btn-depth: 4px;
+  }
 }
 
 .pause-theme:active {

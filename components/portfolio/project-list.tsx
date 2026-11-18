@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 import { ProjectCard } from '@/components/portfolio/project-card';
@@ -24,6 +24,24 @@ export function ProjectList() {
       [...new Set(projects.flatMap((project) => project.technologies))].sort(),
     [],
   );
+  // No desktop o registro fica sempre aberto via ::details-content; sem esse
+  // suporte, abre os <details> por script.
+  useEffect(() => {
+    if (CSS.supports('selector(::details-content)')) return;
+    const desktop = window.matchMedia('(min-width: 64rem)');
+    const sync = () => {
+      if (!desktop.matches) return;
+      document
+        .querySelectorAll<HTMLDetailsElement>('details.quest-log')
+        .forEach((details) => {
+          details.open = true;
+        });
+    };
+    sync();
+    desktop.addEventListener('change', sync);
+    return () => desktop.removeEventListener('change', sync);
+  }, [status, technology]);
+
   function updateFilter(update: () => void) {
     withViewTransition(() => flushSync(update));
   }

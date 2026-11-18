@@ -1,0 +1,243 @@
+/* Efeitos de jogo retrô (lib/retro-fx.ts). Todas as animações aqui terminam
+   sozinhas; o que se repete usa o relógio de 8 quadros por segundo. */
+
+/* Brasinha andando sobre a barra de XP. */
+.xp-walker {
+  position: fixed;
+  top: 8px;
+  left: 0;
+  z-index: 45;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+}
+
+.brasinha {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(2px 2px 0 var(--shadow-hard));
+}
+
+.xp-walker[data-dir='left'] .brasinha {
+  scale: -1 1;
+}
+
+.xp-walker[data-hop='up'] .brasinha {
+  translate: 0 -2px;
+}
+
+.brasinha [data-sprite-frame] {
+  display: none;
+}
+
+.xp-walker[data-frame='a'] [data-sprite-frame='a'],
+.xp-walker[data-frame='b'] [data-sprite-frame='b'],
+.xp-walker[data-frame='blink'] [data-sprite-frame='blink'] {
+  display: inline;
+}
+
+@media (max-width: 640px) {
+  .xp-walker {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* LEVEL UP! ao chegar no fim da página. */
+.level-up {
+  position: fixed;
+  top: 5.5rem;
+  left: 50%;
+  z-index: 70;
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  border: var(--pixel) solid var(--panel-border);
+  background: var(--card);
+  padding: 0.8rem 1.25rem 0.9rem;
+  box-shadow:
+    inset 0 0 0 2px var(--panel-inner),
+    5px 5px 0 var(--shadow-hard);
+  pointer-events: none;
+  translate: -50% 0;
+  animation: level-up 2800ms steps(1, end) both;
+}
+
+.level-up-title {
+  color: var(--xp);
+  font-family: var(--font-pixel), monospace;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 var(--shadow-hard);
+  animation: level-up-bounce 600ms steps(4, end) 2;
+}
+
+.level-up-text {
+  color: var(--foreground);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@keyframes level-up {
+  0% {
+    opacity: 0;
+    translate: -50% -8px;
+  }
+  4% {
+    opacity: 1;
+    translate: -50% -4px;
+  }
+  8%,
+  88% {
+    opacity: 1;
+    translate: -50% 0;
+  }
+  94% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes level-up-bounce {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+/* Faíscas e textos flutuantes. */
+.fx-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 75;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fx-spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  background: var(--c, var(--primary));
+  box-shadow: 1px 1px 0 var(--shadow-hard);
+  animation: fx-spark 380ms steps(5, end) forwards;
+}
+
+@keyframes fx-spark {
+  to {
+    opacity: 0;
+    translate: var(--dx) var(--dy);
+  }
+}
+
+.fx-pop {
+  position: absolute;
+  border: 2px solid var(--panel-border);
+  background: var(--card);
+  padding: 0.35rem 0.55rem;
+  color: var(--primary);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  box-shadow: 3px 3px 0 var(--shadow-hard);
+  text-transform: uppercase;
+  white-space: nowrap;
+  translate: -50% -100%;
+  animation: fx-pop 1000ms steps(8, end) forwards;
+}
+
+@keyframes fx-pop {
+  0% {
+    opacity: 0;
+    translate: -50% -60%;
+  }
+  15% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    translate: -50% -260%;
+  }
+}
+
+/* Transição de batalha: blocos fecham e abrem a tela. */
+.warp {
+  --warp-color: oklch(0.12 0.01 50);
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--size));
+  grid-auto-rows: var(--size);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.warp i {
+  background: var(--warp-color);
+  transform: scale(0);
+  animation: warp-in 200ms steps(4, end) forwards;
+  animation-delay: calc(var(--d) * 14ms);
+}
+
+.warp[data-phase='out'] i {
+  transform: scale(1.06);
+  animation: warp-out 200ms steps(4, end) forwards;
+  animation-delay: calc((var(--max) - var(--d)) * 14ms);
+}
+
+@keyframes warp-in {
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes warp-out {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+
+/* Código secreto: filtro de CRT, estático (linhas de varredura e vinheta). */
+html.crt body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background:
+    linear-gradient(to bottom, rgb(0 0 0 / 22%) 50%, transparent 50%) 0 0 /
+      100% 4px repeat,
+    radial-gradient(ellipse at center, transparent 62%, rgb(0 0 0 / 38%) 100%);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .level-up,
+  .level-up-title {
+    animation: none;
+  }
+
+  .xp-walker[data-hop='up'] .brasinha {
+    translate: none;
+  }
+}

@@ -39,7 +39,11 @@
   width: 0.45rem;
   height: 0.45rem;
   background: var(--success);
-  animation: hero-blink 1.6s steps(1, end) infinite;
+}
+
+html[data-beat='1'] .hero-status-dot,
+html[data-beat='1'] .hero-name-cursor {
+  opacity: 0;
 }
 
 .hero-sheet-body {
@@ -145,7 +149,6 @@
 
 .hero-name-cursor {
   color: var(--primary);
-  animation: hero-blink 900ms steps(1, end) infinite;
 }
 
 .hero-meta {
@@ -301,17 +304,6 @@
   }
 }
 
-@keyframes hero-blink {
-  0%,
-  55% {
-    opacity: 1;
-  }
-  56%,
-  100% {
-    opacity: 0;
-  }
-}
-
 @media (max-width: 760px) {
   .hero-sheet-body {
     grid-template-columns: 1fr;
@@ -355,9 +347,7 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-sheet,
   .hero-enter,
-  .hero-focus .stat-bar::after,
-  .hero-status-dot,
-  .hero-name-cursor {
+  .hero-focus .stat-bar::after {
     animation: none;
   }
 

@@ -53,6 +53,15 @@ Paleta Brasa, definida como tokens em `app/globals.css`. Use sempre os tokens, n
 - `.rpg-kicker` e `.rpg-title`: rótulo e título de seção.
 - `.bg-dither`: textura de fundo.
 
+Efeitos de jogo ficam em `lib/retro-fx.ts` e `app/styles/retro-fx.css`:
+
+- **Brasinha** (`brasinha-sprite.tsx`): mascote em pixel art 16x16 que anda sobre a barra de XP conforme a rolagem.
+- **Transição de batalha:** blocos fecham e abrem a tela nos links internos (`warp`).
+- **Faíscas** ao clicar em `.pixel-btn` (`burst`) e **texto flutuante** de item obtido (`popText`).
+- **LEVEL UP!** ao chegar ao fim da página.
+- **Troca de tema** com fade de paleta em degraus (`html[data-transition='theme']`).
+- **Modo CRT:** ↑↑↓↓←→←→BA liga linhas de varredura estáticas.
+
 Cada seção tem o próprio CSS em `app/styles/<seção>.css`.
 
 ## Forma e espaçamento
@@ -66,6 +75,8 @@ Cada seção tem o próprio CSS em `app/styles/<seção>.css`.
 - **Curvas:** `--ease-out` para micro-interações e `--ease-out-expo` para deslocamentos maiores.
 - **Durações:** 90ms (clique), 200–260ms (hover), 400–550ms (indicadores), 800–1200ms (entradas e barras).
 - **Toque de jogo:** botões que afundam, cursor ▶ balançando, barras enchendo, texto de diálogo digitado.
+- **Nada de animação CSS infinita.** O Firefox redesenha a tela a cada quadro enquanto ela roda, mesmo com a página parada (o site chegou a 28% de CPU parado). O que se repete usa o relógio retrô de 8 quadros por segundo: `html[data-beat]` alterna a cada 500ms para piscadas e cursores, e `onRetroFrame` troca os quadros de sprites.
+- **Hover só com mouse:** efeitos de `:hover` ficam dentro de `@media (hover: hover)`, para não ficarem presos no toque.
 - **Acessibilidade:** tudo é desligado com `prefers-reduced-motion: reduce`, e o conteúdo nunca depende da animação para aparecer.
 
 ## Registro de decisões
@@ -73,3 +84,4 @@ Cada seção tem o próprio CSS em `app/styles/<seção>.css`.
 | Data       | Decisão                                                 | Motivo                                                                          |
 | ---------- | ------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | 2026-11-14 | Tema RPG retrô 16-bit sem neon, mantendo a paleta Brasa | Dar identidade própria ao portfólio, ligada ao lado de desenvolvimento de jogos |
+| 2026-11-18 | Relógio retrô de 8 fps no lugar de animações infinitas  | CPU com a página parada no Firefox caiu de ~25% para ~3,5%                      |
