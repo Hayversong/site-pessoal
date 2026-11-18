@@ -94,10 +94,12 @@ export const projects: Project[] = [
     repository:
       'https://github.com/Hayversong/fastcamp-LAMIA/tree/main/card-9/codigo_pessoal',
     technologies: [
-      'Python 3.11+',
-      'FastAPI e Pydantic',
-      'PostgreSQL 16',
-      'Docker Compose para o banco local',
+      'Python',
+      'FastAPI',
+      'Pydantic',
+      'SQLAlchemy',
+      'PostgreSQL',
+      'Docker',
     ],
     highlights: [
       'CRUD completo de jogos com filtros por status e plataforma',

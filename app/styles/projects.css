@@ -49,9 +49,11 @@
   left: 0.6rem;
 }
 
-.quest-filter:hover {
-  color: var(--foreground);
-  background: color-mix(in oklch, var(--primary) 8%, transparent);
+@media (hover: hover) {
+  .quest-filter:hover {
+    color: var(--foreground);
+    background: color-mix(in oklch, var(--primary) 8%, transparent);
+  }
 }
 
 .quest-filter[aria-pressed='true'] {
@@ -101,10 +103,13 @@
   transition: box-shadow 220ms var(--ease-out);
 }
 
-.quest-select:hover {
-  box-shadow:
-    inset 0 0 0 2px color-mix(in oklch, var(--primary) 35%, var(--panel-inner)),
-    3px 3px 0 var(--shadow-hard);
+@media (hover: hover) {
+  .quest-select:hover {
+    box-shadow:
+      inset 0 0 0 2px
+        color-mix(in oklch, var(--primary) 35%, var(--panel-inner)),
+      3px 3px 0 var(--shadow-hard);
+  }
 }
 
 .quest-select option {
@@ -130,11 +135,13 @@
     border-color 260ms var(--ease-out);
 }
 
-.quest:hover .quest-card,
-.quest:focus-within .quest-card {
-  --quest-lift: -3px;
-  --quest-depth: 9px;
-  border-color: color-mix(in oklch, var(--primary) 55%, var(--panel-border));
+@media (hover: hover) {
+  .quest:hover .quest-card,
+  .quest:focus-within .quest-card {
+    --quest-lift: -3px;
+    --quest-depth: 9px;
+    border-color: color-mix(in oklch, var(--primary) 55%, var(--panel-border));
+  }
 }
 
 .quest-header {
@@ -169,10 +176,12 @@
     transform 380ms var(--ease-out-expo);
 }
 
-.quest:hover .quest-pointer,
-.quest:focus-within .quest-pointer {
-  opacity: 1;
-  transform: none;
+@media (hover: hover) {
+  .quest:hover .quest-pointer,
+  .quest:focus-within .quest-pointer {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .quest-kind {
@@ -277,7 +286,76 @@
   min-width: 0;
   border: 2px solid var(--panel-inner);
   background: color-mix(in oklch, var(--card) 85%, var(--panel-inner));
+}
+
+.quest-log-content {
   padding: 1.25rem;
+}
+
+/* No celular o registro começa fechado; no desktop fica sempre aberto. */
+.quest-log-toggle {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  color: var(--foreground);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.quest-log-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.quest-log-toggle:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.quest-log-arrow {
+  color: var(--primary);
+  font-size: 0.65rem;
+  transition: rotate 240ms steps(3, end);
+}
+
+.quest-log[open] .quest-log-arrow {
+  rotate: 180deg;
+}
+
+.quest-log[open] .quest-log-toggle {
+  border-bottom: 2px dashed var(--panel-inner);
+}
+
+.quest-log[open] .quest-log-content {
+  animation: quest-log-open 320ms steps(4, end);
+}
+
+@keyframes quest-log-open {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@media (min-width: 64rem) {
+  .quest-log-toggle {
+    display: none;
+  }
+
+  .quest-log::details-content {
+    content-visibility: visible;
+  }
+
+  .quest-log[open] .quest-log-content {
+    animation: none;
+  }
 }
 
 .quest-check {
@@ -301,7 +379,54 @@
   padding-top: 1.1rem;
 }
 
+/* Filtros em uma faixa rolável no celular, em vez de linhas quebradas. */
+@media (max-width: 640px) {
+  .quest-filters {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .quest-filters fieldset {
+    margin-inline: -1.1rem;
+  }
+
+  .quest-filters legend {
+    padding-inline: 1.1rem;
+  }
+
+  .quest-filter-group {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 1.1rem;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    padding: 0.15rem 1.1rem 0.45rem;
+  }
+
+  .quest-filter-group::-webkit-scrollbar {
+    display: none;
+  }
+
+  .quest-filter {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  .quest-body {
+    gap: 1.5rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .quest-log-arrow {
+    transition: none;
+  }
+
+  .quest-log[open] .quest-log-content {
+    animation: none;
+  }
+
   .quest-filter,
   .quest-select,
   .quest-card,

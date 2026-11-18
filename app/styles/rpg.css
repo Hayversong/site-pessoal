@@ -58,9 +58,11 @@
   user-select: none;
 }
 
-.pixel-btn:hover {
-  --btn-depth: 6px;
-  transform: translate3d(0, -2px, 0);
+@media (hover: hover) {
+  .pixel-btn:hover {
+    --btn-depth: 6px;
+    transform: translate3d(0, -2px, 0);
+  }
 }
 
 .pixel-btn:active {
@@ -75,9 +77,11 @@
   --btn-edge: var(--panel-inner);
 }
 
-.pixel-btn[data-variant='ghost']:hover {
-  --btn-bg: color-mix(in oklch, var(--primary) 12%, var(--card));
-  --btn-fg: var(--primary);
+@media (hover: hover) {
+  .pixel-btn[data-variant='ghost']:hover {
+    --btn-bg: color-mix(in oklch, var(--primary) 12%, var(--card));
+    --btn-fg: var(--primary);
+  }
 }
 
 .pixel-btn svg {
@@ -107,13 +111,29 @@
     transform 380ms var(--ease-out-expo);
 }
 
-.rpg-cursor:hover::before,
 .rpg-cursor:focus-visible::before,
 .rpg-cursor[aria-current='location']::before,
 .rpg-cursor[aria-pressed='true']::before {
   opacity: 1;
   transform: translate3d(0, -50%, 0);
-  animation: cursor-bob 1s var(--ease-out) 380ms infinite;
+}
+
+@media (hover: hover) {
+  .rpg-cursor:hover::before {
+    opacity: 1;
+    transform: translate3d(0, -50%, 0);
+  }
+}
+
+/* O cursor balança em dois quadros, no compasso do relógio retrô (lib/retro-fx.ts). */
+html[data-beat='1']
+  .rpg-cursor:is(
+    :hover,
+    :focus-visible,
+    [aria-current='location'],
+    [aria-pressed='true']
+  )::before {
+  translate: -3px 0;
 }
 
 /* Barra de status (HP/MP/XP). Defina --value entre 0 e 1 e, se quiser, --bar-color. */
@@ -174,25 +194,11 @@
   mask-image: linear-gradient(to bottom, black 10%, transparent 95%);
 }
 
-@keyframes cursor-bob {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: -3px 0;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .pixel-btn,
   .rpg-cursor::before,
   .stat-bar::after {
     transition: none;
-  }
-
-  .rpg-cursor::before {
-    animation: none !important;
   }
 
   .pixel-btn:hover,
