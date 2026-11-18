@@ -1,125 +1,158 @@
-import { ArrowUpRight, Check, Code2, Joystick, Play } from 'lucide-react';
+import { ArrowUpRight, Code2, Joystick, Play } from 'lucide-react';
 
-import { Card, CardContent } from '@/components/ui/card';
-import type { Project } from '@/data/projects';
+import { getProjectNumber, type Project } from '@/data/projects';
 
 type ProjectCardProps = {
   project: Project;
-  index: number;
 };
 
-export function ProjectCard({ project, index }: ProjectCardProps) {
+const statusTone: Record<string, string> = {
+  'No ar': 'done',
+  Concluído: 'done',
+  'Em evolução': 'progress',
+  'Projeto de estudo': 'study',
+};
+
+export function ProjectCard({ project }: ProjectCardProps) {
+  const number = getProjectNumber(project);
+  const titleId = `missao-${project.id}`;
+  const kind = project.itchUrl ? 'Jogo' : 'Web/API';
+
   return (
-    <Card
+    <article
       data-reveal-item
-      className="project-card gap-0 rounded-3xl border border-white/10 bg-card/65 py-0 ring-0 backdrop-blur-sm"
+      aria-labelledby={titleId}
+      style={{ viewTransitionName: `project-${project.id}` }}
+      className="quest"
     >
-      <CardContent className="grid gap-8 px-6 py-7 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)] lg:px-8 lg:py-8">
-        <div className="flex min-w-0 flex-col">
-          <div className="mb-4 flex flex-wrap items-center gap-3">
-            <span className="font-mono text-xs text-primary">
-              PROJETO / 0{index + 1}
+      <div className="quest-card pixel-panel">
+        <header className="quest-header">
+          <p className="quest-number">
+            <span className="quest-pointer" aria-hidden="true">
+              ▶
             </span>
-
-            <span className="rounded-full border border-emerald-300/15 bg-emerald-300/10 px-3 py-1 text-xs text-emerald-200">
-              {project.status}
-            </span>
-          </div>
-
-          <h3 className="text-2xl font-semibold tracking-tight">
-            {project.title}
-          </h3>
-
-          <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground">
-            {project.description}
+            Missão {number}
+            <span className="quest-kind">{kind}</span>
           </p>
+          <p
+            className="quest-status"
+            data-tone={statusTone[project.status] ?? 'study'}
+          >
+            <span className="quest-status-mark" aria-hidden="true" />
+            <span className="sr-only">Status: </span>
+            {project.status}
+          </p>
+        </header>
 
-          <div className="mt-5 flex flex-wrap gap-2">
-            {project.technologies.map((technology) => (
-              <span
-                key={technology}
-                className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-xs text-muted-foreground"
-              >
-                {technology}
-              </span>
-            ))}
-          </div>
+        <div className="quest-body">
+          <div className="flex min-w-0 flex-col">
+            <h3 id={titleId} className="rpg-title text-2xl sm:text-[1.7rem]">
+              {project.title}
+            </h3>
 
-          {project.demoUrl || project.repository || project.itchUrl ? (
-            <div className="mt-7 flex flex-wrap gap-3">
-              {project.demoUrl ? (
-                <a
-                  href={project.demoUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Abrir a demo do projeto ${project.title}`}
-                  className="project-repository-link w-fit"
-                >
-                  <Play className="size-4" aria-hidden="true" />
-                  Ver demo
-                  <ArrowUpRight className="size-4" aria-hidden="true" />
-                </a>
-              ) : null}
+            <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground">
+              {project.description}
+            </p>
 
-              {project.repository ? (
-                <a
-                  href={project.repository}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Explorar o código do projeto ${project.title} no GitHub`}
-                  className="project-repository-link w-fit"
-                >
-                  <Code2 className="size-4" aria-hidden="true" />
-                  Explorar código
-                  <ArrowUpRight className="size-4" aria-hidden="true" />
-                </a>
-              ) : null}
-
-              {project.itchUrl ? (
-                <a
-                  href={project.itchUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Jogar ${project.title} no itch.io`}
-                  className="project-repository-link w-fit"
-                >
-                  <Joystick className="size-4" aria-hidden="true" />
-                  Jogar no itch.io
-                  <ArrowUpRight className="size-4" aria-hidden="true" />
-                </a>
-              ) : null}
+            <div className="mt-6">
+              <p className="quest-label">Itens</p>
+              <ul className="quest-items" aria-label="Tecnologias">
+                {project.technologies.map((technology) => (
+                  <li key={technology} className="quest-item">
+                    {technology}
+                  </li>
+                ))}
+              </ul>
             </div>
-          ) : null}
-        </div>
 
-        <div className="project-evidence">
-          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-primary">
-            O que este projeto demonstra
-          </p>
-          <ul className="mt-4 grid gap-3">
-            {project.highlights.map((highlight) => (
-              <li
-                key={highlight}
-                className="flex gap-3 text-sm leading-6 text-foreground/85"
-              >
-                <span className="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
-                  <Check className="size-3" aria-hidden="true" />
-                </span>
-                {highlight}
-              </li>
-            ))}
-          </ul>
+            {project.demoUrl || project.repository || project.itchUrl ? (
+              <div className="mt-7 flex flex-wrap gap-4 pb-1">
+                {project.demoUrl ? (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Abrir a demo do projeto ${project.title}`}
+                    className="pixel-btn"
+                  >
+                    <Play aria-hidden="true" />
+                    Ver demo
+                    <ArrowUpRight aria-hidden="true" />
+                  </a>
+                ) : null}
 
-          <div className="mt-5 border-t border-white/10 pt-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-              Principal aprendizado
+                {project.repository ? (
+                  <a
+                    href={project.repository}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Explorar o código do projeto ${project.title} no GitHub`}
+                    className="pixel-btn"
+                    data-variant={project.demoUrl ? 'ghost' : undefined}
+                  >
+                    <Code2 aria-hidden="true" />
+                    Explorar código
+                    <ArrowUpRight aria-hidden="true" />
+                  </a>
+                ) : null}
+
+                {project.itchUrl ? (
+                  <a
+                    href={project.itchUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Jogar ${project.title} no itch.io`}
+                    className="pixel-btn"
+                    data-variant={
+                      project.demoUrl || project.repository
+                        ? 'ghost'
+                        : undefined
+                    }
+                  >
+                    <Joystick aria-hidden="true" />
+                    Jogar no itch.io
+                    <ArrowUpRight aria-hidden="true" />
+                  </a>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
+
+          <div className="quest-log">
+            <h4 className="quest-label" data-mark="primary">
+              Objetivos
+            </h4>
+            <p className="mt-1 text-xs text-muted-foreground">
+              O que este projeto demonstra
             </p>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              {project.learning}
-            </p>
+            <ul className="mt-4 grid gap-3">
+              {project.highlights.map((highlight) => (
+                <li
+                  key={highlight}
+                  className="flex gap-3 text-sm leading-6 text-foreground/90"
+                >
+                  <span className="quest-check" aria-hidden="true">
+                    ✓
+                  </span>
+                  {highlight}
+                </li>
+              ))}
+            </ul>
+
+            <div className="quest-reward">
+              <h4 className="quest-label" data-mark="xp">
+                Recompensa
+              </h4>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Principal aprendizado
+              </p>
+              <p className="mt-2 text-sm leading-6 text-foreground/85">
+                {project.learning}
+              </p>
+            </div>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </article>
   );
 }

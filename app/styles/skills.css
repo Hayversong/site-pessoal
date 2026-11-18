@@ -1,0 +1,195 @@
+/* Competências: inventário de JRPG e registro de missões. */
+
+.skills-window {
+  min-width: 0;
+  padding: 1.5rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .skills-window {
+    padding: 1.75rem 2rem 2rem;
+  }
+}
+
+.skills-window-header {
+  border-bottom: 2px dashed var(--panel-inner);
+  padding-bottom: 1.25rem;
+}
+
+.skills-groups {
+  display: grid;
+  gap: 1.75rem;
+  margin-top: 1.5rem;
+}
+
+/* Aba da categoria, como o separador de um menu de inventário. */
+.skills-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--panel-border);
+  background: var(--panel-inner);
+  padding: 0.4rem 0.7rem;
+  color: var(--foreground);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 var(--shadow-hard);
+}
+
+.skills-tab svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  color: var(--primary);
+}
+
+.skills-slots {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-left: 1.1rem;
+}
+
+@media (min-width: 640px) {
+  .skills-slots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Cada tecnologia é um slot do inventário. */
+.skill-slot {
+  height: 100%;
+  display: grid;
+  min-height: 2.75rem;
+  align-content: center;
+  gap: 0.35rem;
+  border: 2px solid var(--panel-inner);
+  background: color-mix(in oklch, var(--panel-inner) 35%, var(--card));
+  padding: 0.6rem 0.75rem;
+  transition:
+    border-color 220ms var(--ease-out),
+    background-color 220ms var(--ease-out),
+    translate 260ms var(--ease-out-expo),
+    box-shadow 260ms var(--ease-out-expo);
+}
+
+.skill-slot:hover {
+  border-color: var(--primary);
+  background: color-mix(in oklch, var(--primary) 8%, var(--card));
+  box-shadow: 3px 3px 0 var(--shadow-hard);
+  translate: -1px -1px;
+}
+
+.skill-slot.rpg-cursor::before {
+  left: -1.15rem;
+  font-size: 0.65rem;
+}
+
+.skill-slot-name {
+  min-width: 0;
+  color: var(--foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.skill-slot-meta {
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.skill-slot-meta[data-empty] {
+  font-style: italic;
+}
+
+.skill-slot-bar {
+  display: block;
+  height: 0.6rem;
+}
+
+/* Registro de missões. */
+.quest-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.quest-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.85rem;
+  border: 2px solid var(--panel-inner);
+  background: color-mix(in oklch, var(--panel-inner) 35%, var(--card));
+  padding: 0.9rem 1rem;
+  transition:
+    border-color 220ms var(--ease-out),
+    translate 260ms var(--ease-out-expo),
+    box-shadow 260ms var(--ease-out-expo);
+}
+
+.quest-item:hover {
+  border-color: var(--xp);
+  box-shadow: 3px 3px 0 var(--shadow-hard);
+  translate: -1px -1px;
+}
+
+.quest-marker {
+  display: inline-flex;
+  width: 1.75rem;
+  height: 1.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--panel-border);
+  background: var(--xp);
+  color: var(--background);
+  font-family: var(--font-pixel), monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+html.dark .quest-marker {
+  color: var(--primary-foreground);
+}
+
+.quest-item:hover .quest-marker {
+  animation: quest-bounce 600ms var(--ease-out);
+}
+
+.quest-status {
+  color: var(--success);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@keyframes quest-bounce {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  40% {
+    translate: 0 -3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-slot,
+  .quest-item {
+    transition: none;
+  }
+
+  .skill-slot:hover,
+  .quest-item:hover {
+    translate: none;
+  }
+
+  .quest-item:hover .quest-marker {
+    animation: none;
+  }
+}

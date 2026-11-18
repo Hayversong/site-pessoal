@@ -1,4 +1,5 @@
 export type Project = {
+  id: string;
   title: string;
   description: string;
   status: string;
@@ -12,6 +13,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: 'dungenlab',
     title: 'DunGenLab',
     description:
       'Visualizador de geração procedural de masmorras: escolha o algoritmo, a seed e os parâmetros e assista ao mapa ser construído passo a passo em um canvas, com interface de menu de RPG 16 bits.',
@@ -28,6 +30,7 @@ export const projects: Project[] = [
       'Aprendi a separar a lógica dos algoritmos da renderização, a animar estados no canvas sem travar a interface e a testar código determinístico.',
   },
   {
+    id: 'patchnotes',
     title: 'Patchnotes',
     description:
       'Aplicação para organizar o desenvolvimento de jogos, com dashboard de métricas, devlog, assistente e perfil. O front evolui sobre uma API simulada com contratos documentados.',
@@ -50,6 +53,7 @@ export const projects: Project[] = [
       'Pratiquei arquitetura por módulos, cache e mutações com React Query, validação com Zod e como desenvolver o front antes do backend sem perder o contrato.',
   },
   {
+    id: 'questboard',
     title: 'QuestBoard',
     description:
       'Kanban gamificado em que tarefas viram quests, conclusões geram XP e cada projeto evolui em nível e rank.',
@@ -65,6 +69,7 @@ export const projects: Project[] = [
       'Aprofundei regras de negócio, persistência, testes e a organização de uma aplicação Go que vai além de um CRUD básico.',
   },
   {
+    id: 'portfolio',
     title: 'Portfólio pessoal',
     description:
       'Portfólio responsivo criado para transformar minha evolução em uma apresentação clara, acessível e fácil de atualizar.',
@@ -81,6 +86,7 @@ export const projects: Project[] = [
       'Pratiquei componentização, responsividade, acessibilidade e construção de uma experiência consistente.',
   },
   {
+    id: 'gameshelf-api',
     title: 'GameShelf API',
     description:
       'API REST para organizar uma coleção pessoal de jogos, com CRUD, filtros, acompanhamento de progresso e resumo estatístico. Os dados são persistidos em PostgreSQL por meio do SQLAlchemy, e a evolução do banco é controlada pelo Alembic.',
@@ -102,6 +108,7 @@ export const projects: Project[] = [
       'Aprendi rotas HTTP, schemas de validação, CRUD com ORM, testes automatizados, injeção de dependências e os fundamentos de arquitetura e desenvolvimento de APIs RESTful.',
   },
   {
+    id: 'dungeon-meowster',
     title: 'Dungeon Meowster',
     description: 'Uma aventura felina retrô em desenvolvimento.',
     status: 'Em evolução',
@@ -115,3 +122,7 @@ export const projects: Project[] = [
       'Aprendi a desenvolver um jogo roguelike sem depender de tutoriais, mantendo um escopo pequeno, mas completo.',
   },
 ];
+
+export function getProjectNumber(project: Project) {
+  return String(projects.indexOf(project) + 1).padStart(2, '0');
+}

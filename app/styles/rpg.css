@@ -1,0 +1,202 @@
+/* Componentes base do tema RPG. As seções usam estas classes; não redefina aqui estilos de seção. */
+
+/* Janela de menu: borda dupla e sombra sólida, sem brilho. */
+.pixel-panel {
+  position: relative;
+  border: var(--pixel) solid var(--panel-border);
+  border-radius: 0;
+  background: var(--card);
+  box-shadow:
+    inset 0 0 0 2px var(--panel-inner),
+    6px 6px 0 var(--shadow-hard);
+}
+
+/* Caixa de diálogo: mesma janela, com o fundo um pouco mais fundo. */
+.pixel-dialog {
+  position: relative;
+  border: var(--pixel) solid var(--panel-border);
+  border-radius: 0;
+  background: color-mix(in oklch, var(--card) 88%, var(--panel-inner));
+  box-shadow:
+    inset 0 0 0 2px var(--panel-inner),
+    inset 0 0 0 5px var(--card),
+    6px 6px 0 var(--shadow-hard);
+}
+
+/* Botão que afunda: a sombra sólida é a "altura" e encolhe ao clicar. */
+.pixel-btn {
+  --btn-bg: var(--primary);
+  --btn-fg: var(--primary-foreground);
+  --btn-edge: color-mix(in oklch, var(--btn-bg), black 24%);
+  --btn-depth: 4px;
+  position: relative;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border: var(--pixel) solid var(--panel-border);
+  border-radius: 0;
+  background: var(--btn-bg);
+  padding: 0.65rem 1.1rem;
+  color: var(--btn-fg);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 calc(var(--pixel) * -1) 0 var(--btn-edge),
+    0 var(--btn-depth) 0 var(--shadow-hard);
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 260ms var(--ease-out-expo),
+    box-shadow 260ms var(--ease-out-expo),
+    background-color 240ms var(--ease-out),
+    color 240ms var(--ease-out);
+  user-select: none;
+}
+
+.pixel-btn:hover {
+  --btn-depth: 6px;
+  transform: translate3d(0, -2px, 0);
+}
+
+.pixel-btn:active {
+  --btn-depth: 0px;
+  transform: translate3d(0, 4px, 0);
+  transition-duration: 90ms;
+}
+
+.pixel-btn[data-variant='ghost'] {
+  --btn-bg: var(--card);
+  --btn-fg: var(--foreground);
+  --btn-edge: var(--panel-inner);
+}
+
+.pixel-btn[data-variant='ghost']:hover {
+  --btn-bg: color-mix(in oklch, var(--primary) 12%, var(--card));
+  --btn-fg: var(--primary);
+}
+
+.pixel-btn svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+}
+
+/* Cursor de menu: um ▶ aparece à esquerda do item ativo, focado ou sob o mouse. */
+.rpg-cursor {
+  position: relative;
+}
+
+.rpg-cursor::before {
+  content: '▶';
+  position: absolute;
+  top: 50%;
+  left: -1.1em;
+  color: var(--primary);
+  font-size: 0.7em;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-6px, -50%, 0);
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 380ms var(--ease-out-expo);
+}
+
+.rpg-cursor:hover::before,
+.rpg-cursor:focus-visible::before,
+.rpg-cursor[aria-current='location']::before,
+.rpg-cursor[aria-pressed='true']::before {
+  opacity: 1;
+  transform: translate3d(0, -50%, 0);
+  animation: cursor-bob 1s var(--ease-out) 380ms infinite;
+}
+
+/* Barra de status (HP/MP/XP). Defina --value entre 0 e 1 e, se quiser, --bar-color. */
+.stat-bar {
+  --value: 0;
+  --bar-color: var(--xp);
+  position: relative;
+  height: 0.75rem;
+  overflow: hidden;
+  border: 2px solid var(--panel-border);
+  background: var(--panel-inner);
+}
+
+.stat-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--bar-color) 0 6px,
+    color-mix(in oklch, var(--bar-color), black 14%) 6px 8px
+  );
+  transform: scaleX(var(--value));
+  transform-origin: left;
+  transition: transform 1200ms var(--ease-out-expo) 250ms;
+}
+
+/* Dentro de um ScrollReveal, a barra só enche quando o item aparece. */
+.reveal-pending:not(.reveal-visible) .stat-bar::after,
+.stat-bar.reveal-pending:not(.reveal-visible)::after {
+  transform: scaleX(0);
+}
+
+/* Título de seção no estilo de tela de jogo. */
+.rpg-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  font-family: var(--font-hud), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rpg-title {
+  font-family: var(--font-pixel), var(--font-geist-sans), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.05;
+}
+
+/* Fundo com dithering leve, como textura de tela de 16 bits. */
+.bg-dither {
+  background-color: var(--background);
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1.2px);
+  background-size: 6px 6px;
+  mask-image: linear-gradient(to bottom, black 10%, transparent 95%);
+}
+
+@keyframes cursor-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: -3px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-btn,
+  .rpg-cursor::before,
+  .stat-bar::after {
+    transition: none;
+  }
+
+  .rpg-cursor::before {
+    animation: none !important;
+  }
+
+  .pixel-btn:hover,
+  .pixel-btn:active {
+    transform: none;
+  }
+}

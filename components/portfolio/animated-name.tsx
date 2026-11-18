@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-const targetName = 'Hayversong';
+const targetName = 'Hayverson';
 const randomCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
 function getRandomCharacter(character: string) {
@@ -11,7 +11,9 @@ function getRandomCharacter(character: string) {
   return randomCharacters[index];
 }
 
-export function AnimatedName() {
+type AnimatedNameProps = { className?: string };
+
+export function AnimatedName({ className }: AnimatedNameProps) {
   const [displayName, setDisplayName] = useState(targetName);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -23,6 +25,7 @@ export function AnimatedName() {
 
   function animateName() {
     if (intervalRef.current) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let revealedLetters = 0;
 
@@ -49,17 +52,21 @@ export function AnimatedName() {
   }
 
   return (
-    <button
-      type="button"
-      onClick={animateName}
-      className="animated-name"
-      aria-label="Animar o nome Hayverson"
-      title="Clique para embaralhar as letras"
-    >
-      <span aria-hidden="true">{displayName}</span>
-      <span aria-hidden="true" className="name-cursor">
-        _
-      </span>
-    </button>
+    <div className={['hero-name', className].filter(Boolean).join(' ')}>
+      <h1 className="rpg-title">
+        <span className="sr-only">{targetName}</span>
+        <span aria-hidden="true">{displayName}</span>
+        <span aria-hidden="true" className="hero-name-cursor">
+          _
+        </span>
+      </h1>
+      <button
+        type="button"
+        onClick={animateName}
+        className="hero-name-trigger"
+        aria-label="Embaralhar as letras do nome"
+        title="Clique para embaralhar as letras"
+      />
+    </div>
   );
 }

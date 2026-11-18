@@ -1,7 +1,12 @@
-import { BookOpen, Braces, Container, Database, Server } from 'lucide-react';
+import type { CSSProperties } from 'react';
+import { Braces, Container, Database, Server } from 'lucide-react';
 
-import { Card, CardContent } from '@/components/ui/card';
-import { skillGroups, studyTopics } from '@/data/skills';
+import {
+  countProjectsUsing,
+  skillGroups,
+  studyTopics,
+  totalProjects,
+} from '@/data/skills';
 import { ScrollReveal } from '@/components/portfolio/scroll-reveal';
 
 const groupIcons = {
@@ -11,90 +16,132 @@ const groupIcons = {
   Ferramentas: Container,
 };
 
+function usageLabel(count: number) {
+  return count === 1 ? 'usada em 1 projeto' : `usada em ${count} projetos`;
+}
+
 export function SkillsSection() {
   return (
-    <section id="competencias" aria-label="Aprendizado" className="section-shell py-24 sm:py-32">
-      <div className="mb-10 max-w-2xl" data-reveal-item>
-        <p className="font-mono text-sm uppercase tracking-[0.18em] text-primary">
-          /aprendizado
+    <section
+      id="competencias"
+      aria-labelledby="competencias-titulo"
+      className="section-shell py-24 sm:py-32"
+    >
+      <ScrollReveal className="mb-10 max-w-2xl">
+        <p className="rpg-kicker">
+          <span aria-hidden="true">▶</span> Inventário
         </p>
-        <h2 className="mt-3 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
+        <h2
+          id="competencias-titulo"
+          className="rpg-title mt-3 text-4xl sm:text-5xl"
+        >
           Competências e estudos
         </h2>
         <p className="mt-4 text-base leading-7 text-muted-foreground">
           Tecnologias que já uso nos meus projetos e assuntos que estou
           aprofundando agora.
         </p>
-      </div>
+      </ScrollReveal>
 
-      <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card className="gap-0 rounded-3xl border border-white/10 bg-card/65 py-0 ring-0 backdrop-blur-sm">
-          <CardContent className="px-6 py-7 sm:px-8 sm:py-8">
-            <div className="flex items-center gap-3">
-              <span className="flex size-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                <BookOpen className="size-5" aria-hidden="true" />
-              </span>
-              <div>
-                <p className="font-mono text-xs uppercase tracking-[0.15em] text-primary">
-                  Em andamento
-                </p>
-                <h3 className="mt-1 text-xl font-semibold">
-                  O que estou estudando
-                </h3>
-              </div>
-            </div>
-
-            <ScrollReveal className="mt-7 grid gap-3 sm:grid-cols-2" stagger>
-              {studyTopics.map((topic) => (
-                <li key={topic.name} data-reveal-item className="study-topic">
-                  <h4 className="font-semibold text-foreground">
-                    {topic.name}
-                  </h4>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    {topic.description}
-                  </p>
-                </li>
-              ))}
-            </ScrollReveal>
-          </CardContent>
-        </Card>
-
-        <Card className="gap-0 rounded-3xl border border-white/10 bg-card/65 py-0 ring-0 backdrop-blur-sm">
-          <CardContent className="px-6 py-7 sm:px-8 sm:py-8">
-            <p className="font-mono text-xs uppercase tracking-[0.15em] text-primary">
-              Caixa de ferramentas
+      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+        <div className="pixel-panel skills-window">
+          <header className="skills-window-header">
+            <p className="font-hud text-[0.7rem] uppercase tracking-[0.08em] text-primary">
+              Itens equipados
             </p>
-            <h3 className="mt-2 text-xl font-semibold">Competências</h3>
+            <h3 className="rpg-title mt-2 text-2xl">Competências</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              A barra mostra em quantos dos {totalProjects} projetos da vitrine
+              cada tecnologia aparece.
+            </p>
+          </header>
 
-            <ScrollReveal className="mt-7 grid gap-6" stagger>
-              {skillGroups.map((group) => {
-                const Icon = groupIcons[group.name as keyof typeof groupIcons];
+          <div className="skills-groups">
+            {skillGroups.map((group) => {
+              const Icon = groupIcons[group.name as keyof typeof groupIcons];
+              const headingId = `grupo-${group.name.toLowerCase().replaceAll(/[^a-z]/g, '')}`;
 
-                return (
-                  <div key={group.name} data-reveal-item>
-                    <h4 className="flex items-center gap-2 text-sm font-medium text-foreground/85">
-                      <Icon
-                        className="size-4 text-primary"
-                        aria-hidden="true"
-                      />
-                      {group.name}
-                    </h4>
-                    <ul
-                      className="mt-3 flex flex-wrap gap-2"
-                      aria-label={group.name}
-                    >
-                      {group.skills.map((skill) => (
-                        <li key={skill} className="skill-tag">
-                          {skill}
+              return (
+                <section
+                  key={group.name}
+                  className="skills-group"
+                  aria-labelledby={headingId}
+                >
+                  <h4 id={headingId} className="skills-tab">
+                    {Icon ? <Icon aria-hidden="true" /> : null}
+                    {group.name}
+                  </h4>
+                  <ScrollReveal as="ul" className="skills-slots" stagger>
+                    {group.skills.map((skill) => {
+                      const count = countProjectsUsing(skill);
+
+                      return (
+                        <li key={skill} data-reveal-item>
+                          <div className="skill-slot rpg-cursor">
+                            <span className="skill-slot-name">{skill}</span>
+                            {count > 0 ? (
+                              <>
+                                <span className="skill-slot-meta">
+                                  {usageLabel(count)}
+                                </span>
+                                <span
+                                  className="stat-bar skill-slot-bar"
+                                  aria-hidden="true"
+                                  style={
+                                    {
+                                      '--value': count / totalProjects,
+                                    } as CSSProperties
+                                  }
+                                />
+                              </>
+                            ) : (
+                              <span className="skill-slot-meta" data-empty="">
+                                sem projeto na vitrine
+                              </span>
+                            )}
+                          </div>
                         </li>
-                      ))}
-                    </ul>
+                      );
+                    })}
+                  </ScrollReveal>
+                </section>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="pixel-panel skills-window">
+          <header className="skills-window-header">
+            <p className="font-hud text-[0.7rem] uppercase tracking-[0.08em] text-primary">
+              Grimório de estudos
+            </p>
+            <h3 className="rpg-title mt-2 text-2xl">Missões em andamento</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              O que estou estudando agora.
+            </p>
+          </header>
+
+          <ScrollReveal as="ul" className="quest-list" stagger>
+            {studyTopics.map((topic) => (
+              <li key={topic.name} data-reveal-item>
+                <div className="quest-item">
+                  <span className="quest-marker" aria-hidden="true">
+                    !
+                  </span>
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <h4 className="rpg-title text-lg">{topic.name}</h4>
+                      <span className="quest-status">Em andamento</span>
+                    </div>
+                    <p className="mt-1.5 text-sm leading-6 text-muted-foreground">
+                      {topic.description}
+                    </p>
                   </div>
-                );
-              })}
-            </ScrollReveal>
-          </CardContent>
-        </Card>
+                </div>
+              </li>
+            ))}
+          </ScrollReveal>
+        </div>
       </div>
     </section>
   );
