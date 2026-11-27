@@ -218,6 +218,24 @@
   }
 }
 
+/* Chegando de outra página: a tela nasce fechada até warpArrival() abrir.
+   Se o JavaScript não rodar, some sozinha depois de 1,5s. */
+html[data-warp='arriving'] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 81;
+  background: oklch(0.12 0.01 50);
+  pointer-events: none;
+  animation: warp-hold 0s 1.5s forwards;
+}
+
+@keyframes warp-hold {
+  to {
+    visibility: hidden;
+  }
+}
+
 /* Código secreto: filtro de CRT, estático (linhas de varredura e vinheta). */
 html.crt body::after {
   content: '';
@@ -225,8 +243,8 @@ html.crt body::after {
   inset: 0;
   z-index: 90;
   background:
-    linear-gradient(to bottom, rgb(0 0 0 / 22%) 50%, transparent 50%) 0 0 /
-      100% 4px repeat,
+    linear-gradient(to bottom, rgb(0 0 0 / 22%) 50%, transparent 50%) 0 0 / 100%
+      4px repeat,
     radial-gradient(ellipse at center, transparent 62%, rgb(0 0 0 / 38%) 100%);
   pointer-events: none;
 }

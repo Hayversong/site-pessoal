@@ -2,7 +2,15 @@
 
 import { useEffect } from 'react';
 
-import { burst, popText, prefersReducedMotion, warp } from '@/lib/retro-fx';
+import {
+  burst,
+  clearWarp,
+  popText,
+  prefersReducedMotion,
+  warp,
+  warpArrival,
+  warpTo,
+} from '@/lib/retro-fx';
 
 const secretCode = [
   'ArrowUp',
@@ -17,8 +25,8 @@ const secretCode = [
   'a',
 ];
 
-// Faíscas nos botões pixel, transição de batalha nos links internos e o
-// código secreto que liga o filtro de CRT.
+// Faíscas nos botões pixel, transição de batalha nos links internos (na mesma
+// página e entre páginas) e o código secreto que liga o filtro de CRT.
 export function RetroEffects() {
   useEffect(() => {
     const onPointerDown = (event: PointerEvent) => {
@@ -41,9 +49,19 @@ export function RetroEffects() {
         return;
       }
       const link = (event.target as Element | null)?.closest<HTMLAnchorElement>(
-        'a[href^="#"]',
+        'a[href]',
       );
-      const id = link?.hash.slice(1);
+      if (!link || link.target || link.hasAttribute('download')) return;
+      if (link.origin !== window.location.origin) return;
+
+      // Outra página do site: fecha a tela antes de trocar.
+      if (link.pathname !== window.location.pathname) {
+        event.preventDefault();
+        warpTo(link.href);
+        return;
+      }
+
+      const id = link.hash.slice(1);
       const section = id ? document.getElementById(id) : null;
       if (!section) return;
 
@@ -76,13 +94,20 @@ export function RetroEffects() {
       );
     };
 
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) clearWarp();
+    };
+
+    warpArrival();
     document.addEventListener('pointerdown', onPointerDown, { passive: true });
+    window.addEventListener('pageshow', onPageShow);
     document.addEventListener('click', onClick);
     window.addEventListener('keydown', onKeyDown);
     return () => {
       document.removeEventListener('pointerdown', onPointerDown);
       document.removeEventListener('click', onClick);
       window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('pageshow', onPageShow);
     };
   }, []);
 

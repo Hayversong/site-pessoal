@@ -8,6 +8,7 @@
 @import './styles/skills.css';
 @import './styles/contact.css';
 @import './styles/retro-fx.css';
+@import './styles/mission.css';
 
 @custom-variant dark (&:is(.dark *));
 @custom-variant light (&:is(.light *));
