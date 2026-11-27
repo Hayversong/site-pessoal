@@ -1,22 +1,21 @@
-import { ArrowUpRight, Code2, Joystick, Play } from 'lucide-react';
+import { ScrollText } from 'lucide-react';
 
-import { getProjectNumber, type Project } from '@/data/projects';
+import { ProjectLinks } from '@/components/portfolio/project-links';
+import {
+  getProjectKind,
+  getProjectNumber,
+  statusTone,
+  type Project,
+} from '@/data/projects';
 
 type ProjectCardProps = {
   project: Project;
 };
 
-const statusTone: Record<string, string> = {
-  'No ar': 'done',
-  Concluído: 'done',
-  'Em evolução': 'progress',
-  'Projeto de estudo': 'study',
-};
-
 export function ProjectCard({ project }: ProjectCardProps) {
   const number = getProjectNumber(project);
   const titleId = `missao-${project.id}`;
-  const kind = project.itchUrl ? 'Jogo' : 'Web/API';
+  const kind = getProjectKind(project);
 
   return (
     <article
@@ -65,57 +64,18 @@ export function ProjectCard({ project }: ProjectCardProps) {
               </ul>
             </div>
 
-            {project.demoUrl || project.repository || project.itchUrl ? (
-              <div className="mt-7 flex flex-wrap gap-4 pb-1">
-                {project.demoUrl ? (
-                  <a
-                    href={project.demoUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`Abrir a demo do projeto ${project.title}`}
-                    className="pixel-btn"
-                  >
-                    <Play aria-hidden="true" />
-                    Ver demo
-                    <ArrowUpRight aria-hidden="true" />
-                  </a>
-                ) : null}
-
-                {project.repository ? (
-                  <a
-                    href={project.repository}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`Explorar o código do projeto ${project.title} no GitHub`}
-                    className="pixel-btn"
-                    data-variant={project.demoUrl ? 'ghost' : undefined}
-                  >
-                    <Code2 aria-hidden="true" />
-                    Explorar código
-                    <ArrowUpRight aria-hidden="true" />
-                  </a>
-                ) : null}
-
-                {project.itchUrl ? (
-                  <a
-                    href={project.itchUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`Jogar ${project.title} no itch.io`}
-                    className="pixel-btn"
-                    data-variant={
-                      project.demoUrl || project.repository
-                        ? 'ghost'
-                        : undefined
-                    }
-                  >
-                    <Joystick aria-hidden="true" />
-                    Jogar no itch.io
-                    <ArrowUpRight aria-hidden="true" />
-                  </a>
-                ) : null}
-              </div>
-            ) : null}
+            <div className="mt-7 flex flex-wrap gap-4 pb-1">
+              <ProjectLinks project={project} className="contents" />
+              <a
+                href={`/missoes/${project.id}`}
+                aria-label={`Ler o diário da missão ${project.title}`}
+                className="pixel-btn"
+                data-variant="ghost"
+              >
+                <ScrollText aria-hidden="true" />
+                Diário da missão
+              </a>
+            </div>
           </div>
 
           <details className="quest-log">

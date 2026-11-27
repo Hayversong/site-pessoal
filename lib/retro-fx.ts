@@ -115,15 +115,9 @@ export function popText(x: number, y: number, text: string) {
 let warping = false;
 const STEP_MS = 14;
 const CELL_MS = 200;
+const ARRIVAL_KEY = 'warp-arrival';
 
-export function warp(onCovered: () => void) {
-  if (warping) return;
-  if (prefersReducedMotion()) {
-    onCovered();
-    return;
-  }
-  warping = true;
-
+function buildWarp(phase?: 'out') {
   const size = window.innerWidth < 640 ? 48 : 72;
   const cols = Math.ceil(window.innerWidth / size);
   const rows = Math.ceil(window.innerHeight / size);
@@ -134,6 +128,7 @@ export function warp(onCovered: () => void) {
   const overlay = document.createElement('div');
   overlay.className = 'warp';
   overlay.setAttribute('aria-hidden', 'true');
+  if (phase) overlay.dataset.phase = phase;
   overlay.style.setProperty('--cols', String(cols));
   overlay.style.setProperty('--size', `${size}px`);
   overlay.style.setProperty('--max', String(maxDistance));
@@ -152,13 +147,67 @@ export function warp(onCovered: () => void) {
   overlay.append(fragment);
   document.body.append(overlay);
 
-  const phase = CELL_MS + maxDistance * STEP_MS;
+  return { overlay, duration: CELL_MS + maxDistance * STEP_MS + 40 };
+}
+
+function openWarp(overlay: HTMLElement, duration: number) {
+  overlay.dataset.phase = 'out';
+  window.setTimeout(() => {
+    overlay.remove();
+    warping = false;
+  }, duration);
+}
+
+export function warp(onCovered: () => void) {
+  if (warping) return;
+  if (prefersReducedMotion()) {
+    onCovered();
+    return;
+  }
+  warping = true;
+  const { overlay, duration } = buildWarp();
   window.setTimeout(() => {
     onCovered();
-    overlay.dataset.phase = 'out';
-    window.setTimeout(() => {
-      overlay.remove();
-      warping = false;
-    }, phase + 40);
-  }, phase + 40);
+    openWarp(overlay, duration);
+  }, duration);
+}
+
+// Troca de página: fecha a tela aqui e a nova página abre com warpArrival().
+export function warpTo(href: string) {
+  if (prefersReducedMotion()) {
+    window.location.assign(href);
+    return;
+  }
+  if (warping) return;
+  warping = true;
+  const { duration } = buildWarp();
+  window.setTimeout(() => {
+    try {
+      sessionStorage.setItem(ARRIVAL_KEY, '1');
+    } catch {
+      // Sem sessionStorage a nova página só abre sem a animação.
+    }
+    window.location.assign(href);
+  }, duration);
+}
+
+// O script no <head> marca html[data-warp="arriving"] e a tela já nasce coberta.
+export function warpArrival() {
+  const root = document.documentElement;
+  if (root.dataset.warp !== 'arriving') return;
+  delete root.dataset.warp;
+  if (prefersReducedMotion()) return;
+  warping = true;
+  const { overlay, duration } = buildWarp('out');
+  window.setTimeout(() => {
+    overlay.remove();
+    warping = false;
+  }, duration);
+}
+
+// Voltando pelo histórico, o navegador pode restaurar a página com a tela ainda fechada.
+export function clearWarp() {
+  document.querySelectorAll('.warp').forEach((overlay) => overlay.remove());
+  delete document.documentElement.dataset.warp;
+  warping = false;
 }

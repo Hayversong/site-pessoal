@@ -128,3 +128,14 @@ export const projects: Project[] = [
 export function getProjectNumber(project: Project) {
   return String(projects.indexOf(project) + 1).padStart(2, '0');
 }
+
+export function getProjectKind(project: Project) {
+  return project.itchUrl ? 'Jogo' : 'Web/API';
+}
+
+export const statusTone: Record<string, string> = {
+  'No ar': 'done',
+  Concluído: 'done',
+  'Em evolução': 'progress',
+  'Projeto de estudo': 'study',
+};

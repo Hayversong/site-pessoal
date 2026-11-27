@@ -6,7 +6,7 @@ Referência visual do portfólio. Antes de mudar cores, fontes, espaçamento ou 
 
 - **O que é:** portfólio pessoal de um desenvolvedor fullstack com foco em frontend (React, TypeScript, Go, Python) que também cria jogos.
 - **Para quem:** recrutadores, colegas e quem chega pelos links do GitHub e do itch.io.
-- **Tipo:** site de uma página, estático.
+- **Tipo:** site estático: a página inicial e um diário por projeto em `/missoes/[id]`.
 
 ## Direção
 
@@ -64,6 +64,14 @@ Efeitos de jogo ficam em `lib/retro-fx.ts` e `app/styles/retro-fx.css`:
 
 Cada seção tem o próprio CSS em `app/styles/<seção>.css`.
 
+## Diário da missão (`app/missoes/[id]`, `app/styles/mission.css`)
+
+- Uma página por projeto, gerada no build a partir de `data/projects.ts` e `data/case-studies.ts`.
+- Seções: Briefing, Registro visual, Objetivos concluídos, Estratégia (decisões técnicas), Armadilhas (o que deu trabalho) e Próximas fases. Seção sem conteúdo não aparece.
+- Imagens ficam em `public/media/missoes/<id>/`, nunca em `public/missoes/`, para não colidir com a rota.
+- GIFs começam parados no último quadro e só animam quando a pessoa clica em "Ver animação".
+- Links entre páginas usam `<a>` comum: o `Link` do vinext quebra a navegação no build estático. A transição de batalha fecha a tela antes de trocar de página e abre de novo na chegada.
+
 ## Forma e espaçamento
 
 - **Cantos:** retos (`border-radius: 0`) em janelas e botões. Nada de pílulas.
@@ -81,7 +89,8 @@ Cada seção tem o próprio CSS em `app/styles/<seção>.css`.
 
 ## Registro de decisões
 
-| Data       | Decisão                                                 | Motivo                                                                          |
-| ---------- | ------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| 2026-11-14 | Tema RPG retrô 16-bit sem neon, mantendo a paleta Brasa | Dar identidade própria ao portfólio, ligada ao lado de desenvolvimento de jogos |
-| 2026-11-18 | Relógio retrô de 8 fps no lugar de animações infinitas  | CPU com a página parada no Firefox caiu de ~25% para ~3,5%                      |
+| Data       | Decisão                                                 | Motivo                                                                            |
+| ---------- | ------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| 2026-11-14 | Tema RPG retrô 16-bit sem neon, mantendo a paleta Brasa | Dar identidade própria ao portfólio, ligada ao lado de desenvolvimento de jogos   |
+| 2026-11-18 | Relógio retrô de 8 fps no lugar de animações infinitas  | CPU com a página parada no Firefox caiu de ~25% para ~3,5%                        |
+| 2026-11-27 | Diário por projeto em `/missoes/[id]`                   | Mostrar decisões e problemas reais de cada projeto, não só a lista de tecnologias |
